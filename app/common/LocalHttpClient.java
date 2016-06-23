@@ -188,11 +188,12 @@ public class LocalHttpClient {
 		params.put("code", "B005");*/
 		
 //		params.put("cmd", "rentdetail");
-		params.put("cmd", "setPriceUsage");
-		params.put("plans", "SEATEL_INCREASING_AMOUNT,Voice_20_Post,defualtSms");
+		params.put("cmd", "qcadvert");
+		params.put("type", "1");
+		/*params.put("plans", "SEATEL_INCREASING_AMOUNT,Voice_20_Post,defualtSms");
 		params.put("immediate", "2");
 		params.put("phone", "0189404730");
-		params.put("token", "24515e69c4b24685b42ff57091b55679");
+		params.put("token", "24515e69c4b24685b42ff57091b55679");*/
 //		params.put("uuid", "7fe5e79a7d584fac95b3c1bfafcbd7b1");
 		/*params.put("phone", "0189404730");
 		params.put("password", "123456");*/
@@ -241,7 +242,7 @@ public class LocalHttpClient {
 				e.printStackTrace();
 			}
 		}*/
-		HttpResponse response= LocalHttpClient.sendRequest(LocalHttpClient.PostJson("http://103.242.56.97:8080/rqInvokeController", params));
+		HttpResponse response= LocalHttpClient.sendRequest(LocalHttpClient.PostJson("http://www.qchepro.com:8080/rqInvokeController", params));
 
 		System.out.println("StatusCode:"+response.getStatusLine().getStatusCode());
 		String result;

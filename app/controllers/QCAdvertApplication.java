@@ -328,6 +328,7 @@ public class QCAdvertApplication extends Controller {
     	List<QCAdvert> adverts = QCAdvert.findListByType(type);
     	resultJson.put("code", "0");
     	resultJson.put("result", Json.toJson(adverts));
+    	System.out.println(resultJson);
     	return resultJson;
     }
     
