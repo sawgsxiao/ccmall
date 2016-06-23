@@ -344,7 +344,7 @@ public class QCAdvertApplication extends Controller {
 		}
     	
     	resultJson.put("code", "0");
-    	resultJson.put("result", Json.toJson(adverts));
+    	resultJson.put("result", arrayNode);
     	System.out.println(resultJson);
     	return resultJson;
     }
