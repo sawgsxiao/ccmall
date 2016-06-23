@@ -322,10 +322,27 @@ public class QCAdvertApplication extends Controller {
     
     
     public static ObjectNode advert(Map<String, String> data){
+    	ObjectMapper listMapper = new ObjectMapper(); 
 //    	DynamicForm in= Form.form().bindFromRequest();
     	ObjectNode resultJson = Json.newObject();
     	String type=data.get("qtype");
     	List<QCAdvert> adverts = QCAdvert.findListByType(type);
+    	if(adverts.size()==0){
+			resultJson.put("code", "5");
+			resultJson.put("msg", "没有数据！");
+			return resultJson;
+		}
+		
+		ArrayNode arrayNode=listMapper.createArrayNode();
+		
+		for (QCAdvert advert : adverts) {
+			ObjectNode node=Json.newObject();
+			node.put("uuid", advert.getUuid());
+			node.put("title", advert.getName());
+			node.put("image", Play.application().configuration().getString("ippath")+"/"+advert.getImgurl());
+			arrayNode.add(node);
+		}
+    	
     	resultJson.put("code", "0");
     	resultJson.put("result", Json.toJson(adverts));
     	System.out.println(resultJson);
