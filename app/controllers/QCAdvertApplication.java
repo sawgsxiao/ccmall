@@ -55,7 +55,7 @@ import org.dom4j.util.PerThreadSingleton;
 
 import play.db.ebean.Model;
 
-@Security.Authenticated(Secured.class)
+//@Security.Authenticated(Secured.class)
 public class QCAdvertApplication extends Controller {
 	
 	public static Result qCAdvertAdd(){
@@ -321,10 +321,10 @@ public class QCAdvertApplication extends Controller {
     
     
     
-    public static ObjectNode advert(){
-    	DynamicForm in= Form.form().bindFromRequest();
+    public static ObjectNode advert(Map<String, String> data){
+//    	DynamicForm in= Form.form().bindFromRequest();
     	ObjectNode resultJson = Json.newObject();
-    	String type=in.get("type");
+    	String type=data.get("type");
     	List<QCAdvert> adverts = QCAdvert.findListByType(type);
     	resultJson.put("code", "0");
     	resultJson.put("result", Json.toJson(adverts));
