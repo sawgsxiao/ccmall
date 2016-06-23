@@ -324,7 +324,7 @@ public class QCAdvertApplication extends Controller {
     public static ObjectNode advert(Map<String, String> data){
 //    	DynamicForm in= Form.form().bindFromRequest();
     	ObjectNode resultJson = Json.newObject();
-    	String type=data.get("type");
+    	String type=data.get("qtype");
     	List<QCAdvert> adverts = QCAdvert.findListByType(type);
     	resultJson.put("code", "0");
     	resultJson.put("result", Json.toJson(adverts));

@@ -189,7 +189,7 @@ public class LocalHttpClient {
 		
 //		params.put("cmd", "rentdetail");
 		params.put("cmd", "qcadvert");
-		params.put("type", "1");
+		params.put("qtype", "1");
 		/*params.put("plans", "SEATEL_INCREASING_AMOUNT,Voice_20_Post,defualtSms");
 		params.put("immediate", "2");
 		params.put("phone", "0189404730");
