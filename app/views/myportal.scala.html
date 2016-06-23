@@ -1,0 +1,121 @@
+@(active:String)
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>@common.title()</title>
+
+		<meta name="description" content="jcoa" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		@common.bootstrapcss()
+    
+		<!-- inline styles related to this page -->
+		@common.bootstrapjs()
+		<script type="text/javascript" src="@routes.Assets.at("ueditor/third-party/jquery-1.10.2.min.js")"></script>
+		
+		<link rel="stylesheet" href="@routes.Assets.at("css/advert.css")" />
+		<style type="text/css">
+		.table-fix{
+			 table-layout: fixed;
+		}
+		.tabs li{height:30px;line-height:30px;float:left;border:1px solid #999;border-left:none;margin-bottom: -1px;background: #e0e0e0;overflow: hidden;position: relative;background-image: url("@routes.Assets.at("img/tab-control_tab_li.png")");width:140px;color: #326c2f;border-radius: 5px;}
+		.tabs li a{position: absolute;right: 8px;top: 8px;width: 15px;height: 15px;background-image: url("@routes.Assets.at("img/tab-control_tab_li.png")");background-position: -140px 0;text-indent: -999999px;}
+		.tabs li.vistited{background-position: 0 -40px;color: #b7b7b7;}
+		.tabs li.vistited a{background-position: -140px -40px;}
+		</style>
+		<link rel="SHORTCUT ICON" href="http://cdn-img.easyicon.net/png/11802/1180294.gif">
+	</head>
+
+	<body class="no-skin" style="background-color: white;">	
+		@common.topbar()	
+		@common.left()
+		<div id="tabbox" style="height: 30px" >
+		    <ul class="tabs" id="tabs">
+		    </ul>
+        </div>
+        <div id="iframeview">
+        <!-- <iframe id="rightiframe" src="/wall"></iframe> -->
+		</div>
+		@common.footer()
+		<!-- basic scripts -->
+		@common.bottomjs()
+		
+		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
+		@common.bottomcss()
+		<script type="text/javascript">
+		$(function(){
+			$(document).delegate("#tabbox li",'click',function(){
+				var c=$(this).attr("class");
+				var tab=$(this).find("a").attr("xys");
+				if($(this).hasClass("vistited")){
+					$(this).removeClass("vistited");
+					$(this).addClass("hover");
+					$("#tabbox li[id!='"+$(this).attr("id")+"']").removeClass("hover");
+					$("#tabbox li[id!='"+$(this).attr("id")+"']").addClass("vistited");
+					$("#iframeview iframe[id!='iframe"+tab+"']").hide();
+					$("#iframeview iframe[id='iframe"+tab+"']").show();
+				}else{
+					return;
+				}
+			});
+			iframeInit($("#rightiframe"));
+			$(window).resize(function(){
+				var obj=$("#rightiframe");
+				var iframes=$("#iframeview iframe");
+						iframeInit(iframes);
+				});
+			});
+			function iframeInit(selector){
+				var windowWidth=document.body.offsetWidth;
+				var windowHeight=document.documentElement.clientHeight;
+				var topbar=$("#navbar").height();
+				var leftbar=$("#sidebar").width();
+				var bottombar=parseInt($(".footer-content").css("height").replace("px",""));
+				var tabbox=$("#tabbox").height();
+				var actualWidth=windowWidth-leftbar;
+				var actualHeight=windowHeight-topbar-bottombar-tabbox-10;
+				console.log(windowHeight+"："+bottombar);
+				$("#iframeview iframe").css({"top":topbar+tabbox+10,"left":leftbar,"bottom":bottombar,"width":actualWidth,"height":actualHeight,
+				"border-bottom-width": "0px",
+			    "border-left-width": "0px",
+			    "border-right-width": "0px",
+			    "position": "absolute"/*,"background-color":"red"*/});
+				var s = ""; 
+				s += " 网页可见区域宽：" +document.body.clientWidth; 
+				s += " 网页可见区域高：" +document.body.clientHeight; 
+				s += " 网页可见区域宽：" +document.body.offsetWidth+ " (包括边线和滚动条的宽)"; 
+				s += " 网页可见区域高：" +document.body.offsetHeight+ " (包括边线的宽)"; 
+				s += " 网页正文全文宽：" +document.body.scrollWidth; 
+				s += " 网页正文全文高：" +document.body.scrollHeight; 
+				s += " 网页被卷去的高(ff)：" +document.body.scrollTop; 
+				s += " 网页被卷去的高(ie)：" +document.documentElement.scrollTop; 
+				s += " 网页被卷去的左：" +document.body.scrollLeft; 
+				s += " 网页正文部分上：" +window.screenTop; 
+				s += " 网页正文部分左：" +window.screenLeft; 
+				s += " 屏幕分辨率的高：" +window.screen.height; 
+				s += " 屏幕分辨率的宽：" +window.screen.width; 
+				s += " 屏幕可用工作区高度：" +window.screen.availHeight; 
+				s += " 屏幕可用工作区宽度：" +window.screen.availWidth;
+				//可以用以下来获取浏览器显示窗口大小：
+				//document.documentElement.clientHeight
+				s += " 你的屏幕设置是 " +window.screen.colorDepth +" 位彩色"; 
+				s += " 你的屏幕设置 " +window.screen.deviceXDPI+ " 像素/英寸"; 
+			}
+			function addTabIframe(fid){
+				$("#iframeview").append("<iframe name='one' id='one'></iframe>");
+				$("#one").css({"background-color":"green"});
+				iframeInit($("#one"));
+				$("#rightiframe").hide();
+			}
+
+			function removeTabIframe(fid){
+				$("#iframeview").append("<iframe name='one' id='one'></iframe>");
+				$("#iframeview").find("iframe[id='one']").remove();
+				$("#rightiframe").show();
+			}
+		</script>
+	</body>
+</html>

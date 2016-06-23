@@ -1,0 +1,22 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>showing-hiding (example)</title>
+</head>
+<body>
+
+
+<script type="text/javascript" src="jscolor.js"></script>
+
+<input class="color {pickerOnfocus:false}" id="myColor"> this field has disabled automatic showing/hiding of a picker
+
+<p> Move the mouse over these buttons:
+
+<input type="button" value="Show"
+	onmousemove="document.getElementById('myColor').color.showPicker()">
+<input type="button" value="Hide"
+	onmousemove="document.getElementById('myColor').color.hidePicker()">
+
+
+</body>
+</html>

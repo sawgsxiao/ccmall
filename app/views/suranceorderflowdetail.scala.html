@@ -1,0 +1,277 @@
+@(customer: Customer,order:SuranceOrder,ativityMenu: String)
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>@common.title()</title>
+
+		<meta name="description" content="jcoa" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		@common.bootstrapcss()
+    
+		<!-- inline styles related to this page -->
+		@common.bootstrapjs()
+		<style type="text/css">
+		.td-header{text-align: right;font-size: 12px;font-weight: bolder;width: 134px}
+		.td-content{text-align: left;position: relative;height: 34px}
+		.td-content input{border-left: 0px;border-right: 0px;border-top: 0px;}
+		input[type="checkbox"]{position: absolute;}    
+		</style>
+	</head>
+
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- #section:basics/sidebar left-->
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<div class="main-content-inner">
+					<!-- #section:basics/content.breadcrumbs -->
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="ace-icon fa fa-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+							<li>
+								<a href="#">产品订单管理</a>
+							</li>
+							<li>
+								<a href="#">购险订单</a>
+							</li>
+							<li>
+								<a href="#">订单明细</a>
+							</li>
+						</ul><!-- /.breadcrumb -->
+					</div>
+
+					<!-- /section:basics/content.breadcrumbs -->
+					<div class="page-content">
+					
+						<!-- /section:settings.box -->
+						<div class="page-header">
+							<h1>
+								订单明细
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+								</small>
+							</h1>
+						</div><!-- /.page-header -->
+						
+						<div style="text-align: left;">
+							<button class="btn btn-sm btn-primary" onclick="window.location.href='@if(order.getStatus=="0"||order.getStatus=="1"){/suranceorderkfList}else{@if(order.getStatus=="2"||order.getStatus=="3"){/suranceorderxsList}else{@if(order.getStatus=="4"||order.getStatus=="5"){/suranceorderdkList}else{}}}' "><i class="ace-icon glyphicon glyphicon-backward"></i>返回</button>
+							<br>
+						</div>
+						<div class="row">
+						<form class="form-horizontal" role="form" method="post" name="s1" id="s1" action="/@{ativityMenu}AddDo">
+							<table width="60%" border="1px" align="center">
+							<thead>
+								<tr>
+									<th colspan="4"  style="font-size: 30px;text-align: center;">客户订单信息</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="4">
+										<table width="100%" border="1px">
+										<thead>
+											<tr>
+												<th colspan="4"  ><label style="font-size: 20px;left: 50px;position: relative;">基本信息</label></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="td-header">*订单号:</td><td class="td-content">
+												@order.getOrdercode()
+											</td>
+											<td class="td-header">创建日期:</td><td class="td-content">@if(order.getCreatetime()!=null){@order.getCreatetime().format("yyyy-MM-dd HH:mm:ss")}else{}</td>
+										</tr>
+										<tr>
+											<td class="td-header">*客户姓名</td><td class="td-content">
+												@customer.getName()
+											</td>
+											<td class="td-header">身份证号码:</td><td class="td-content">@customer.getIdentity()</td>
+										</tr>
+										<tr>
+											<td class="td-header">*手机号码:</td><td class="td-content">@customer.getPhone()</td>
+											<td class="td-header">邮箱:</td><td class="td-content">@customer.getEmail()</td>
+										</tr>
+										<tr>
+											<td class="td-header">*现工作单位名称:</td><td class="td-content" colspan="3">@customer.getCompany()</td>
+										</tr>
+										<tr>
+											<td class="td-header">*进入该单位时间:</td>
+											<td class="td-content" colspan="3" >
+													@if(customer.getEntrytime()!=null){@customer.getEntrytime().format("yyyy-MM-dd")}else{}</td>
+										</tr>
+										<tr>
+											<td class="td-header">*单位地址:</td><td class="td-content" colspan="3">@customer.getCompanyaddress()</td>
+										</tr>
+										<tr>
+											<td class="td-header">*职务:</td><td class="td-content">@customer.getJob()</td>
+											<td class="td-header">*月收入多少:</td><td class="td-content">@customer.getSalary()</td>
+										</tr>
+										<tr>
+											<td class="td-header">工作单位电话:</td><td class="td-content">@customer.getCompanyphone()</td>
+											<td class="td-header">*现在住址:</td><td class="td-content">@customer.getAddress()</td>
+										</tr>
+										<tr>
+											<td class="td-header">*入住时间:</td>
+											<td class="td-content" colspan="3">
+												@if(customer.getStaytime()!=null){@customer.getStaytime().format("yyyy-MM-dd")}else{}</td>
+										</tr>
+										<tr>
+											<td class="td-header">*是否曾买过社保:</td><td class="td-content">@if(customer.getIssecurity()=="1"){是}else{否}</td>
+											<td class="td-header">*购买的社保单位名称:</td><td class="td-content">@customer.getSecuritycompany()</td>
+										</tr>
+										</tbody>
+										</table>
+									</td>
+								</tr>
+								@if(order.getDetails().size()>0){
+									<tr>
+										<td colspan="4">
+											<table width="100%" id="tbproduct" border="1px">
+											<thead>
+												<tr>
+													<th colspan="4"  ><label style="font-size: 20px;left: 50px;position: relative;">产品选购</label></th>
+												</tr>
+											</thead>
+											<tbody>
+											@order.getDetails().map{o=>
+												<tr>
+													<td class="td-header">*产品品牌:</td><td class="td-content">
+														@o.getAssortname()
+													</td>
+													<td class="td-header">*产品名称:</td><td class="td-content">@o.getProductname()</td>
+												</tr>
+												<tr>
+													<td class="td-header">*产品编码:</td><td class="td-content">@o.getProductcode()</td>
+													<td class="td-header">*产品价格范围:</td><td class="td-content">@o.getPrice()</td>
+												</tr>
+												<tr>
+													<td class="td-header">*产品数量:</td><td class="td-content">@o.getCount()</td>
+													<td class="td-header">*有效时间:</td><td class="td-content">@o.getInusetime()</td>
+												</tr>
+												<tr>
+													<td colspan="4"  style="height: 10px;border-bottom: 1px;"></td>
+												</tr>
+											}
+											</tbody>
+											</table>
+										</td>
+									</tr>
+								}
+								<tr>
+									<td colspan="4">
+										<table width="100%" id="paidproduct" border="1px">
+										<thead>
+											<tr>
+												<th colspan="4"  ><label style="font-size: 20px;left: 50px;position: relative;">付款信息</label></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="td-header">*付款方式:</td>
+											<td class="td-content" colspan="3">
+											@if(order.getPaid()=="0"){网银支付}else{@if(order.getPaid()=="1"){到店支付}else{@if(order.getPaid()=="2"){其他支付}else{}}}
+											</td>
+										</tr>
+										<tr>
+											<td colspan="4"  style="height: 10px;border-bottom: 1px;"></td>
+										</tr>
+										</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<table width="100%" id="rentproduct" border="1px">
+										<thead>
+											<tr>
+												<th colspan="4"  ><label style="font-size: 20px;left: 50px;position: relative;">预留信息</label></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="td-header">*预留电话:</td>
+											<td class="td-content" colspan="3">
+												@order.getRemainphone()</td>
+										</tr>
+										<tr>
+											<td colspan="4"  style="height: 10px;border-bottom: 1px;"></td>
+										</tr>
+										</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
+							</table>
+							</form>
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div>
+			</div><!-- /.main-content -->
+
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+		@common.bottomjs()
+		
+		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
+		@common.bottomcss()
+		
+<script type="text/javascript">
+
+		$("#customergp").addClass("active open");
+		$("#@ativityMenu").addClass("active");
+	
+	jQuery(function($) {
+			$('.date-picker').datepicker({
+					autoclose: true,
+					todayHighlight: true
+			})
+			$("input[name='paidtype']").click(function(){
+				var ch=$(this).val();
+				$("input[name='paidtype'][value!='"+ch+"']").attr("checked",false);
+			})
+	});
+	
+	function checkUid(){
+		
+	}
+	
+	function checkStarttime(){
+		
+	}
+	
+	function checkEndtime(){
+		
+	}
+	
+	function check(){
+		$('#s1').submit();
+	}
+	
+</script>
+
+	</body>
+</html>

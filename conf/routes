@@ -1,0 +1,374 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+#门户
+GET		/myportalList						controllers.PortalApplication.myportal()
+#GET		/wall						controllers.PortalApplication.wall()
+
+
+# 登录
+GET      /		                            controllers.Login.login()
+GET		 /login								controllers.Login.login()
+POST     /login	            				controllers.Login.loginDo()
+GET      /loginDo                           controllers.Login.loginDo()
+GET      /logout							controllers.Login.logout()
+
+#用户管理
+GET		 /userList								controllers.UserApplication.userList()
+POST     /userList	            				controllers.UserApplication.userList()
+GET		 /userDel/:id								controllers.UserApplication.userDel(id:Integer)
+GET		 /userRecover/:id								controllers.UserApplication.userRecover(id:Integer)
+GET		 /userAdd								controllers.UserApplication.userAdd()
+POST     /userAddDo	            				controllers.UserApplication.userAddDo()
+GET		 /userEdit/:id								controllers.UserApplication.userEdit(id:Integer)
+POST     /userEditDo	            			controllers.UserApplication.userEditDo()
+
+GET      /userinfoEdit/:id                      controllers.UserApplication.userinfoEdit(id:Integer)
+POST     /userinfoEditDo                        controllers.UserApplication.userinfoEditDo()
+GET      /userpassFail/:id                      controllers.UserApplication.userpassFail(id:Integer)
+POST     /userpassFailDo                        controllers.UserApplication.userpassFailDo()
+
+
+
+# 系统日志
+GET     /sysLog                           		controllers.SysLogApplication.sysLog()
+POST    /sysLog                           		controllers.SysLogApplication.sysLog()
+
+#部门管理
+GET     /departmentList                           	controllers.DepartmentApplication.departmentList()
+POST    /departmentList                           	controllers.DepartmentApplication.departmentList()
+GET     /departmentAdd                           	controllers.DepartmentApplication.departmentAdd()
+POST    /departmentAddDo                           	controllers.DepartmentApplication.departmentAddDo()
+GET     /departmentDel/:id                          controllers.DepartmentApplication.departmentDel(id:Integer)
+GET     /departmentEdit/:id                         controllers.DepartmentApplication.departmentEdit(id:Integer)
+POST    /departmentEditDo                        	controllers.DepartmentApplication.departmentEditDo()
+
+
+#部门管理 获取树形数据
+GET		/departmentListPlus/:groupId			    controllers.DepartmentApplication.departmentListPlus(groupId:Integer)
+POST	/departmentData/:id                    		controllers.DepartmentApplication.departmentData(id:Integer)
+POST	/departmentGroupDel/:id                     controllers.DepartmentApplication.departmentGroupDel(id:Integer)
+POST	/departmentGroupEdit/:id				    controllers.DepartmentApplication.departmentGroupEdit(id:Integer)
+POST	/departmentCheckDel/:id                     controllers.DepartmentApplication.departmentCheckDel(id:Integer)
+
+
+#角色与权限管理
+GET     /roleList                           	controllers.RoleApplication.roleList()
+POST    /roleList                           	controllers.RoleApplication.roleList()
+GET     /roleAdd                           		controllers.RoleApplication.roleAdd()
+POST    /roleAddDo                           	controllers.RoleApplication.roleAddDo()
+GET     /roleDel/:id                           	controllers.RoleApplication.roleDel(id:Integer)
+GET     /roleEdit/:id                           controllers.RoleApplication.roleEdit(id:Integer)
+POST    /roleEditDo                        		controllers.RoleApplication.roleEditDo()
+POST     /roleCheckDel/:id                      controllers.RoleApplication.roleCheckDel(id:Integer)
+
+
+#POST	/authList							    controllers.AuthApplication.authList()
+POST    /authTree                               controllers.AuthApplication.authTree()
+POST    /authTreeInit                           controllers.AuthApplication.authTreeInit()
+POST	/authAddDo							    controllers.AuthApplication.authAddDo()
+
+#我的设置-密码修改
+GET     /passwordEdit                           	controllers.UserApplication.passwordEdit()
+POST    /passwordEditDo                           	controllers.UserApplication.passwordEditDo()
+
+
+#报表
+GET    /reportList/:id     controllers.ReportApplication.reportList(id:Integer)
+POST    /reportList/:id     controllers.ReportApplication.reportList(id:Integer)
+GET    /reportList/:id/:act     controllers.ReportApplication.reportListExcel(id:Integer,act:String)
+
+
+# 测试使用
+GET    	/test                        	controllers.Application.test()
+POST	/uploadFile						controllers.UploadFile.uploadFile()
+GET		/upload							controllers.UploadFile.test()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+
+# 通知推送
+GET      /JNotificationAdd			controllers.JNotificationApplication.jNotificationAdd()
+POST     /JNotificationAdd			controllers.JNotificationApplication.jNotificationAdd()
+POST     /JNotificationAddDo			controllers.JNotificationApplication.jNotificationAddDo()
+GET      /JNotification			    controllers.JNotificationApplication.jNotification()
+POST     /JNotification			    controllers.JNotificationApplication.jNotification()
+GET      /JNotificationDetail/:mid			    controllers.JNotificationApplication.jNotificationDetail(mid: String)
+GET      /JNotificationDel/:id			    controllers.JNotificationApplication.jNotificationDel(id: Integer)
+
+#客户
+GET		/customerList							controllers.CustomerApplication.customerList()
+POST    /customerList                           controllers.CustomerApplication.customerList()
+GET		/customerAdd							controllers.CustomerApplication.customerAdd()
+POST    /customerAddDo                          controllers.CustomerApplication.customerAddDo()
+GET		/customerEdit/:id						controllers.CustomerApplication.customerEdit(id:Integer)
+POST	/customerEditDo                         controllers.CustomerApplication.customerEditDo()
+GET		/customerDel/:id                        controllers.CustomerApplication.customerDel(id:Integer)
+GET		/customerDetailed/:id                        controllers.CustomerApplication.customerDetailed(id:Integer)
+	
+POST	/familyContactDo/:userid                         controllers.CustomerApplication.familyContactDo(userid:Integer)
+POST	/familyContactDel/:cid                         controllers.CustomerApplication.familyContactDel(cid:Integer)
+POST	/workmateContactDo/:userid                         controllers.CustomerApplication.workmateContactDo(userid:Integer)
+POST	/friendContactDo/:userid                         controllers.CustomerApplication.friendContactDo(userid:Integer)
+POST	/creditcardDel/:cid                         controllers.CustomerApplication.creditcardDel(cid:Integer)
+POST	/creditcardDo/:userid                         controllers.CustomerApplication.creditcardDo(userid:Integer)
+#客户列表JSON
+POST	/customerListJson                         controllers.CustomerApplication.customerListJson()
+POST	/customerListJsonParam                         controllers.CustomerApplication.customerListJsonParam()
+
+#客户服务
+GET		/QCS							controllers.GuestServiceApplication.guestsubscribe()
+POST	/guestsubscribeAdd							controllers.GuestServiceApplication.guestsubscribeAdd()
+GET		/guestsubscribeList							controllers.GuestServiceApplication.guestsubscribeList()
+POST	/guestsubscribeList							controllers.GuestServiceApplication.guestsubscribeList()
+
+GET		/QCA							controllers.GuestServiceApplication.guestapply()
+POST	/guestapplyAdd						controllers.GuestServiceApplication.guestapplyAdd()
+GET		/guestapplyList							controllers.GuestServiceApplication.guestapplyList()
+POST	/guestapplyList							controllers.GuestServiceApplication.guestapplyList()
+
+POST	/uploadImage						controllers.DataFileApplication.uploadImage()
+GET	   /uploadForward						controllers.DataFileApplication.uploadForward()
+
+
+#汽车产品分类  获取树形数据
+GET		/carassortListPlus/:groupId			    controllers.CarProductApplication.carassortListPlus(groupId:Integer)
+POST	/carassortData/:id                    		controllers.CarProductApplication.carassortData(id:Integer)
+POST	/carassortEdit/:id                    		controllers.CarProductApplication.carassortEdit(id:Integer)
+POST	/carassortDel/:id                    		controllers.CarProductApplication.carassortDel(id:Integer)
+POST	/carassortCheckDel/:id                    		controllers.CarProductApplication.carassortCheckDel(id:Integer)
+
+
+#汽车产品管理
+GET 	/carproductList                   		controllers.CarProductApplication.carproductList()
+POST	/carproductList                   		controllers.CarProductApplication.carproductList()
+GET	   /carproductAdd					controllers.CarProductApplication.carproductAdd()
+POST	/carproductAddDo                   		controllers.CarProductApplication.carproductAddDo()
+GET		/carproductDetailed/:id                  		controllers.CarProductApplication.carproductDetailed(id:Integer)
+
+POST		/carproductDel/:id                  		controllers.CarProductApplication.carproductDel(id:Integer)
+GET		/carproductEdit/:id                  		controllers.CarProductApplication.carproductEdit(id:Integer)
+GET		/carproductTried/:id                  		controllers.CarProductApplication.carproductTried(id:Integer)
+POST		/carproductEditDo                		controllers.CarProductApplication.carproductEditDo()
+
+GET		/carproductStand/:id                		controllers.CarProductApplication.carproductStand(id:Integer)
+
+GET		/carproductStandCh/:id                		controllers.CarProductApplication.carproductStandCh(id:Integer)
+
+
+#保险产品分类  获取树形数据
+GET		/suranceassortListPlus/:groupId			    controllers.SuranceProductApplication.suranceassortListPlus(groupId:Integer)
+POST	/suranceassortData/:id                    		controllers.SuranceProductApplication.suranceassortData(id:Integer)
+POST	/suranceassortEdit/:id                    		controllers.SuranceProductApplication.suranceassortEdit(id:Integer)
+POST	/suranceassortDel/:id                    		controllers.SuranceProductApplication.suranceassortDel(id:Integer)
+POST	/suranceassortCheckDel/:id                    		controllers.SuranceProductApplication.suranceassortCheckDel(id:Integer)
+
+#保险产品管理
+GET 	/suranceproductList                   		controllers.SuranceProductApplication.suranceproductList()
+POST	/suranceproductList                   		controllers.SuranceProductApplication.suranceproductList()
+GET	   /suranceproductAdd					controllers.SuranceProductApplication.suranceproductAdd()
+POST	/suranceproductAddDo                   		controllers.SuranceProductApplication.suranceproductAddDo()
+GET		/suranceproductDetailed/:id                  		controllers.SuranceProductApplication.suranceproductDetailed(id:Integer)
+
+POST		/suranceproductDel/:id                  		controllers.SuranceProductApplication.suranceproductDel(id:Integer)
+GET		/suranceproductEdit/:id                  		controllers.SuranceProductApplication.suranceproductEdit(id:Integer)
+GET		/suranceproductTried/:id                  		controllers.SuranceProductApplication.suranceproductTried(id:Integer)
+POST		/suranceproductEditDo                		controllers.SuranceProductApplication.suranceproductEditDo()
+GET		/suranceproductStand/:id                		controllers.SuranceProductApplication.suranceproductStand(id:Integer)
+
+GET		/suranceproductStandCh/:id                		controllers.SuranceProductApplication.suranceproductStandCh(id:Integer)
+
+
+#产品订单管理
+GET		/carorderAdd               		controllers.ProductOrderApplication.carorderAdd()
+POST		/carorderAddDo               		controllers.ProductOrderApplication.carorderAddDo()
+GET		/carorderList               		controllers.ProductOrderApplication.carorderList()
+POST		/carorderList              		controllers.ProductOrderApplication.carorderList()
+GET		/carorderDetailed/:id           controllers.ProductOrderApplication.carorderDetailed(id:Integer)
+GET		/carorderkfList               		controllers.ProductOrderApplication.carorderkfList()
+POST	/carorderkfList              		controllers.ProductOrderApplication.carorderkfList()
+GET		/rececarorder/:id/:status           controllers.ProductOrderApplication.rececarorder(id:Integer,status:String)
+GET		/carorderFlowView/:id           controllers.ProductOrderApplication.carorderFlowView(id:Integer)
+POST		/carorderTrackIn/:id           controllers.ProductOrderApplication.carorderTrackIn(id:Integer)
+GET		/carordercheck/:id/:status           controllers.ProductOrderApplication.carordercheck(id:Integer,status:String)
+GET		/carorderxsList               		controllers.ProductOrderApplication.carorderxsList()
+POST	/carorderxsList              		controllers.ProductOrderApplication.carorderxsList()
+GET		/carorderdkList               		controllers.ProductOrderApplication.carorderdkList()
+POST	/carorderdkList              		controllers.ProductOrderApplication.carorderdkList()
+GET		/carorderTrackShow/:id           controllers.ProductOrderApplication.carorderTrackShow(id:Integer)
+GET		/carorderFlowDetailed/:id           controllers.ProductOrderApplication.carorderFlowDetailed(id:Integer)
+GET		/carorderEdit/:id           controllers.ProductOrderApplication.carorderEdit(id:Integer)
+POST	/carorderEditDo          controllers.ProductOrderApplication.carorderEditDo()
+GET		/carorderbackList               		controllers.ProductOrderApplication.carorderbackList()
+POST		/carorderbackList               		controllers.ProductOrderApplication.carorderbackList()
+GET		/carorderstop/:id/:status/:checkstatus           controllers.ProductOrderApplication.carorderstop(id:Integer,status:String,checkstatus:String)
+GET		/carorderback/:id           controllers.ProductOrderApplication.carorderback(id:Integer)
+
+
+
+GET		/suranceorderList               		controllers.ProductOrderApplication.suranceorderList()
+POST		/suranceorderList              		controllers.ProductOrderApplication.suranceorderList()
+GET		/suranceorderAdd               		controllers.ProductOrderApplication.suranceorderAdd()
+POST		/suranceorderAddDo               		controllers.ProductOrderApplication.suranceorderAddDo()
+GET		/suranceorderDetailed/:id           controllers.ProductOrderApplication.suranceorderDetailed(id:Integer)
+GET		/suranceorderkfList               		controllers.ProductOrderApplication.suranceorderkfList()
+POST	/suranceorderkfList              		controllers.ProductOrderApplication.suranceorderkfList()
+GET		/recesuranceorder/:id/:status           controllers.ProductOrderApplication.recesuranceorder(id:Integer,status:String)
+GET		/suranceorderFlowView/:id           controllers.ProductOrderApplication.suranceorderFlowView(id:Integer)
+POST		/suranceorderTrackIn/:id           controllers.ProductOrderApplication.suranceorderTrackIn(id:Integer)
+GET		/suranceorderkfcheck/:id/:status           controllers.ProductOrderApplication.suranceorderkfcheck(id:Integer,status:String)
+GET		/suranceorderxsList               		controllers.ProductOrderApplication.suranceorderxsList()
+POST	/suranceorderxsList              		controllers.ProductOrderApplication.suranceorderxsList()
+#GET		/suranceorderdkList               		controllers.ProductOrderApplication.suranceorderdkList()
+#POST	/suranceorderdkList              		controllers.ProductOrderApplication.suranceorderdkList()
+GET		/suranceorderTrackShow/:id           controllers.ProductOrderApplication.suranceorderTrackShow(id:Integer)
+GET		/suranceorderFlowDetailed/:id           controllers.ProductOrderApplication.suranceorderFlowDetailed(id:Integer)
+
+#请求接口
+POST   /rqInvokeController				controllers.ControllerApplication.rqInvokeController()
+
+#首页广告管理
+GET		/advertAdd           controllers.AdvertApplication.advertAdd()
+POST		/advertAddDo           controllers.AdvertApplication.advertAddDo()
+GET		/advertList           controllers.AdvertApplication.advertList()
+POST		/advertList           controllers.AdvertApplication.advertList()
+GET		/advertDel/:id                        controllers.AdvertApplication.advertDel(id:Integer)
+GET		/advertEdit/:id           controllers.AdvertApplication.advertEdit(id:Integer)
+POST		/advertEditDo           controllers.AdvertApplication.advertEditDo()
+GET		/advertDetailed/:id           controllers.AdvertApplication.advertDetailed(id:Integer)
+
+#平行广告管理
+GET		/parrallelAdd           controllers.ParrallelApplication.parrallelAdd()
+POST		/parrallelAddDo           controllers.ParrallelApplication.parrallelAddDo()
+GET		/parrallelList           controllers.ParrallelApplication.parrallelList()
+POST		/parrallelList           controllers.ParrallelApplication.parrallelList()
+GET		/parrallelDel/:id            controllers.ParrallelApplication.parrallelDel(id:Integer)
+GET		/parrallelEdit/:id           controllers.ParrallelApplication.parrallelEdit(id:Integer)
+POST		/parrallelEditDo           controllers.ParrallelApplication.parrallelEditDo()
+GET		/parrallelDetailed/:id           controllers.ParrallelApplication.parrallelDetailed(id:Integer)
+
+#精英广告管理
+GET		/eliteAdd           controllers.EliteApplication.eliteAdd()
+POST		/eliteAddDo           controllers.EliteApplication.eliteAddDo()
+GET		/eliteList           controllers.EliteApplication.eliteList()
+POST		/eliteList           controllers.EliteApplication.eliteList()
+GET		/eliteDel/:id            controllers.EliteApplication.eliteDel(id:Integer)
+GET		/eliteEdit/:id           controllers.EliteApplication.eliteEdit(id:Integer)
+POST		/eliteEditDo           controllers.EliteApplication.eliteEditDo()
+GET		/eliteDetailed/:id           controllers.EliteApplication.eliteDetailed(id:Integer)
+
+#新版广告
+GET		/qCAdvertAdd           controllers.QCAdvertApplication.qCAdvertAdd()
+POST		/qCAdvertAddDo           controllers.QCAdvertApplication.qCAdvertAddDo()
+
+#app后台管理
+#车品牌
+GET		/appCarAssortAdd           controllers.AppServiceApplication.appCarAssortAdd()
+POST		/appCarAssortAddDo           controllers.AppServiceApplication.appCarAssortAddDo()
+GET		/appCarAssortList           controllers.AppServiceApplication.appCarAssortList()
+POST		/appCarAssortList           controllers.AppServiceApplication.appCarAssortList()
+GET		/appCarAssortDel/:id           controllers.AppServiceApplication.appCarAssortDel(id:Integer)
+GET		/appCarAssortEdit/:id           controllers.AppServiceApplication.appCarAssortEdit(id:Integer)
+POST		/appCarAssortEditDo           controllers.AppServiceApplication.appCarAssortEditDo()
+GET		/appCarAssortDetailed/:id           controllers.AppServiceApplication.appCarAssortDetailed(id:Integer)
+#车型
+GET		/appCarAdd           controllers.AppServiceApplication.appCarAdd()
+POST		/appCarAddDo           controllers.AppServiceApplication.appCarAddDo()
+GET		/appCarList           controllers.AppServiceApplication.appCarList()
+POST		/appCarList           controllers.AppServiceApplication.appCarList()
+GET		/appCarDetailed/:id           controllers.AppServiceApplication.appCarDetailed(id:Integer)
+GET		/appCarEdit/:id           controllers.AppServiceApplication.appCarEdit(id:Integer)
+POST		/appCarEditDo           controllers.AppServiceApplication.appCarEditDo()
+GET		/appCarTried/:id           controllers.AppServiceApplication.appCarTried(id:Integer)
+GET		/appCarStand/:id               controllers.AppServiceApplication.appCarStand(id:Integer)
+GET		/appCarStandCh/:id             controllers.AppServiceApplication.appCarStandCh(id:Integer)
+GET		/appCarDel/:id           controllers.AppServiceApplication.appCarDel(id:Integer)
+
+#热门
+GET		/appCarStyleHot/:id           controllers.AppServiceApplication.appCarStyleHot(id:Integer)
+GET		/appHotCarList           controllers.AppServiceApplication.appHotCarList()
+POST		/appHotCarList           controllers.AppServiceApplication.appHotCarList()
+GET		/appHotCarEdit/:id          controllers.AppServiceApplication.appHotCarEdit(id:Integer)
+POST		/appHotCarEditDo           controllers.AppServiceApplication.appHotCarEditDo()
+GET		/appHotCarDetailed/:id          controllers.AppServiceApplication.appHotCarDetailed(id:Integer)
+GET		/appHotCarStand/:id               controllers.AppServiceApplication.appHotCarStand(id:Integer)
+GET		/appHotCarStandCh/:id             controllers.AppServiceApplication.appHotCarStandCh(id:Integer)
+GET		/appHotCarDel/:id           controllers.AppServiceApplication.appHotCarDel(id:Integer)
+POST		/appHotCarAddDo           controllers.AppServiceApplication.appHotCarAddDo()
+
+
+#平行进口
+GET		/appCarStyleParrallel/:id           controllers.AppServiceApplication.appCarStyleParrallel(id:Integer)
+POST		/appParrallelCarEditDo           controllers.AppServiceApplication.appParrallelCarEditDo()
+POST		/appParrallelCarList           controllers.AppServiceApplication.appParrallelCarList()
+GET		/appParrallelCarList          controllers.AppServiceApplication.appParrallelCarList()
+GET		/appParrallelCarEdit/:id          controllers.AppServiceApplication.appParrallelCarEdit(id:Integer)
+GET		/appParrallelCarDetailed/:id          controllers.AppServiceApplication.appParrallelCarDetailed(id:Integer)
+GET		/appParrallelCarDel/:id           controllers.AppServiceApplication.appParrallelCarDel(id:Integer)
+
+#车款
+GET		/appCarStyleList           controllers.AppServiceApplication.appCarStyleList()
+POST		/appCarStyleList           controllers.AppServiceApplication.appCarStyleList()
+GET		/appCarStyleAdd/:id           controllers.AppServiceApplication.appCarStyleAdd(id:Integer)
+POST		/appCarStyleAddDo       controllers.AppServiceApplication.appCarStyleAddDo()
+GET		/appCarStyleDetailed/:id       controllers.AppServiceApplication.appCarStyleDetailed(id:Integer)
+GET		/appCarStyleDel/:id       controllers.AppServiceApplication.appCarStyleDel(id:Integer)
+POST		/appCarStyleEditDo       controllers.AppServiceApplication.appCarStyleEditDo()
+GET		/appCarStyleEdit/:id       controllers.AppServiceApplication.appCarStyleEdit(id:Integer)
+
+#车款业务
+GET		/appCarStyleBusinessList           controllers.AppServiceApplication.appCarStyleBusinessList()
+POST		/appCarStyleBusinessList           controllers.AppServiceApplication.appCarStyleBusinessList()
+
+#新能源
+POST		/appYueanCarList           controllers.AppServiceApplication.appYueanCarList()
+GET		/appYueanCarList          controllers.AppServiceApplication.appYueanCarList()
+GET		/appCarStyleYuean/:id           controllers.AppServiceApplication.appCarStyleYuean(id:Integer)
+POST		/appYueanCarAddDo           controllers.AppServiceApplication.appYueanCarAddDo()
+GET		/appYueanCarDetailed/:id          controllers.AppServiceApplication.appYueanCarDetailed(id:Integer)
+GET		/appYueanCarEdit/:id          controllers.AppServiceApplication.appYueanCarEdit(id:Integer)
+POST		/appYueanCarEditDo           controllers.AppServiceApplication.appYueanCarEditDo()
+GET		/appYueanCarDel/:id           controllers.AppServiceApplication.appYueanCarDel(id:Integer)
+
+
+#以租代购
+POST		/appRentCarList           controllers.AppServiceApplication.appRentCarList()
+GET		/appRentCarList          controllers.AppServiceApplication.appRentCarList()
+GET		/appCarStyleRent/:id           controllers.AppServiceApplication.appCarStyleRent(id:Integer)
+POST		/appRentCarAddDo           controllers.AppServiceApplication.appRentCarAddDo()
+GET		/appRentCarDetailed/:id          controllers.AppServiceApplication.appRentCarDetailed(id:Integer)
+GET		/appRentCarEdit/:id          controllers.AppServiceApplication.appRentCarEdit(id:Integer)
+POST		/appRentCarEditDo           controllers.AppServiceApplication.appRentCarEditDo()
+GET		/appRentCarDel/:id           controllers.AppServiceApplication.appRentCarDel(id:Integer)
+
+
+#车险
+GET		/appSuranceAssortAdd           controllers.AppServiceApplication.appSuranceAssortAdd()
+POST		/appSuranceAssortAddDo           controllers.AppServiceApplication.appSuranceAssortAddDo()
+GET		/appSuranceAssortList           controllers.AppServiceApplication.appSuranceAssortList()
+POST		/appSuranceAssortList           controllers.AppServiceApplication.appSuranceAssortList()
+GET		/appSuranceAssortDel/:id           controllers.AppServiceApplication.appSuranceAssortDel(id:Integer)
+GET		/appSuranceAssortEdit/:id           controllers.AppServiceApplication.appSuranceAssortEdit(id:Integer)
+POST		/appSuranceAssortEditDo           controllers.AppServiceApplication.appSuranceAssortEditDo()
+GET		/appSuranceAssortDetailed/:id           controllers.AppServiceApplication.appSuranceAssortDetailed(id:Integer)
+
+GET		/appSuranceAdd           controllers.AppServiceApplication.appSuranceAdd()
+POST		/appSuranceAddDo           controllers.AppServiceApplication.appSuranceAddDo()
+GET		/appSuranceList           controllers.AppServiceApplication.appSuranceList()
+POST		/appSuranceList           controllers.AppServiceApplication.appSuranceList()
+GET		/appSuranceDetailed/:id           controllers.AppServiceApplication.appSuranceDetailed(id:Integer)
+GET		/appSuranceEdit/:id           controllers.AppServiceApplication.appSuranceEdit(id:Integer)
+POST		/appSuranceEditDo           controllers.AppServiceApplication.appSuranceEditDo()
+GET		/appSuranceTried/:id           controllers.AppServiceApplication.appSuranceTried(id:Integer)
+GET		/appSuranceStand/:id               controllers.AppServiceApplication.appSuranceStand(id:Integer)
+GET		/appSuranceStandCh/:id             controllers.AppServiceApplication.appSuranceStandCh(id:Integer)
+GET		/appSuranceDel/:id           controllers.AppServiceApplication.appSuranceDel(id:Integer)
+
+#simple 订单
+GET		/buyCarList           controllers.SimpleOrderApplication.buyCarList()
+POST	/buyCarList           controllers.SimpleOrderApplication.buyCarList()
+GET		/eliteBuyCarList           controllers.SimpleOrderApplication.eliteBuyCarList()
+POST	/eliteBuyCarList           controllers.SimpleOrderApplication.eliteBuyCarList()
+GET		/parrallelBuyCarList           controllers.SimpleOrderApplication.parrallelBuyCarList()
+POST	/parrallelBuyCarList           controllers.SimpleOrderApplication.parrallelBuyCarList()

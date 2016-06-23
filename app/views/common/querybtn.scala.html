@@ -1,0 +1,129 @@
+@(list: List[InputBtn])
+	<!--query button -->
+    @list.map { obj =>
+    	@if(obj.getType()=="TEXT"){
+			<div class="col-xs-12 col-sm-2">
+				<div class="input-group">
+					<span id="@obj.getId()span" class="input-group-addon">
+						<i class="ace-icon fa fa-check"></i>
+					</span>
+					<input type="text" class="form-control search-query" id="@obj.getId()" name="@obj.getName()" value="@obj.getValue()" placeholder="@obj.getPlaceholder()" />
+				</div>
+			</div>
+			
+		<script type="text/javascript">
+		$("#@obj.getId()span").click(function(){
+			var ar=[];
+			var placeholder="@obj.getPlaceholder()";
+			if(placeholder.indexOf("/")>0){
+					ar=placeholder.split("/");
+				}else{
+					ar.push(placeholder);
+				}
+			var selectoption=$("#settype");
+			selectoption.html("");
+			for ( var i = 0; i < ar.length; i++) {
+				selectoption.append("<option value='"+ar[i]+"'>"+ar[i]+"</option>");
+			}
+			
+			
+			$("#querytype").removeClass('hide').dialog({
+				resizable: false,
+				width: '320',
+				modal: true,
+				title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> 请选择条件:</h4></div>",
+				title_html: true,
+				buttons: [
+					{
+						html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; 确定",
+						"class" : "btn btn-danger btn-minier",
+						click: function() {
+							var cid = selectoption.val();
+							$("#@obj.getId()").attr("placeholder",cid);
+							$( this ).dialog( "close" );
+						}
+					}
+					,
+					{
+						html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; 取消",
+						"class" : "btn btn-minier",
+						click: function() {
+							$( this ).dialog( "close" );
+						}
+					}
+				]
+			});
+		})		
+		</script>
+		}
+		@if(obj.getType()=="SELECT"){
+			<div class="col-xs-12 col-sm-3">
+				<div class="">
+				<h6 style="display: inline;">@obj.getPlaceholder():</h6>
+					<select style="display: inline;" class="selectpicker bla bla bli" data-live-search="true" data-size="10"  id="@obj.getId()" name="@obj.getName()">
+					@obj.getOptions().map {  o =>
+						<option value="@o.getValue()">@o.getName()</option>
+					}
+					</select>
+				</div>
+			</div>	
+			<script type="text/javascript">
+				$("#@obj.getId()").val('@obj.getValue()'); 
+				//$('#@obj.getId()').click(function(){
+					
+					//var value = $("#@obj.getId()").find("option:selected").val();
+	
+					//$("#status").val(value);
+				//});
+		</script>
+		}
+		@if(obj.getType()=="DATE"){
+		<div class="col-xs-12 col-sm-2">
+		<!-- #section:plugins/date-time.datepicker -->
+			<div class="input-group">
+					<span class="input-group-addon">
+						<i class="fa fa-calendar bigger-110"></i>
+					</span>
+					<input class="form-control date-picker" id="@obj.getId()" name="@obj.getName()" value="@if(obj.getValue()==null){} else{@obj.getValue().format("yyyy-MM-dd")}" type="text" data-date-format="yyyy-mm-dd" placeholder="@obj.getPlaceholder()">
+			</div>
+		</div>
+		}
+	}
+		
+		<div class="col-xs-12 col-sm-1">
+			<div class="input-group">
+					<span class="input-group-btn">
+						<button type="submit" class="btn btn-sm btn-primary">
+							<span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+								查询
+							</button>
+					</span>
+			</div>
+		</div>
+<div id="querytype" class="hide">
+	<select id="settype">
+	</select>
+</div>
+<script type="text/javascript">
+
+	jQuery(function($) {
+		$('.date-picker').datepicker({
+			autoclose: true,
+			todayHighlight: true
+		});	
+		
+	});
+	 $(window).on('load', function () {
+
+         $('.selectpicker').selectpicker({
+             'selectedText': 'cat',
+             'style':'btn-white'
+             //'noneSelectedText':'请选择'
+         });
+			//$('.selectpicker').selectpicker('val',$('.selectpicker').attr('value'));
+         // $('.selectpicker').selectpicker('hide');
+     });
+
+	
+</script>
+    <!-- query button -->

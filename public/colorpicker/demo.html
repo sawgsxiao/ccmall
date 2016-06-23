@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jscolor colorpicker js颜色选择器插件多种选取颜色方法与取值</title>
+<meta name="description" content="javascript js颜色选择器jscolor插件功能强大，包括选取颜色与取值，10多种调用演示方法，通过直接改变颜色的值背景颜色也随着变化，是一款多功能js颜色选择器。" />
+<script type="text/javascript" src="jscolor.js"></script>
+<style type="text/css">
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+body{font:12px/180% Arial, Helvetica, sans-serif;}
+.jscolorstyle h3{font-size:14px;margin:20px;}
+.jscolorstyle p{padding:0 0 0 40px;margin:10px 0;}
+</style>
+</head>
+
+<body>
+	<div class="jscolorstyle">
+	
+		<h3>1、基础列子</h3>
+		<p>点击此处: <input class="color" value="66ff00"></p>
+		
+		<h3>2、带关闭按钮的列子</h3>
+		<p>点击此处: <input class="color {pickerClosable:true}"></p>
+		
+		<h3>3、颜料样式列子</h3>
+		<p> 色彩外边界:  <input class="color {pickerBorderColor:'red green blue yellow'}"></p>
+		<p> 色彩插图边界: <input class="color {pickerInsetColor:'#9F9 #090 #090 #9F9'}"></p>
+		<p> 颜色选取板:   <input class="color {pickerFaceColor:'#01BABE'}"></p>
+		<p> 透明的选取:   <input class="color {pickerFaceColor:'transparent',pickerFace:3,pickerBorder:0,pickerInsetColor:'black'}"></p>
+		
+		<h3>4、颜色与取值</h3>
+		<p> 更改颜色值: <input class="color {valueElement:'myValue'}"> <input id="myValue"></p>
+		<p> 更改颜色样式: <input class="color {styleElement:'myStyle'}"> <input id="myStyle"></p>
+		<p> 更改颜色值与样式:  <input class="color {valueElement:'myBoth',styleElement:'myBoth'}"> <input id="myBoth"></p>
+		
+		<h3>5、获取颜色的RGB与HSV值</h3>
+		<p>R<input id="red" size="5">  G<input id="grn" size="5">  B<input id="blu" size="5">  - - -
+		H<input id="hue" size="5">  S<input id="sat" size="5">  V<input id="val" size="5"></p>
+		<p> 选择任何颜色: <input class="color" id="myColor" onChange="
+			document.getElementById('red').value = this.color.rgb[0]*100 + '%';
+			document.getElementById('grn').value = this.color.rgb[1]*100 + '%';
+			document.getElementById('blu').value = this.color.rgb[2]*100 + '%';
+			document.getElementById('hue').value = this.color.hsv[0]* 60 + '&deg;';
+			document.getElementById('sat').value = this.color.hsv[1]*100 + '%';
+			document.getElementById('val').value = this.color.hsv[2]*100 + '%';"></p>
+		
+		<h3>6、HSV选择颜色属性与HVS选择颜色属性</h3>
+		<p>HSV 属性: <input class="color {pickerMode:'HSV'}"> HVS 属性: <input class="color {pickerMode:'HVS'}"></p>
+		
+		<h3>5、javascript 定义选择颜色值</h3>
+		<p><input id="myField1">
+		<script type="text/javascript">
+		var myPicker = new jscolor.color(document.getElementById('myField1'), {})
+		myPicker.fromString('99FF33')  // now you can access API via 'myPicker' variable
+		</script></p>
+		
+		<h3>6、选择颜色变化事件 列子</h3>
+		<p> 改变背景: <input class="color" onchange="document.getElementsByTagName('BODY')[0].style.backgroundColor = '#'+this.color"></p>	
+		
+		<h3>7、颜色测试列子</h3>
+		<p><input onClick="add()" type="button" value="Add 100 pickers">
+		<script type="text/javascript">
+		function add() {
+			var count = 100
+		
+			for(var i=0; i<count; i++) {
+				var input = document.createElement('INPUT')
+				input.style.width = '5em'
+		
+				// bind jscolor
+				var col = new jscolor.color(input)
+				col.fromHSV(6/count*i, 1, 1)
+		
+				document.getElementsByTagName('BODY')[0].appendChild(input)
+			}
+		}
+		</script>
+		</p>
+		
+		<h3>8、自定义位置列子</h3>
+		<p style="margin-left:210px">左边:  <input class="color {pickerPosition:'left'}"></p>
+		<p style="margin-left:90px"> 右边: <input class="color {pickerPosition:'right'}"></p>
+		<p style="margin-top:65px">  顶部:   <input class="color {pickerPosition:'top'}"></p>
+		
+		<h3>9、鼠标滑过显示与隐藏</h3>
+		<p><input class="color {pickerOnfocus:false}" id="myColortest"> 取消自动显示/隐藏的选取</p>
+		<p style="margin-left:155px;"> 将鼠标移向这些按钮:
+		<input type="button" value="显示"
+			onmousemove="document.getElementById('myColortest').color.showPicker()">
+		<input type="button" value="隐藏"
+			onmousemove="document.getElementById('myColortest').color.hidePicker()"></p>
+		
+		<h3>10、颜色选择器样式尺寸</h3>
+		<p>加强边界: <input class="color {pickerBorder:3,pickerInset:10}"></p>
+		<p>加强面板: <input class="color {pickerFace:20}"></p>
+	
+	</div>
+
+	<div style="height:140px;"></div>
+</body>
+</html>

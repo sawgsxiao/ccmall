@@ -1,0 +1,314 @@
+@(data: Customer, ativityMenu: String,result:String)
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>@common.title()</title>
+
+		<meta name="description" content="jcoa" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		@common.bootstrapcss()
+    
+		<!-- inline styles related to this page -->
+		@common.bootstrapjs()
+		<style type="text/css">
+		.td-header{text-align: right;font-size: 12px;font-weight: bolder;width: 134px}
+		.td-content{text-align: left;position: relative;}
+		.td-content input{border-left: 0px;border-right: 0px;border-top: 0px;}
+		input[type="checkbox"]{position: absolute;}    
+		</style>
+	</head>
+
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- #section:basics/sidebar left-->
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<div class="main-content-inner">
+					<!-- #section:basics/content.breadcrumbs -->
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="ace-icon fa fa-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+
+							<li>
+								<a href="#">客户管理</a>
+							</li>
+							<li>
+								<a href="#">添加客户</a>
+							</li>
+						</ul><!-- /.breadcrumb -->
+					</div>
+
+					<!-- /section:basics/content.breadcrumbs -->
+					<div class="page-content">
+					
+						<!-- /section:settings.box -->
+						<div class="page-header">
+							<h1>
+								添加客户
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+								</small>
+							</h1>
+						</div><!-- /.page-header -->
+						
+						<div class="row">
+						&nbsp;
+						</div>
+						
+						<div class="row">
+						<form class="form-horizontal" role="form" method="post" name="s1" id="s1" action="/@{ativityMenu}AddDo">
+							<table width="60%" border="0px" align="center">
+							<thead>
+								<tr>
+									<th colspan="4"  style="font-size: 30px;text-align: center;">客户基本资料</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="4">
+										<table width="100%">
+										<thead>
+											<tr>
+												<th colspan="4"  ><label style="font-size: 20px;left: 50px;position: relative;">基本信息</label></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="td-header">*本人姓名:</td><td class="td-content"><input type="text" id="name" placeholder="本人姓名" name="name" class="col-xs-10" value="" /></td>
+											<td class="td-header">身份证号码:</td><td class="td-content"><input type="text" id="identity" placeholder="身份证号码" name="identity" class="col-xs-10" value="" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*性别:</td><td class="td-content">
+												<select id="sex" name="sex" style="border-radius: 30px;">
+													<option value="1">男</option>
+													<option value="0">女</option>
+											</select></td>
+											<td class="td-header">*手机号码:</td><td class="td-content"><input type="text" id="phone" placeholder="手机号码" name="phone" class="col-xs-10" value="" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*邮箱:</td><td class="td-content" colspan="3"><input type="text" id="email" placeholder="电子邮箱地址" name="email" class="col-xs-10" value="" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*现工作单位名称:</td><td class="td-content" colspan="3"><input type="text" id="company" placeholder="现工作单位名称" name="company" class="col-xs-10" value="" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*进入该单位时间:</td>
+											<td class="td-content" colspan="3" >
+													<span class="input-group-addon" style="position: absolute;z-index: 9;width: 30px;padding-left: 0px;padding-right: 0px;">
+														<i class="fa fa-calendar bigger-110"></i>
+													</span>
+													<input class="date-picker col-xs-10" style="position: relative;padding-left: 30px;" data-date-format="yyyy-mm-dd" type="text" id="entrytime" placeholder="进入该单位时间" name="entrytime" value="" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*单位地址:</td><td class="td-content" colspan="3"><input type="text" id="companyaddress" placeholder="单位地址" name="companyaddress" class="col-xs-10" value="" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*职务:</td><td class="td-content"><input type="text" id="job" placeholder="职务" name="job" class="col-xs-10" value="" /></td>
+											<td class="td-header">*月收入多少:</td><td class="td-content"><input type="text" id="salary" placeholder="月收入多少" name="salary" class="col-xs-10" value="" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">工作单位电话:</td><td class="td-content"><input type="text" id="companyphone" placeholder="工作单位电话" name="companyphone" class="col-xs-10" value="" /></td>
+											<td class="td-header">*现在住址:</td><td class="td-content"><input type="text" id="address" placeholder="现在住址" name="address" class="col-xs-10" value="" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*入住时间:</td>
+											<td class="td-content" colspan="3">
+												<span class="input-group-addon" style="position: absolute;z-index: 9;width: 30px;padding-left: 0px;padding-right: 0px;">
+													<i class="fa fa-calendar bigger-110"></i>
+												</span>
+												<input class="date-picker col-xs-10" type="text" id="staytime" style="position: relative;padding-left: 30px;" placeholder="入住时间" data-date-format="yyyy-mm-dd" name="staytime" value="" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*是否曾买过社保:</td><td><div style="margin-top: 10px;" ><input type="checkbox" id="issecurity" name="issecurity" class="ace ace-switch ace-switch-1" value="1"><span class="lbl"></span></div></td>
+											<td class="td-header">*购买的社保单位名称:</td><td class="td-content"><input type="text" id="securitycompany" placeholder="社保单位" name="securitycompany" class="col-xs-10" value="" /></td>
+										</tr>
+										</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<table width="100%">
+										<thead>
+											<tr>
+												<th colspan="4"  ><label style="font-size: 20px;left: 50px;position: relative;">家庭情况</label></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="td-header">*婚姻状况:</td><td class="td-content">
+												<select id="marry" name="marry" style="border-radius: 30px;">
+													<option value="1">已婚</option>
+													<option value="0">未婚</option>
+													<option value="2">离异</option>
+													<option value="3">再婚</option>
+												</select> 
+											</td>
+											<td class="td-header">*有无子女:</td><td class="td-content"><div style="margin-top: 10px;" ><input type="checkbox" id="haschild" name="haschild" class="ace ace-switch ace-switch-1" value="1"><span class="lbl"></span></div></td>
+										</tr>
+										<tr>
+											<td class="td-header">*配偶名称:</td><td class="td-content"><input type="text" id="spousename" placeholder="配偶名称" name="spousename" class="col-xs-10" value="" /></td>
+											<td class="td-header">*联系电话:</td><td class="td-content"><input type="text" id="spousephone" placeholder="联系电话" name="spousephone" class="col-xs-10" value="" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*房产状况:</td><td class="td-content" >
+												<select id="housetype" name="housetype" style="border-radius: 30px;">
+													<option value="0">按揭</option>
+													<option value="1">买断</option>
+													<option value="2">自建有房产证</option>
+													<option value="3">自建无证</option>
+												</select>
+											</td>
+											<td colspan="2"></td>
+										</tr>
+										<tr>
+											<td class="td-header">*购买时间:</td>
+											<td class="td-content">
+												<span class="input-group-addon" style="position: absolute;z-index: 9;width: 30px;padding-left: 0px;padding-right: 0px;">
+													<i class="fa fa-calendar bigger-110"></i>
+												</span>
+												<input class="date-picker col-xs-10" style="position: relative;padding-left: 30px;" type="text" data-date-format="yyyy-mm-dd" id="purchasetime" placeholder="购买时间" name="purchasetime" value="" /></td>
+											<td class="td-header">*购买价值:</td><td class="td-content"><input type="text" id="price" placeholder="购买价值" name="price" class="col-xs-10" value="" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*房产地址:</td><td class="td-content" colspan="3"><input type="text" id="houseaddress" placeholder="房产地址" name="houseaddress" class="col-xs-10" value="" /></td>
+										</tr>
+										</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<table width="100%">
+										<thead>
+											<tr>
+												<th colspan="6"  ><label style="font-size: 20px;left: 50px;position: relative;">意向购买车型</label></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="td-header">购买车型:</td><td class="td-content" colspan="5"><input type="text" id="cartype" placeholder="购买车型" name="cartype" class="col-xs-10" value="" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">全额付款 <input type="checkbox" name="paidtype" value="0" /> </td><td class="td-header">给首付分期付 <input type="checkbox" name="paidtype" value="1" /></td>
+											<td class="td-header">款金额</td><td class="td-content"><input type="text" id="fristmoney" placeholder="款金额" name="fristmoney" class="col-xs-10" value="" /></td>
+											<td class="td-header" colspan="2">零首付分期付款 <input type="checkbox" name="paidtype" value="2" /></td></td>
+										</tr>
+										</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<table width="100%">
+										<thead>
+											<tr>
+												<th colspan="4"  ><label style="font-size: 20px;left: 50px;position: relative;">借贷资金</label></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="td-header">*借贷金额:</td><td class="td-content" colspan="3"><input type="text" id="crmoney" placeholder="借贷金额" name="crmoney" class="col-xs-10" value="" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*资金用途:</td><td class="td-content" colspan="3"><input type="text" id="creffect" placeholder="资金用途" name="creffect" class="col-xs-10" value="" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*还款来源:</td><td class="td-content" colspan="3"><input type="text" id="crorigin" placeholder="还款来源" name="crorigin" class="col-xs-10" value="" /></td>
+										</tr>
+										</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4" height="33">
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4" align="center">
+										<button class="btn btn-info" type="button" onclick="javascript:check()" style="left: 0px;position: relative;">
+											<i class="ace-icon fa fa-check bigger-110"></i>
+											提交
+										</button>
+										<button class="btn" type="reset" style="left: 100px;position: relative;">
+											<i class="ace-icon fa fa-undo bigger-110"></i>
+											重置
+										</button>
+									</td>
+								</tr>
+							</tbody>
+							</table>
+							</form>
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div>
+			</div><!-- /.main-content -->
+
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+		@common.bottomjs()
+		
+		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
+		@common.bottomcss()
+		
+<script type="text/javascript">
+
+		$("#customergp").addClass("active open");
+		$("#@ativityMenu").addClass("active");
+	
+	jQuery(function($) {
+			$('.date-picker').datepicker({
+					autoclose: true,
+					todayHighlight: true
+			})
+			$("input[name='paidtype']").click(function(){
+				var ch=$(this).val();
+				$("input[name='paidtype'][value!='"+ch+"']").attr("checked",false);
+			})
+			@if(result!=""){alert('添加成功')};
+	});
+	
+	function checkUid(){
+		
+	}
+	
+	function checkStarttime(){
+		
+	}
+	
+	function checkEndtime(){
+		
+	}
+	
+	function check(){
+		$('#s1').submit();
+	}
+	
+</script>
+
+	</body>
+</html>

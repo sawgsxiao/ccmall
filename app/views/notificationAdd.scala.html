@@ -1,0 +1,215 @@
+@(result: String)
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>@common.title()</title>
+
+		<meta name="description" content="jcoa" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		@common.bootstrapcss()
+    
+		<!-- inline styles related to this page -->
+		@common.bootstrapjs()
+		
+	</head>
+
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+		@common.topbar()
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- #section:basics/sidebar left-->
+			@common.left()
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<div class="main-content-inner">
+					<!-- #section:basics/content.breadcrumbs -->
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="ace-icon fa fa-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+
+							<li>
+								<a href="#">个人工具</a>
+							</li>
+							<li>
+								<a href="#">通知推送</a>
+							</li>
+							<li class="active">添加通知</li>
+						</ul><!-- /.breadcrumb -->
+
+					
+					</div>
+
+					<!-- /section:basics/content.breadcrumbs -->
+					<div class="page-content">
+					
+						<!-- /section:settings.box -->
+						<div class="page-header">
+							<h1>
+								添加通知
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+								</small>
+							</h1>
+						</div><!-- /.page-header -->
+						
+						<div class="row">
+						&nbsp;
+						</div>
+						
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+								<form id="s1" action="/JNotificationAddDo" method="post" enctype="multipart/form-data">
+				                    <div class="form-group">
+				                        <label>标题</label>
+				                        <input type="text" class="form-control" id="title" name="title" value="" placeholder="输入标题" onchange="findExistUsername(this.value)">
+				                    </div>
+				                    <div class="form-group">
+				                        <label>内容</label>
+				                        <textarea rows="3" cols="auto" class="form-control" id="jcontent" name="content" value="" placeholder="输入内容" onkeyup="javascript:getIsEnter(this)"></textarea>
+				                    </div>
+				                    <div class="form-group">
+				                        <label>推送平台</label>
+				                        <li>
+				                        <!--<label>
+				                        <input type="checkbox" name="apsios" id="id_aps1" class="class_aps" value="ios" onclick="javacript:checkAllBox(this);">
+				                        IOS环境
+				                        </label>-->
+				                          <label>
+				                        <input type="checkbox" name="apsandroid" id="id_aps2" class="class_aps" value="android"  checked onclick="javacript:checkAllBox(this);">
+				                        Android
+				                        </label>
+				                        </li>
+				                    </div>
+				                    <div class="form-group">
+				                        <label>推送对象</label>
+				                        <li>
+				                        <label>
+				                        <input type="radio" name="receive" id="receive1" class="class_aps" value="all" checked onclick="javascript:tagHide()">
+				                                                                广播(所有人)
+				                        </label>
+				                       <!-- <label>
+				                        <input type="radio" name="receive" id="receive2" class="class_aps" value="tag"  onclick="javascript:tagShow()">
+				                                                                设备别名
+				                        </label> --> 
+				                        </li>
+				                    </div>
+									<div class="form-group" id="resign" style="display: none;">
+				                        <input type="text" class="form-control" id="sign" name="sign" value="" placeholder="输入标识" onchange="findExistUsername(this.value)" >
+				                    </div>
+				                    <button class="btn btn-info" type="button" onclick="javascript:check()">
+												<i class="ace-icon fa fa-check bigger-110"></i>
+												提交
+											</button>
+				   		 </form>
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div>
+			</div><!-- /.main-content -->
+
+			@common.footer()
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+		@common.bottomjs()
+		
+		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
+		@common.bottomcss()
+		
+<script type="text/javascript">
+
+	$("#toolLi").addClass("active open");
+	$("#jNotificationLi").addClass("active open");
+	$("#notificationAddLi").addClass("active");
+	
+	jQuery(function($) {
+	
+			$('.date-picker').datepicker({
+					autoclose: true,
+					todayHighlight: true
+			})
+	});
+	
+	function getIsEnter(event){
+		//alert($(event).val());
+		console.log(parseInt(getByteLen($(event).val())/2));
+	}
+
+//返回val的字节长度 
+	function getByteLen(val) { 
+		var len = 0; 
+		for (var i = 0; i < val.length; i++) { 
+			if (val[i].match(/[^x00-xff]/ig) != null) //全角 
+			len += 2; 
+			else 
+			len += 1; 
+		} 
+		return len; 
+	} 
+	function tagShow(){
+		$("#resign").show();
+		$("#sign").show();
+	}
+
+	function tagHide(){
+		$("#resign").hide();
+		$("#sign").hide();
+	}
+
+$(document).ready(function(){
+	@if(result!=null&&result!=""){alert("推送成功!")}else{@if(result==null){alert("推送失败")}else{}}
+});
+	
+	function setName(){
+		
+		if($("#name").val()!=""){
+			$("#name-err").hide();
+		}else{
+			$("#name-err").show();
+		}
+	}
+			
+	function check(){
+
+		if($('#title').val()==""){
+			
+			alert("请输入标题！");
+			return;
+		}
+
+		if($('#jcontent').val()==""){
+			
+			alert("请输入内容！");
+			return;
+		}
+
+		$('#s1').submit();
+	}
+	
+</script>
+
+	</body>
+</html>

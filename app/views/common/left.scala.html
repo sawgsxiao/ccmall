@@ -1,0 +1,936 @@
+<div id="sidebar" class="sidebar                  responsive">
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+				</script>
+
+				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+						<button class="btn btn-success" onclick="/customerList">
+							<i class="ace-icon fa fa-calendar"></i>
+						</button>
+
+						<button class="btn btn-info" onclick="/carproductList">
+							<i class="ace-icon fa fa-pencil"></i>
+						</button>
+
+						<!-- #section:basics/sidebar.layout.shortcuts -->
+						<button class="btn btn-warning" onclick="/suranceproductList">
+							<i class="ace-icon fa fa-users"></i>
+						</button>
+
+						<button class="btn btn-danger" onclick="/sysLog">
+							<i class="ace-icon fa fa-cogs"></i>
+						</button>
+
+						<!-- /section:basics/sidebar.layout.shortcuts -->
+					</div>
+
+					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+						<span class="btn btn-success"></span>
+
+						<span class="btn btn-info"></span>
+
+						<span class="btn btn-warning"></span>
+
+						<span class="btn btn-danger"></span>
+					</div>
+				</div><!-- /.sidebar-shortcuts -->
+
+				<ul class="nav nav-list">
+					<li class="" id="myportalLi">
+						<a href="javascript:void(0);">
+							<i class="menu-icon fa fa-tachometer"></i>
+							<span class="menu-text"> 门户 </span>
+						</a>
+
+						<b class="arrow"></b>
+					</li>
+					@if(session.get("gggl")){
+					<li class="" id="customergp">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-photo"></i>
+							<span class="menu-text"> 首页广告管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							@if(session.get("gglb")){
+							<li class="" id="advertListLi">
+								<a href="/advertList">
+								
+									广告列表
+								</a>
+								<b class="arrow"></b>
+							}
+							@if(session.get("ggtj")){
+							<li class="" id="advertinfo">
+								<a href="/advertAdd">
+								
+									添加广告
+								</a>
+								<b class="arrow"></b>
+							</li>
+							}
+							
+						</ul>
+					</li>
+					}
+					@if(session.get("gggl")){
+					<li class="" id="customergp">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-film"></i>
+							<span class="menu-text"> 平行广告管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							@if(session.get("gglb")){
+							<li class="" id="parrallelListLi">
+								<a href="/parrallelList">
+								
+									广告列表
+								</a>
+								<b class="arrow"></b>
+							}
+							@if(session.get("ggtj")){
+							<li class="" id="parrallelinfo">
+								<a href="/parrallelAdd">
+								
+									添加广告
+								</a>
+								<b class="arrow"></b>
+							</li>
+							}
+							
+						</ul>
+					</li>
+					}
+					@if(session.get("gggl")){
+					<li class="" id="customergp">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-barcode"></i>
+							<span class="menu-text"> 精英广告管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							@if(session.get("gglb")){
+							<li class="" id="eliteListLi">
+								<a href="/eliteList">
+								
+									广告列表
+								</a>
+								<b class="arrow"></b>
+							}
+							@if(session.get("ggtj")){
+							<li class="" id="eliteinfo">
+								<a href="/eliteAdd">
+								
+									添加广告
+								</a>
+								<b class="arrow"></b>
+							</li>
+							}
+							
+						</ul>
+					</li>
+					}
+					@if(session.get("gggl")){
+					<li class="" id="customergp">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-barcode"></i>
+							<span class="menu-text"> 新版广告管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							@if(session.get("gglb")){
+							<li class="" id="eliteListLi">
+								<a href="/eliteList">
+								
+									广告列表
+								</a>
+								<b class="arrow"></b>
+							}
+							@if(session.get("ggtj")){
+							<li class="" id="eliteinfo">
+								<a href="/qCAdvertAdd">
+								
+									添加广告
+								</a>
+								<b class="arrow"></b>
+							</li>
+							}
+							
+						</ul>
+					</li>
+					}
+					@if(session.get("khgl")){
+					<li class="" id="customergp">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-user"></i>
+							<span class="menu-text"> 客户管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							@if(session.get("khzl")){
+							<li class="" id="customer">
+								<a href="/customerList">
+								
+									客户资料
+								</a>
+								<b class="arrow"></b>
+<!-- 	
+								<b class="arrow"></b>
+								
+								<ul class="submenu">
+									<li class="">
+										<a href="top-menu.html">
+											<i class="menu-icon fa fa-caret-right"></i>
+											客户管理
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+
+									<li class="">
+										<a href="top-menu.html">
+											<i class="menu-icon fa fa-caret-right"></i>
+											客户查询
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+								</ul>
+ -->
+							</li>
+							}
+							@if(session.get("khtj")){
+							<li class="" id="customerinfo">
+								<a href="/customerAdd">
+								
+									添加客户
+								</a>
+								<b class="arrow"></b>
+							</li>
+							}
+							
+						</ul>
+					</li>
+					}
+					@if(session.get("qccpgl")){
+					<li class="" id="carproductgp">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-cab"></i>
+							<span class="menu-text"> APP车型管理</span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							@if(session.get("qcpp")){
+								<li class="" id="bookLi">
+								<a href="#" class="dropdown-toggle">
+									<i class="menu-icon fa fa-caret-right"></i>
+
+									品牌分类
+									<b class="arrow fa fa-angle-down"></b>
+								</a>
+								<b class="arrow"></b>								
+								<ul class="submenu">
+									<li class="" id="appCarAssortListLi">
+										<a href="appCarAssortList">
+											品牌管理
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+
+									<li class="" id="appCarAssortAddLi">
+										<a href="/appCarAssortAdd">
+											添加品牌
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+								</ul>
+							</li>
+							}
+							@if(session.get("qcpp")){
+								<li class="" id="bookLi">
+								<a href="#" class="dropdown-toggle">
+									<i class="menu-icon fa fa-caret-right"></i>
+
+									车型管理
+									<b class="arrow fa fa-angle-down"></b>
+								</a>
+								<b class="arrow"></b>								
+								<ul class="submenu">
+									<li class="" id="bookLi">
+									<a href="#" class="dropdown-toggle">
+										<i class="menu-icon fa fa-caret-right"></i>
+	
+										Q车推荐
+										<b class="arrow fa fa-angle-down"></b>
+									</a>
+									<b class="arrow"></b>								
+									<ul class="submenu">
+										<li class="" id="appHotCarListLi">
+											<a href="appHotCarList">
+												热门款式
+											</a>
+	
+											<b class="arrow"></b>
+										</li>
+										<li class="" id="appParrallelCarListLi">
+											<a href="appParrallelCarList">
+												平行进口
+											</a>
+	
+											<b class="arrow"></b>
+										</li>
+										<li class="" id="appYueanCarListLi">
+											<a href="appYueanCarList">
+												粤A新能源
+											</a>
+	
+											<b class="arrow"></b>
+										</li>
+										<li class="" id="appRentCarListLi">
+											<a href="appRentCarList">
+												以租代购
+											</a>
+	
+											<b class="arrow"></b>
+										</li>
+									</ul>
+									<li class="" id="appCarListLi">
+										<a href="/appCarList">
+											车型列表
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									
+									<li class="" id="appCarStyleListLi">
+										<a href="/appCarStyleList">
+											车款列表
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									
+									<li class="" id="appCarStyleBusinessListLi">
+										<a href="/appCarStyleBusinessList">
+											车款业务
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+									
+									
+									@if(session.get("qctj")){
+									<li class="" id="appCarAddLi">
+										<a href="/appCarAdd">
+										
+											添加车型
+										</a>
+										<b class="arrow"></b>
+									</li>
+									}
+								</ul>
+							</li>
+							}
+						</ul>
+					</li>
+					}
+					
+					@if(session.get("bxcpgl")){
+					<li class="" id="suranceproductgp">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-indent"></i>
+							<span class="menu-text"> APP车险管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							@if(session.get("qcpp")){
+							<li class="" id="appSuranceAssortLi">
+							<a href="#" class="dropdown-toggle">
+								<i class="menu-icon fa fa-caret-right"></i>
+
+								品牌分类
+								<b class="arrow fa fa-angle-down"></b>
+							</a>
+								<b class="arrow"></b>								
+								<ul class="submenu">
+									<li class="" id="appSuranceAssortListLi">
+										<a href="appSuranceAssortList">
+											品牌管理
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+
+									<li class="" id="appSuranceAssortAddLi">
+										<a href="/appSuranceAssortAdd">
+											品牌添加
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+								</ul>
+							</li>
+							}
+							@if(session.get("qcpp")){
+							<li class="" id="appSuranceLi">
+							<a href="#" class="dropdown-toggle">
+								<i class="menu-icon fa fa-caret-right"></i>
+
+								车险管理
+								<b class="arrow fa fa-angle-down"></b>
+							</a>
+								<b class="arrow"></b>								
+								<ul class="submenu">
+									<li class="" id="appSuranceListLi">
+										<a href="appSuranceList">
+											车险列表
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+
+									<li class="" id="appSuranceAddLi">
+										<a href="/appSuranceAdd">
+											车险添加
+										</a>
+
+										<b class="arrow"></b>
+									</li>
+								</ul>
+							</li>
+							}
+
+						</ul>
+					</li>
+					}
+					@if(session.get("qccpgl")){
+					<li class="" id="carproductgp">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-car"></i>
+							<span class="menu-text"> 汽车产品管理</span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							@if(session.get("qcpp")){
+							<li class="" id="carassortListLi">
+								<a href="/carassortListPlus/0">
+								
+									品牌分类
+								</a>
+								<b class="arrow"></b>
+							</li>
+							}
+							@if(session.get("qcgl")){
+							<li class="" id="carproductListLi">
+								<a href="/carproductList">
+								
+									产品管理
+								</a>
+								<b class="arrow"></b>
+							</li>
+							}
+							@if(session.get("qctj")){
+							<li class="" id="carproductAddLi">
+								<a href="/carproductAdd">
+								
+									添加产品
+								</a>
+								<b class="arrow"></b>
+							</li>
+							}
+							
+						</ul>
+					</li>
+					}
+					
+					@if(session.get("bxcpgl")){
+					<li class="" id="suranceproductgp">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-indent"></i>
+							<span class="menu-text"> 车险产品管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							@if(session.get("bxpp")){
+							<li class="" id="suranceassortListLi">
+								<a href="/suranceassortListPlus/0">
+								
+									品牌分类
+								</a>
+								<b class="arrow"></b>
+							</li>
+							}
+							@if(session.get("bxgl")){
+							<li class="" id="suranceproductListLi">
+								<a href="/suranceproductList">
+								
+									产品管理
+								</a>
+								<b class="arrow"></b>
+							</li>
+							}
+							@if(session.get("bxtj")){
+							<li class="" id="suranceproductAddLi">
+								<a href="/suranceproductAdd">
+								
+									添加产品
+								</a>
+								<b class="arrow"></b>
+							</li>
+							}
+
+						</ul>
+					</li>
+					}
+					@if(session.get("cpddgl")){
+					<li class="" id="ordergp">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-shopping-cart"></i>
+							<span class="menu-text"> 产品订单管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							@if(session.get("gcdd")){
+							<li class="" id="customer">
+								<a href="#" class="dropdown-toggle">
+									<i class="menu-icon fa fa-caret-right"></i>
+
+									App订单管理
+									<b class="arrow fa fa-angle-down"></b>
+								</a>
+								<b class="arrow"></b>
+								<ul class="submenu">
+									@if(session.get("gcddgl")){
+									<li class="" id="buyCarListLi">
+										<a href="/buyCarList">
+										
+										
+											轻松购车
+										</a>
+										<b class="arrow"></b>
+									</li>
+									}
+									@if(session.get("gckf")){
+									<li class="" id="eliteBuyCarListLi">
+										<a href="/eliteBuyCarList">
+										
+										
+											精英购车
+										</a>
+										<b class="arrow"></b>
+									</li>
+									}
+									@if(session.get("gckf")){
+									<li class="" id="parrallelBuyCarListLi">
+										<a href="/parrallelBuyCarList">
+										
+										
+											平行(进口)购车
+										</a>
+										<b class="arrow"></b>
+									</li>
+									}
+								</ul>
+							</li>
+							}
+							@if(session.get("gcdd")){
+							<li class="" id="customer">
+								<a href="#" class="dropdown-toggle">
+									<i class="menu-icon fa fa-caret-right"></i>
+
+									购车订单
+									<b class="arrow fa fa-angle-down"></b>
+								</a>
+								<b class="arrow"></b>
+								<ul class="submenu">
+									@if(session.get("gcddgl")){
+									<li class="" id="carorderListLi">
+										<a href="/carorderList">
+										
+										
+											订单管理
+										</a>
+										<b class="arrow"></b>
+									</li>
+									}
+									@if(session.get("gckf")){
+									<li class="" id="kfcarorderListLi">
+										<a href="/carorderkfList">
+										
+										
+											机构客服
+										</a>
+										<b class="arrow"></b>
+									</li>
+									}
+									@if(session.get("gcxs")){
+									<li class="" id="xscarorderListLi">
+										<a href="/carorderxsList">
+										
+										
+											总部客服
+										</a>
+										<b class="arrow"></b>
+									</li>
+									}
+									@if(session.get("gcdk")){
+									<li class="" id="dkcarorderListLi">
+										<a href="/carorderdkList">
+										
+										
+											银行贷款
+										</a>
+										<b class="arrow"></b>
+									</li>
+									}
+									@if(session.get("gcddtj")){
+									<li class="" id="carorderbackListLi">
+										<a href="/carorderbackList">
+										
+										
+											回收站
+										</a>
+										<b class="arrow"></b>
+									</li>
+									}
+									@if(session.get("gcddtj")){
+									<li class="" id="carorderAddLi">
+										<a href="/carorderAdd">
+										
+										
+											添加订单
+										</a>
+										<b class="arrow"></b>
+									</li>
+									}
+								</ul>
+							</li>
+							}
+							@if(session.get("gxdd")){
+							<li class="" id="customer">
+								<a href="#" class="dropdown-toggle">
+									<i class="menu-icon fa fa-caret-right"></i>
+
+									购险订单
+									<b class="arrow fa fa-angle-down"></b>
+								</a>
+								<b class="arrow"></b>
+								<ul class="submenu">
+									@if(session.get("gxddgl")){
+									<li class="" id="suranceorderListLi">
+										<a href="/suranceorderList">
+										
+										
+											订单管理
+										</a>
+										<b class="arrow"></b>
+									</li>
+									}
+									@if(session.get("gxkf")){
+									<li class="" id="kfsuranceorderListLi">
+										<a href="/suranceorderkfList">
+										
+										
+											机构客服
+										</a>
+										<b class="arrow"></b>
+									</li>
+									}
+									@if(session.get("gxxs")){
+									<li class="" id="xssuranceorderListLi">
+										<a href="/suranceorderxsList">
+										
+										
+											总部客服
+										</a>
+										<b class="arrow"></b>
+									</li>
+									}
+									@if(session.get("gxdk")){
+									<!-- <li class="" id="dksuranceorderListLi">
+										<a href="/suranceorderdkList">
+										
+										
+											贷款跟踪
+										</a>
+										<b class="arrow"></b>
+									</li> -->
+									}
+									@if(session.get("gxddtj")){
+									<li class="" id="suranceorderAddLi">
+										<a href="/suranceorderAdd">
+										
+										
+											添加订单
+										</a>
+										<b class="arrow"></b>
+									</li>
+									}
+								</ul>
+							</li>
+							}
+						</ul>
+					</li>
+					}
+					@if(session.get("fwxxgl")){
+					<li class="" id="customergp">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-hand-o-right"></i>
+							<span class="menu-text"> 服务信息管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							@if(session.get("gcsq")){
+							<li class="" id="guestsubscribeLi">
+								<a href="/QCS">
+								
+									购车申请
+								</a>
+								<b class="arrow"></b>
+							</li>
+							}
+							@if(session.get("gccx")){
+							<li class="" id="guestsubscribeListLi">
+								<a href="guestsubscribeList">
+								
+									购车查询
+								</a>
+								<b class="arrow"></b>
+							</li>
+							}
+							
+							@if(session.get("cxyy")){
+							<li class="" id="guestapplyLi">
+								<a href="/QCA">
+								
+									车险预约
+								</a>
+								<b class="arrow"></b>
+							</li>
+							@if(session.get("cxcx")){
+							<li class="" id="guestapplyListLi">
+								<a href="guestapplyList">
+								
+									车险查询
+								</a>
+								<b class="arrow"></b>
+							</li>
+							}
+							}
+						</ul>
+					</li>
+					}
+					@if(session.get("xtaqgl")){
+					<li id="systemLi" class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-cog"></i>
+
+							<span class="menu-text">
+								系统安全管理
+
+								<!-- #section:basics/sidebar.layout.badge -->
+<!-- 								<span class="badge badge-primary">5</span> -->
+
+								<!-- /section:basics/sidebar.layout.badge -->
+							</span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							@if(session.get("bmgl")){
+							  <li class="" id="departmentLi">
+								<a href="/departmentListPlus/0">
+								
+									部门管理
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							}
+							
+							@if(session.get("jsyqxgl")){
+							<li class="" id="roleLi">
+								<a href="/roleList">
+									
+									角色与权限管理
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							}
+							
+							@if(session.get("yhgl")){
+							<li id="userListLi" class="">
+								<a href="/userList">
+									
+									用户管理
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							}
+							
+							@if(session.get("xtrzgl")){
+							<li class="" id="sysLogLi">
+								<a href="/sysLog">
+								
+									系统日志管理
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							}
+						</ul>
+					</li>
+					}
+					
+				</ul><!-- /.nav-list -->
+
+				<!-- #section:basics/sidebar.layout.minimize -->
+				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+				</div>
+
+				<!-- /section:basics/sidebar.layout.minimize -->
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+					var reg=new RegExp("\/{1}[0-9a-zA-Z]*(?!\#)$|\/{1}[0-9a-zA-Z]*\/{1}[0-9a-zA-Z]*(?!\#)$");
+					var regtest=new RegExp("((?!\#).)*");
+					$(function(){
+						/*
+						var alist=$("#sidebar a[href!='#']");
+						console.log(alist);
+						for(var a in alist){
+							//if(alist[a].href!="#"){
+								console.log(alist[a].href);
+								//alist[a].target="rightiframe";
+								alist[a].click = function(){
+									//$("#tabbox ul").append("<li id='"+alist[a].parent().attr("class")+"'>"+alist[a].text()+"<a href='javascript:;'  >关闭</a></li>");
+									alert(1);
+									//$("#iframeview").append("<iframe id=\"iframe"+a+"\" name=\""+alist[a].parent().attr("class")+"\" align=\"right\" ></iframe>");
+									//alist[a].target=alist[a].parent().attr("class");
+									//$("#iframeview").find("iframe[id='iframe"+a+"']").hide();
+								};
+								
+							//}
+							
+						}
+*/
+						$("#sidebar a[href!='#']").bind("click", function(){
+							var pId = $(this).parent().attr("id");
+							var result = true;
+							if($("#tabbox ul a[xys='"+pId+"']").length==0){
+								$("#tabbox ul").append("<li style='cursor: pointer;' id='li"+pId+"'>"+$(this).text()+"<a xys='"+pId+"' onclick='removeLi(this);'>关闭</a></li>");
+								$("#iframeview").append("<iframe id='iframe"+pId+"' name='"+pId+"' align='right'></iframe>");
+							}else{
+								result = false;
+							}
+							$(this).attr("target",pId);
+							var iframe=$("#iframeview").find("iframe[id='iframe"+pId+"']");
+							iframeInit(iframe);
+							$("#iframeview").find("iframe[id!='iframe"+pId+"']").hide();
+							$("#iframeview").find("iframe[id='iframe"+pId+"']").show();
+							$("#tabbox ul li[id!='li"+pId+"']").addClass("vistited");
+							$("#tabbox ul li[id='li"+pId+"']").removeClass("vistited");
+							return result;
+						});
+					});
+
+					function removeLi(act){
+						var node=$(act).parent().prev();
+						//console.log($(node).length);
+						if($(node).length!=1){
+							node=$(act).parent().next();
+						}
+						var tab=$(node).find("a").attr("xys");
+						//console.log(node);
+						$("#iframe"+$(act).attr("xys")).remove();
+						$(act).parent().remove();
+						$(node).removeClass("vistited");
+						$(node).addClass("hover");
+						$("#tabbox li[id!='li"+tab+"']").removeClass("hover");
+						$("#tabbox li[id!='li"+tab+"']").addClass("vistited");
+						$("#iframeview iframe[id!='iframe"+tab+"']").hide();
+						$("#iframeview iframe[id='iframe"+tab+"']").show();
+					}
+
+					$("#sidebar button").click(function(){
+						var result = true;
+						if($("#tabbox ul a[xys='topbtn']").length==0){
+							$("#tabbox ul").append("<li style='cursor: pointer;' id='litopbtn'>快捷栏<a xys='topbtn' onclick='removeLi(this);'>关闭</a></li>");
+							$("#iframeview").append("<iframe id='iframetopbtn' name='topbtn' align='right'></iframe>");
+							$("#iframetopbtn").attr("src",$(this).attr("onclick"));
+							var iframe=$("#iframeview").find("iframe[id='iframetopbtn']");
+							iframeInit(iframe);
+							$("#iframeview").find("iframe[id!='iframetopbtn']").hide();
+							$("#iframeview").find("iframe[id='iframetopbtn']").show();
+							$("#tabbox ul li[id!='litopbtn']").addClass("vistited");
+							$("#tabbox ul li[id='litopbtn']").removeClass("vistited");
+						}if($("#tabbox ul a[xys='topbtn']").length==1){
+							$("#iframetopbtn").attr("src",$(this).attr("onclick"));
+							var iframe=$("#iframeview").find("iframe[id='iframetopbtn']");
+							iframeInit(iframe);
+							$("#iframeview").find("iframe[id!='iframetopbtn']").hide();
+							$("#iframeview").find("iframe[id='iframetopbtn']").show();
+							$("#tabbox ul li[id!='litopbtn']").addClass("vistited");
+							$("#tabbox ul li[id='litopbtn']").removeClass("vistited");
+						}else{
+							result = false;
+						}
+						
+						
+						return result;
+					});
+				</script>
+			</div>

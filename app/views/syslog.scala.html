@@ -1,0 +1,137 @@
+@(list: List[SysLog],count: Integer,pageNow: Integer,pageCount: Integer,pageSize: Integer,btn: List[InputBtn])
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>@common.title()</title>
+
+		<meta name="description" content="jcoa" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		@common.bootstrapcss()
+    
+		<!-- inline styles related to this page -->
+		@common.bootstrapjs()
+		
+	</head>
+
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- #section:basics/sidebar left-->
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<div class="main-content-inner">
+					<!-- #section:basics/content.breadcrumbs -->
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="ace-icon fa fa-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+
+							<li>
+								<a href="#">系统安全管理</a>
+							</li>
+							<li class="active">系统日志管理</li>
+						</ul><!-- /.breadcrumb -->
+
+
+						<!-- /section:basics/content.searchbox -->
+					</div>
+
+					<!-- /section:basics/content.breadcrumbs -->
+					<div class="page-content">
+
+						<!-- /section:settings.box -->
+						<div class="page-header">
+							<h1>
+								系统日志管理
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+									
+								</small>
+							</h1>
+							
+						</div><!-- /.page-header -->
+						<form id="fq" action="/sysLog" method="post">
+						@common.querybtn(btn)
+						</form>
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+								<div class="row">
+									<div class="col-xs-12">
+										<table id="simple-table" class="table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+        											<th>时间</th>
+        											<th>账号</th>
+        											<th>人员名称</th>
+        											<th>操作内容</th>
+        											<th width="380">描述</th>
+        										</tr>
+											</thead>
+
+											<tbody>
+											@list.map { obj =>
+												<tr>
+													<td>@if(obj.getCreatetime()==null){} else{@obj.getCreatetime().format("yyyy年MM月dd日 HH时mm分ss秒")}</td>
+													<td>@obj.getUsername()</td>
+													<td>@obj.getName()</td>
+													<td>@obj.getContent()</td>
+													<td>@obj.getDes()</td>
+												</tr>
+											}
+											</tbody>
+										</table>
+										
+										 <form id="f2" action="/sysLog" method="post">
+											<input type="hidden" id="page2" name="pageNow" value="">
+    
+    										@common.page(count,pageNow,pageCount,pageSize)
+    
+    									</form>
+    									 
+									</div><!-- /.span -->
+								</div><!-- /.row -->
+
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div>
+			</div><!-- /.main-content -->
+
+		</div><!-- /.main-container -->
+
+		
+<script type="text/javascript">
+
+	$("#systemLi").addClass("active open");
+	$("#sysLogLi").addClass("active");
+	
+				
+	function setPage(page){
+		$('#page2').val(page);
+		$('#f2').submit();
+	}
+	
+	
+</script>
+
+	</body>
+</html>
+

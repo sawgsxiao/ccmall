@@ -1,0 +1,581 @@
+@(customer: Customer,order:CarOrder,assorts:List[CarAssort],cars:List[Car],data: List[Customer],ativityMenu: String)
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>@common.title()</title>
+
+		<meta name="description" content="jcoa" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		@common.bootstrapcss()
+    
+		<!-- inline styles related to this page -->
+		@common.bootstrapjs()
+		<style type="text/css">
+		.td-header{text-align: right;font-size: 12px;font-weight: bolder;width: 134px}
+		.td-content{text-align: left;position: relative;}
+		.td-content input{border-left: 0px;border-right: 0px;border-top: 0px;}
+		input[type="checkbox"]{position: absolute;}    
+		</style>
+	</head>
+
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+				customerObj=function(id,name,sex,identity,type,phone,email,company,entrytime,companyaddress,job,salary,companyphone,
+						address,staytime,issecurity,securitycompany){
+					if(arguments.length!=17){
+						throw new Error("对象Customer传入参数："+arguments.length+"个,函数参数个数应该为：17个。")
+					}
+					this.id=id;
+					this.name=name;
+					this.sex=sex;
+					this.identity=identity;
+					this.type=type;
+					this.phone=phone;
+					this.email=email;
+					this.company=company;
+					this.entrytime=entrytime;
+					this.companyaddress=companyaddress;
+					this.job=job;
+					this.salary=salary;
+					this.companyphone=companyphone;
+					this.address=address;
+					this.staytime=staytime;
+					this.issecurity=issecurity;
+					this.securitycompany=securitycompany;
+				}
+
+				carObj=function(id,carname,productcode,assortcode,remark,pricerange,assortname){
+					if(arguments.length!=7){
+						throw new Error("对象Car传入参数："+arguments.length+"个,函数参数个数应该为：7个。")
+					}
+					this.id=id;
+					this.carname=carname;
+					this.productcode=productcode;
+					this.assortcode=assortcode;
+					this.remark=remark;
+					this.pricerange=pricerange;
+					this.assortname=assortname;
+				}
+
+				$("#customerid").change(function(){
+					var objs=arr;
+					for ( var i = 0; i < objs.length; i++) {
+						if(objs[i].id==$(this).val()){
+							$("#identity").val(objs[i].identity);
+							$("#phone").val(objs[i].phone);
+							$("#email").val(objs[i].email);
+							$("#company").val(objs[i].company);
+							$("#entrytime").val(objs[i].entrytime);
+							$("#companyaddress").val(objs[i].companyaddress);
+							$("#job").val(objs[i].job);
+							$("#salary").val(objs[i].salary);
+							$("#companyphone").val(objs[i].companyphone);
+							$("#staytime").val(objs[i].staytime);
+							$("#issecurity").val(objs[i].issecurity=="1"?"是":"否");
+							$("#securitycompany").val(objs[i].securitycompany);
+							$("#address").val(objs[i].address);
+						}
+					}
+				})
+				
+				var arr=new Array();
+				@if(data!=null){
+					@data.map{m=>
+					arr.push(new customerObj("@m.getId()","@m.getName()","@m.getSex()","@m.getIdentity()","@m.getType()","@m.getPhone()","@m.getEmail()","@m.getCompany()","@m.getEntrytime().format("yyyy-MM-dd")","@m.getCompanyaddress()","@m.getJob()","@m.getSalary()","@m.getCompanyphone()","@m.getAddress()","@m.getStaytime().format("yyyy-MM-dd")","@m.getIssecurity()","@m.getSecuritycompany()"));
+					}
+				}
+
+				var carArr=new Array();
+
+				@if(cars!=null){
+					@cars.map{m=>
+					carArr.push(new carObj("@m.getId()","@m.getCarname()","@m.getProductcode()","@m.getAssortcode()","@m.getRemark()","@m.getPricerange()","@m.getAssortname()"));
+					}
+				}
+			</script>
+
+			<!-- #section:basics/sidebar left-->
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<div class="main-content-inner">
+					<!-- #section:basics/content.breadcrumbs -->
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="ace-icon fa fa-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+							<li>
+								<a href="#">产品订单管理</a>
+							</li>
+							<li>
+								<a href="#">购车订单</a>
+							</li>
+							<li>
+								<a href="#">编辑订单</a>
+							</li>
+						</ul><!-- /.breadcrumb -->
+					</div>
+
+					<!-- /section:basics/content.breadcrumbs -->
+					<div class="page-content">
+					
+						<!-- /section:settings.box -->
+						<div class="page-header">
+							<h1>
+								编辑订单
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+								</small>
+							</h1>
+						</div><!-- /.page-header -->
+						<div style="text-align: left;">
+							<button class="btn btn-sm btn-primary" onclick="window.location.href='@if(order.getStatus=="0"||order.getStatus=="1"){/carorderkfList}else{@if(order.getStatus=="2"||order.getStatus=="3"){/carorderxsList}else{@if(order.getStatus=="4"||order.getStatus=="5"){/carorderdkList}else{/carorderbackList}}}' "><i class="ace-icon glyphicon glyphicon-backward"></i>返回</button>
+							<br>
+						</div>
+						<div class="row">
+						&nbsp;
+						</div>
+						
+						<div class="row">
+						<form class="form-horizontal" role="form" method="post" name="s1" id="s1" action="/@{ativityMenu}EditDo">
+							<table width="60%" border="0px" align="center">
+							<thead>
+								<tr>
+									<th colspan="4"  style="font-size: 30px;text-align: center;">客户订单信息</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="4">
+										<table width="100%">
+										<thead>
+											<tr>
+												<th colspan="4"  ><label style="font-size: 20px;left: 50px;position: relative;">基本信息</label></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="td-header">*客户姓名</td><td class="td-content">
+												<input type="text" id="orderid"  name="orderid" style="display: none;" value="@order.getId()" />
+												<input type="text" id="customerid"  name="customerid" style="display: none;" value="@customer.getId()" />
+												<input type="text" id="customername" placeholder="客户姓名" name="customername" class="col-xs-10" value="@customer.getName()" style="cursor:pointer;" readonly="readonly"/>
+											</td>
+											<td class="td-header">身份证号码:</td><td class="td-content"><input type="text" id="identity" placeholder="身份证号码" name="identity" class="col-xs-10" value="@customer.getIdentity()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*手机号码:</td><td class="td-content"><input type="text" id="phone" placeholder="手机号码" name="phone" class="col-xs-10" value="@customer.getPhone()" /></td>
+											<td class="td-header">邮箱:</td><td class="td-content"><input type="text" id="email" placeholder="邮箱" name="email" class="col-xs-10" value="@customer.getEmail()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*现工作单位名称:</td><td class="td-content" colspan="3"><input type="text" id="company" placeholder="现工作单位名称" name="company" class="col-xs-10" value="@customer.getCompany()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*进入该单位时间:</td>
+											<td class="td-content" colspan="3" >
+													<input  data-date-format="yyyy-mm-dd" type="text" id="entrytime" placeholder="进入该单位时间" name="entrytime" value="@if(customer.getEntrytime()!=null){@customer.getEntrytime().format("yyyy-MM-dd")}else{}" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*单位地址:</td><td class="td-content" colspan="3"><input type="text" id="companyaddress" placeholder="单位地址" name="companyaddress" class="col-xs-10" value="@customer.getCompanyaddress()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*职务:</td><td class="td-content"><input type="text" id="job" placeholder="职务" name="job" class="col-xs-10" value="@customer.getJob()" /></td>
+											<td class="td-header">*月收入多少:</td><td class="td-content"><input type="text" id="salary" placeholder="月收入多少" name="salary" class="col-xs-10" value="@customer.getSalary()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">工作单位电话:</td><td class="td-content"><input type="text" id="companyphone" placeholder="工作单位电话" name="companyphone" class="col-xs-10" value="@customer.getCompanyphone()" /></td>
+											<td class="td-header">*现在住址:</td><td class="td-content"><input type="text" id="address" placeholder="现在住址" name="address" class="col-xs-10" value="@customer.getAddress()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*入住时间:</td>
+											<td class="td-content" colspan="3">
+												<input type="text" id="staytime" placeholder="入住时间"  name="staytime" value="@if(customer.getStaytime()!=null){@customer.getStaytime().format("yyyy-MM-dd")}else{}" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*是否曾买过社保:</td><td class="td-content"><input type="text" id="issecurity" placeholder="是否社保" name="issecurity" class="col-xs-10" value="@if(customer.getIssecurity()=="1"){是}else{否}" /></td>
+											<td class="td-header">*购买的社保单位名称:</td><td class="td-content"><input type="text" id="securitycompany" placeholder="社保单位" name="securitycompany" class="col-xs-10" value="@customer.getSecuritycompany()" /></td>
+										</tr>
+										</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<table width="100%" id="tbproduct">
+										<thead>
+											<tr>
+												<th colspan="4"  ><label style="font-size: 20px;left: 50px;position: relative;">产品选购<i id="addfa" style="padding:0 10px;cursor: pointer;color: blue;" class="fa fa-plus-square" onclick="javasript:addproduct();"></i></label></th>
+											</tr>
+										</thead>
+										<tbody>
+										@if(order.getDetails().size()>0){
+											@order.getDetails().map{ var i=0; m=> 
+											<tr>
+												<td class="td-header">*产品品牌:</td><td class="td-content">
+													<select id="assortid@i" name="assortid@i" style="border-radius: 30px;" onchange="javascript:assortChange(this);">
+															<option value="">请选择</option>
+														@assorts.map{a=>
+															<option value="@a.getId()"  @if(m.getProductassortid()==a.getId()+""){selected}>@a.getAssortname()</option>
+														}
+													</select>
+												</td>
+												<td class="td-header">*汽车车型:</td><td class="td-content">
+														<select id="carid@i" name="carid@i" style="border-radius: 30px;" onchange="javascript:carChange(this);">
+															<option value="">请选择</option>
+														</select>
+												</td>
+											</tr>
+											<script type="text/javascript">
+												for ( var i = 0; i < carArr.length; i++) {
+													console.log(carArr);
+													if(carArr[i].assortcode+""=="@m.getProductassortid()"){
+														$("#carid@i").append("<option value='"+carArr[i].id+"'>"+carArr[i].carname+"</option>")
+													}
+												}
+												$("#carid@i").val("@m.getCarid()");
+											</script>
+											<tr>
+												<td class="td-header">*产品类别:</td><td class="td-content"><input type="text" id="productcode@i" placeholder="产品编码" name="productcode@i" class="col-xs-10" value="@m.getProductcode()" /></td>
+												<td class="td-header">*产品价格范围:</td><td class="td-content"><input type="text" id="pricerange@i" placeholder="产品价格范围" name="pricerange@i" class="col-xs-10" value="@m.getPrice()" /></td>
+											</tr>
+											<tr>
+												<td class="td-header">*产品数量:</td><td class="td-content"><input type="text" id="count@i" placeholder="产品数量" name="count@i" class="col-xs-10" value="@m.getCount()" /></td>
+												<td class="td-header"></td><td class="td-content">@if(i!=0){<i style='padding:0 10px;cursor: pointer;color: red;' class='fa fa-minus-circle' onclick='removeproduct(this)'></i>}else{}</td>
+											</tr>
+											<tr>
+												<td colspan="4"  style="height: 10px;border-bottom: 1px;"></td>
+											</tr>
+											@(i=i+1)
+											}
+										}
+										</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<table width="100%" id="tbproduct">
+										<thead>
+											<tr>
+												<th colspan="4"  ><label style="font-size: 20px;left: 50px;position: relative;">付款信息</label></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="td-header">*付款方式:</td>
+											<td class="td-content" colspan="3">
+												<select id="paid" name="paid" style="border-radius: 30px;" >
+														<option value="">请选择</option>
+														<option value="0" @if(order.getPaid()=="0"){selected}>零元首付</option>
+														<option value="1" @if(order.getPaid()=="1"){selected}>10%首付</option>
+														<option value="2" @if(order.getPaid()=="2"){selected}>20%首付</option>
+														<option value="3" @if(order.getPaid()=="3"){selected}>30%首付</option>
+														<option value="4" @if(order.getPaid()=="4"){selected}>40%首付</option>
+														<option value="5" @if(order.getPaid()=="5"){selected}>50%首付</option>
+														<option value="6" @if(order.getPaid()=="6"){selected}>全额付款</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="4"  style="height: 10px;border-bottom: 1px;"></td>
+										</tr>
+										</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<table width="100%" id="tbproduct">
+										<thead>
+											<tr>
+												<th colspan="4"  ><label style="font-size: 20px;left: 50px;position: relative;">预留信息</label></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="td-header">*预留电话:</td>
+											<td class="td-content" colspan="3">
+												<input type="text" id="remainphone" placeholder="预留电话"  name="remainphone" value="@order.getRemainphone()" class="col-xs-10" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*收货地址:</td>
+											<td class="td-content" colspan="3">
+												<input type="text" id="deliveryaddress" placeholder="收货地址"  name="deliveryaddress" value="@order.getDeliveryaddress()" class="col-xs-10"/></td>
+										</tr>
+										<tr>
+											<td colspan="4"  style="height: 10px;border-bottom: 1px;"></td>
+										</tr>
+										</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4" align="center">
+										<button class="btn btn-info" type="button" onclick="javascript:check()" style="left: 0px;position: relative;">
+											<i class="ace-icon fa fa-check bigger-110"></i>
+											提交
+										</button>
+									</td>
+								</tr>
+							</tbody>
+							</table>
+							</form>
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div>
+			</div><!-- /.main-content -->
+
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+		@common.bottomjs()
+		
+		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
+		@common.bottomcss()
+		
+<script type="text/javascript">
+
+		$("#customergp").addClass("active open");
+		$("#@ativityMenu").addClass("active");
+	
+	jQuery(function($) {
+			$('.date-picker').datepicker({
+					autoclose: true,
+					todayHighlight: true
+			})
+			$("input[name='paidtype']").click(function(){
+				var ch=$(this).val();
+				$("input[name='paidtype'][value!='"+ch+"']").attr("checked",false);
+			})
+	});
+
+
+	function assortChange(act){
+		var carList=carArr;
+		var carSelect=$(act).parent().next().find("select");
+		var assortid=$(act).attr("id");
+		var num=assortid.substring(8,assortid.length);
+		$("#carid"+num).find("option").remove();
+		$("#carid"+num).append("<option value=''>请选择</option>");
+		for ( var i = 0; i < carList.length; i++) {
+			if(carList[i].assortcode==$(act).val()){
+				$("#carid"+num).append("<option value='"+carList[i].id+"'>"+carList[i].carname+"</option>")
+			}
+		}
+		$("#productcode"+num).val("");
+		$("#pricerange"+num).val("");
+		$("#count"+num).val("");
+	}
+
+	function carChange(act){
+		var carList=carArr;
+		var carid=$(act).attr("id");
+		var num=carid.substring(5,carid.length);
+		$("#productcode"+num).val("");
+		$("#pricerange"+num).val("");
+		$("#count"+num).val("");
+		for ( var i = 0; i < carList.length; i++) {
+			if(carList[i].id==$(act).val()){
+				$("#productcode"+num).val(carList[i].productcode);
+				$("#pricerange"+num).val(carList[i].pricerange);
+				$("#count"+num).val("1");
+			}
+		}
+		
+	}
+	var productindex='@if(order.getDetails!=null && order.getDetails.size()>0){@order.getDetails.size()}else{0}';
+	
+	function addproduct(){
+		var tbody=$("#tbproduct").find("tbody");
+		console.log($("#assortid"+productindex).length);
+		if($("#assortid"+productindex).length!=0){
+			productindex++;
+			}
+		var tr="<tr><td class='td-header'>*产品品牌:</td><td class='td-content'><select id='assortid"+productindex+"' name='assortid"+productindex+"' style='border-radius: 30px;' onchange='javascript:assortChange(this);'>"+
+			   "<option value=''>请选择</option>"+
+			   @assorts.map{a=>
+				"<option value='@a.getId()'>@a.getAssortname()</option>"+
+			}
+				"</select></td>"+
+				"<td class='td-header'>*产品名称:</td><td class='td-content'><select id='carid"+productindex+"' name='carid"+productindex+"' style='border-radius: 30px;' onchange='javascript:carChange(this);'>"+
+				"<option value=''>请选择</option></select></td></tr>"+
+				"<tr><td class='td-header'>*产品编码:</td><td class='td-content'><input type='text' id='productcode"+productindex+"' placeholder='产品编码' name='productcode"+productindex+"' class='col-xs-10' value='' /></td>"+
+				"<td class='td-header'>*产品价格范围:</td><td class='td-content'><input type='text' id='pricerange"+productindex+"' placeholder='产品价格范围' name='pricerange"+productindex+"' class='col-xs-10' value='' /></td></tr>"+
+				"<tr><td class='td-header'>*产品数量:</td><td class='td-content'><input type='text' id='count"+productindex+"' placeholder='产品数量' name='count"+productindex+"' class='col-xs-10' value='' /></td><td class='td-header'></td><td class='td-content'><i style='padding:0 10px;cursor: pointer;color: red;' class='fa fa-minus-circle' onclick='removeproduct(this)'></i></td></tr>"+
+				"<tr><td colspan='4'  style='height: 10px;border-bottom: 1px;'></td></tr>";
+		tbody.append(tr);
+		productindex++;
+	}
+
+	function removeproduct(act){
+		
+		var tr=$(act).parent().parent();
+		var script= tr.parent().find("script");
+		if(typeof(script)!="undefinded"){
+			script.remove();
+		}
+		tr.prev().prev().remove();
+		tr.prev().remove();
+		tr.next().remove();
+		tr.remove();
+		productindex--;
+	}
+	
+	function checkUid(){
+		
+	}
+	
+	function checkStarttime(){
+		
+	}
+	
+	function checkEndtime(){
+		
+	}
+	
+	function check(){
+		$('#s1').submit();
+	}
+	
+</script>
+<script type="text/javascript">
+$("#s1 #customername").mousedown(function(){
+	$("#customerdiv").removeClass("hide");
+	$("#customerdiv").show();
+	$("#customerdiv a:eq(-2)").click(function(){
+		var chval="";
+		var chid="";
+		var nodechecked=className.getCheckedNodes(true);
+		console.log(nodechecked);
+		for(var i=0;i<nodechecked.length;i++){
+			if(typeof(nodechecked[i].children)=="undefined"){
+				chval=nodechecked[i].name;
+				chid=nodechecked[i].id;
+			}
+		}
+		$("#s1 #customername").val(chval);
+		$("#s1 #customerid").val(chid);
+		var objs=arr;
+		for ( var i = 0; i < objs.length; i++) {
+			if(objs[i].id==$("#customerid").val()){
+				$("#identity").val(objs[i].identity);
+				$("#phone").val(objs[i].phone);
+				$("#email").val(objs[i].email);
+				$("#company").val(objs[i].company);
+				$("#entrytime").val(objs[i].entrytime);
+				$("#companyaddress").val(objs[i].companyaddress);
+				$("#job").val(objs[i].job);
+				$("#salary").val(objs[i].salary);
+				$("#companyphone").val(objs[i].companyphone);
+				$("#staytime").val(objs[i].staytime);
+				$("#issecurity").val(objs[i].issecurity=="1"?"是":"否");
+				$("#securitycompany").val(objs[i].securitycompany);
+				$("#address").val(objs[i].address);
+			}
+		}
+		$("#customerdiv").hide();
+	});
+	$("#customerdiv a:eq(-1)").click(function(){
+		$("#customerdiv").hide();
+	});
+});
+var className;
+$(document).ready(function(){
+	var setting = {
+		view: {
+			dblClickExpand: false,//双击节点时，是否自动展开父节点的标识 
+			showLine: true,//是否显示节点之间的连线 
+			fontCss:{'color':'black','font-weight':'bold'},//字体样式函数 
+			selectedMulti: false
+		},
+		check:{
+			//enable: true, //每个节点上是否显示 CheckBox 
+			enable: true,
+			chkStyle: "radio"    
+	    },
+
+		data: {
+			simpleData: {
+				enable: true,
+				idKey:"id",
+				pIdKey: "pid",
+			}
+			
+		}
+	};
+	var val;
+	//val=val.replace(/&quot;/g,'"')
+	$.post("/customerListJson",{},function(data){
+		val=data;
+		var zNodes = JSON.parse(val);
+		var treeObj = $.fn.zTree.init($("#customertree"), setting, zNodes);
+		className=treeObj;
+		var vals=treeObj.getCheckedNodes(true);
+		var node;
+		for ( var i = 0; i < vals.length; i++) {
+			node=vals[i];
+			treeObj.expandNode(node,true,false,true);
+		}
+	})
+	
+	$("#customerdiv button").click(function(){
+		var param=$("#customerdiv input").val();
+		$("#customertree li").remove();
+		$.post("/customerListJsonParam",{username:param},function(data){
+			val=data;
+			var zNodes = JSON.parse(val);
+			var treeObj = $.fn.zTree.init($("#customertree"), setting, zNodes);
+			className=treeObj;
+			var vals=treeObj.getCheckedNodes(true);
+			var node;
+			for ( var i = 0; i < vals.length; i++) {
+				node=vals[i];
+				treeObj.expandNode(node,true,false,true);
+			}
+		})
+	})
+});
+	
+</script>
+<link rel="stylesheet" href="@routes.Assets.at("ztreev3/css/zTreeStyle/zTreeStyle.css")" type="text/css">
+<link rel="stylesheet" href="@routes.Assets.at("ztreev3/css/common.css")" type="text/css">
+<script type="text/javascript" src="@routes.Assets.at("ztreev3/js/jquery.ztree.core-3.5.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("ztreev3/js/jquery.ztree.exedit-3.5.min.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("ztreev3/js/jquery.ztree.excheck-3.5.js")"></script>
+<div id="customerdiv" style="height: 100%;width: 100%;background-color:rgba(0,0,0,0.2);position: absolute;z-index: 99999;top: 0px;left: 0px;display: none;">
+	<div  style="top: 100px;left: 300px;position: fixed;overflow: hidden;background-color: white;">
+	<input type="text" placeholder="搜索条件"  name="souname" id="souname" value="" size="10" >
+	<button style="border-radius: 50%;" onclick="">搜索<i class="ace-icon fa fa-search smaller-40"></i></button>
+		<ul id="customertree" class="ztree" style="margin-top:0; width:160px;"></ul>
+		<p style="color: red;margin-bottom: 2px;">提示:记录至多显示20条</p>
+		<a style="cursor:pointer;" onclick="">确定
+			<i class="ace-icon fa fa-check smaller-40"></i>
+			
+		</a>
+		&nbsp; &nbsp; &nbsp;
+		<a style="cursor:pointer;">取消
+			<i class="ace-icon fa fa-remove smaller-40"></i>
+			
+		</a>
+	</div>
+</div>
+	</body>
+</html>

@@ -1,0 +1,243 @@
+@(result:String)
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>@common.title()</title>
+
+		<meta name="description" content="jcoa" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		@common.bootstrapcss()
+    
+		<!-- inline styles related to this page -->
+		@common.bootstrapjs()
+		<style type="text/css">
+		.td-header{text-align: right;font-size: 12px;font-weight: bolder;width: 134px}
+		.td-content{text-align: left;position: relative;}
+		.td-content input{border-left: 0px;border-right: 0px;border-top: 0px;}
+		input[type="checkbox"]{position: absolute;}    
+		</style>
+	</head>
+
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- #section:basics/sidebar left-->
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<div class="main-content-inner">
+					<!-- #section:basics/content.breadcrumbs -->
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="ace-icon fa fa-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+
+							<li>
+								<a href="#">首页广告管理</a>
+							</li>
+							<li>
+								<a href="#">添加广告</a>
+							</li>
+						</ul><!-- /.breadcrumb -->
+					</div>
+
+					<!-- /section:basics/content.breadcrumbs -->
+					<div class="page-content">
+					
+						<!-- /section:settings.box -->
+						<div class="page-header">
+							<h1>
+								添加广告
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+								</small>
+							</h1>
+						</div><!-- /.page-header -->
+						<div class="row">
+						<form class="form-horizontal" role="form" method="post" name="s1" id="s1" enctype="multipart/form-data" action="/qCAdvertAddDo">
+							<table width="100%" border="0px" align="center">
+							<tbody>
+								<tr>
+									<td colspan="4"><label style="font-size: 20px;position: relative;">广告名称*</label></td>
+								</tr>
+								<tr>
+									<td colspan="4" class="td-content"><input type="text" id="name" placeholder="广告名称" name="name" class="col-xs-10" value="" /></td>
+								</tr>
+								<tr>
+									<td colspan="4"><label style="font-size: 20px;position: relative;">广告模块*</label></td>
+								</tr>
+								<tr>
+									<td colspan="4" class="td-content"><select id="type" name="type">
+										<option value="">请选择</option>
+										<option value="0">贷款购车</option>
+										<option value="1">节能补贴</option>
+										<option value="2">闪购专场</option>
+										<option value="3">精英专场</option>
+									</select></td>
+								</tr>
+								<tr>
+									<td colspan="4"><label style="font-size: 20px;position: relative;">广告图片*</label></td>
+								</tr>
+								<tr>
+									<td colspan="4"><div id="preview"><img id="imghead"></div>
+									<input type="file" name="file" onchange="previewImage(this)">
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4"><label style="font-size: 20px;position: relative;">广告简介*</label></td>
+								</tr>
+								<tr>
+									<td colspan="4" >
+									<textarea rows="10" cols="150" name="remark" id="remark"  placeholder="广告简介"></textarea>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4" align="center">
+										<button class="btn btn-info" type="button" onclick="javascript:check()" style="left: 0px;position: relative;">
+											<i class="ace-icon fa fa-check bigger-110"></i>
+											提交
+										</button>
+										<button class="btn" type="reset" style="left: 100px;position: relative;">
+											<i class="ace-icon fa fa-undo bigger-110"></i>
+											重置
+										</button>
+									</td>
+								</tr>
+							</tbody>
+							</table>
+							</form>
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div>
+			</div><!-- /.main-content -->
+
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+		@common.bottomjs()
+		
+		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
+		@common.bottomcss()
+		
+<script type="text/javascript">
+
+		$("#customergp").addClass("active open");
+		$("#").addClass("active");
+	
+	jQuery(function($) {
+			$('.date-picker').datepicker({
+					autoclose: true,
+					todayHighlight: true
+			})
+			$("input[name='paidtype']").click(function(){
+				var ch=$(this).val();
+				$("input[name='paidtype'][value!='"+ch+"']").attr("checked",false);
+			})
+			@if(result!=""){alert('@result')};
+	});
+	
+	function checkUid(){
+		
+	}
+	
+	function checkStarttime(){
+		
+	}
+	
+	function checkEndtime(){
+		
+	}
+	
+	function check(){
+		if($("#name").val()==""){
+			alert("广告名称不能为空!");
+			return;
+		}
+		$('#s1').submit();
+	}
+	
+</script>
+
+<script type="text/javascript">
+
+
+      //图片上传预览    IE是用了滤镜。
+        function previewImage(file)
+        {
+          var MAXWIDTH  = 1000; 
+          var MAXHEIGHT = 500;
+          var div = document.getElementById('preview');
+          if (file.files && file.files[0])
+          {
+              div.innerHTML ='<img id=imghead>';
+              var img = document.getElementById('imghead');
+              img.onload = function(){
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                img.width  =  rect.width;
+                img.height =  rect.height;
+//                 img.style.marginLeft = rect.left+'px';
+				img.style.marginTop = '10px';
+                //img.style.marginTop = rect.top+'px';
+              }
+              var reader = new FileReader();
+              reader.onload = function(evt){img.src = evt.target.result;}
+              reader.readAsDataURL(file.files[0]);
+          }
+          else //兼容IE
+          {
+            var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+            file.select();
+            var src = document.selection.createRange().text;
+            div.innerHTML = '<img id=imghead>';
+            var img = document.getElementById('imghead');
+            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+            div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+          }
+        }
+        function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+            var param = {top:0, left:0, width:width, height:height};
+            if( width>maxWidth || height>maxHeight )
+            {
+                rateWidth = width / maxWidth;
+                rateHeight = height / maxHeight;
+                
+                if( rateWidth > rateHeight )
+                {
+                    param.width =  maxWidth;
+                    param.height = Math.round(height / rateWidth);
+                }else
+                {
+                    param.width = Math.round(width / rateHeight);
+                    param.height = maxHeight;
+                }
+            }
+            
+            param.left = Math.round((maxWidth - param.width) / 2);
+            param.top = Math.round((maxHeight - param.height) / 2);
+            return param;
+        }
+</script>
+	</body>
+</html>

@@ -1,0 +1,178 @@
+@(msg: String, status: Int)
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>@common.title()</title>
+
+		<!-- bootstrap & fontawesome -->
+		@common.bootstrapcss()
+    
+		<!-- inline styles related to this page -->
+		@common.bootstrapjs()
+		
+	</head>
+
+	<body class="login-layout">
+		<div class="main-container">
+			<div class="main-content">
+				<div class="row">
+					<div class="col-sm-10 col-sm-offset-1">
+						<div class="login-container">
+							<div class="center">
+								<br><br>
+								<h1>
+									<i class="ace-icon fa fa-leaf green"></i>
+									<span class="red">汽车贸易管理平台</span>
+									<span class="white" id="id-text2"> </span>
+								</h1>
+								<h4 class="blue" id="id-company-text">&copy; 晟仓汽车贸易有限公司</h4>
+								<br><br>
+							</div>
+
+							<div class="space-6"></div>
+
+							<div class="position-relative">
+								<div id="login-box" class="login-box visible widget-box no-border">
+									<div class="widget-body">
+										<div class="widget-main">
+											@if(status == 0){
+												<h4 class="header blue lighter bigger">
+													<i class="ace-icon fa fa-cloud green"></i>
+													@msg
+												</h4>
+           									}else{
+												<h4 class="header red lighter bigger">
+													<i class="ace-icon fa fa-cloud green"></i>
+													@msg
+												</h4>
+            								}
+											
+
+											<div class="space-6"></div>
+
+											@helper.form(routes.Login.loginDo) {
+												<fieldset>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" class="form-control" name="username" placeholder="账号" value=""/>
+															<i class="ace-icon fa fa-user"></i>
+														</span>
+													</label>
+
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" class="form-control" name="password" placeholder="密码" value=""/>
+															<i class="ace-icon fa fa-lock"></i>
+														</span>
+													</label>
+
+													<div class="space"></div>
+
+													<div class="clearfix">
+														<button type="submit"  class="width-35 pull-right btn btn-sm btn-primary">
+															<i class="ace-icon fa fa-key"></i>
+															<span class="bigger-110">登陆</span>
+														</button>
+														
+														<!-- <a   href="javascript:void(0);" onclick="javascript:resetPassword(this);" class="width-35 pull-right btn btn-sm btn-important">
+															<i class="ace-icon fa fa-lock"></i>
+															<span class="bigger-110">忘记密码</span>
+														</a> -->
+														
+													</div>
+
+													<div class="space-4"></div>
+												</fieldset>
+											}
+
+											<div class="space-6"></div>
+											
+										</div><!-- /.widget-main -->
+
+									</div><!-- /.widget-body -->
+								</div><!-- /.login-box -->
+							</div><!-- /.position-relative -->
+
+						</div>
+					</div><!-- /.col -->
+				</div><!-- /.row -->
+			</div><!-- /.main-content -->
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+
+		<!-- basic scripts -->
+		@common.bottomjs()
+		
+		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
+		@common.bottomcss()
+
+<script type="text/javascript">
+		jQuery(function($){
+			//override dialog's title function to allow for HTML titles
+			$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+				_title: function(title) {
+					var $title = this.options.title || '&nbsp;'
+					if( ("title_html" in this.options) && this.options.title_html == true )
+						title.html($title);
+					else title.text($title);
+				}
+			}));
+		})
+		
+		function resetPassword(event){
+			$( "#dialog-reset" ).removeClass('hide').dialog({
+				resizable: false,
+				width: '520',
+				modal: true,
+				title: "<div class='widget-header'><h5 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> 密码重置</h5></div>",
+				title_html: true,
+				buttons: [
+					{
+						html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; 确定",
+						"class" : "btn btn-danger btn-minier",
+						click: function() {
+							$.post("/userpassFailDo",{userid:2},function(data){
+								alert(data)
+								});
+						}
+					}
+					,
+					{
+						html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; 取消",
+						"class" : "btn btn-minier",
+						click: function() {
+							$( this ).dialog( "close" );
+						}
+					}
+						]
+				});
+			}		
+</script>
+
+<div id="dialog-reset" class="hide">
+		<form class="form-horizontal" role="form" name="s1" id="s1" action="/carInuseDo" method="post">
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">用户账号 </label>
+				
+				<div class="col-sm-9">
+					<input type="text" id="username" placeholder="用户账号" name="username"  value="" class="col-xs-15" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1">用户名称 </label>
+				
+				<div class="col-sm-9">
+					<input type="text" id="name" placeholder="用户名称" name="name" value="" class="col-xs-15" />
+				</div>
+			</div>
+
+		</form>
+</div>
+
+	</body>
+</html>

@@ -1,0 +1,65 @@
+
+@font-face {
+  font-family: 'iconfont';
+  src: url('//at.alicdn.com/t/font_1432720974_1547027.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_1432720974_1547027.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_1432720974_1547027.woff') format('woff'), /* chrome銆乫irefox */
+  url('//at.alicdn.com/t/font_1432720974_1547027.ttf') format('truetype'), /* chrome銆乫irefox銆乷pera銆丼afari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_1432720974_1547027.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.OneFixMenu{ position:fixed; left:0; bottom:5px; z-index:900; display:block;}
+
+
+
+.fa1 {
+	display: inline-block;
+	font-family: "iconfont";
+	font-size:20px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1;
+}
+
+.fa1-icon-chevron-left:before { content: "\e607"; }
+.fa1-icon-chevron-right:before { content: "\e603"; }
+
+
+.section-slide .item {
+	text-align: center;
+	padding: 60px 0;
+	left: 0!important;
+	-webkit-transition: opacity .5s;
+	transition: opacity .5s
+}
+
+.section-slide .item img {
+	-webkit-transition: opacity .5s;
+	transition: opacity .5s
+}
+
+.section-slide .carousel-control {
+	z-index: 3;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	-webkit-transition: opacity .5s;
+	transition: opacity .5s
+}
+
+.section-slide .carousel-control span {
+	top: 50%;
+	margin-top: -10px;
+	right: 30px;
+	position: absolute
+}
+
+.section-slide .carousel-control.left span {
+	right: auto;
+	left: 30px
+}
+
+.section-slide:hover .carousel-control {
+	opacity: 1;
+	filter: alpha(opacity=100)
+}
+

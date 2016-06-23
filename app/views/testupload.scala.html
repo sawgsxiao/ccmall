@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>机场OA系统</title>
+
+		<meta name="description" content="jcoa" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		
+		<!-- 当前页CSS -->
+    	@common.pagecss_calendar()
+    	
+		<!-- bootstrap & fontawesome -->
+		@common.bootstrapcss()
+		
+		
+    	
+		<!-- inline styles related to this page -->
+		@common.bootstrapjs()
+		
+	</head>
+
+	<body class="no-skin">
+		<form action="/uploadFile" method="post" enctype="multipart/form-data">
+			<input type="file" name="file" />
+			<input type="file" name="file1" />
+			<input type="file" name="file2" />
+			<input type="submit" value="ok"/>
+		</form>
+	</body>
+</html>
+

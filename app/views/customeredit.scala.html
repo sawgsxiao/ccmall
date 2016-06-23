@@ -1,0 +1,805 @@
+@(data: Customer, ativityMenu: String)
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>@common.title()</title>
+
+		<meta name="description" content="ccmall" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		@common.bootstrapcss()
+    
+		<!-- inline styles related to this page -->
+		@common.bootstrapjs()
+		<style type="text/css">
+		.td-header{text-align: right;font-size: 12px;font-weight: bolder;width: 134px}
+		.td-content{text-align: left;position: relative;}
+		.td-content input{border-left: 0px;border-right: 0px;border-top: 0px;}
+		input[type="checkbox"]{position: absolute;}    
+		</style>
+	</head>
+
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- #section:basics/sidebar left-->
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<div class="main-content-inner">
+					<!-- #section:basics/content.breadcrumbs -->
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="ace-icon fa fa-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+
+							<li>
+								<a href="#">客户管理</a>
+							</li>
+							<li>
+								<a href="#">客户资料</a>
+							</li>
+						</ul><!-- /.breadcrumb -->
+					</div>
+
+					<!-- /section:basics/content.breadcrumbs -->
+					<div class="page-content">
+					
+						<!-- /section:settings.box -->
+						<div class="page-header">
+							<h1>
+								编辑
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+								</small>
+							</h1>
+						</div><!-- /.page-header -->
+						
+						<div style="text-align: left;">
+							<button class="btn btn-sm btn-primary" onclick="window.location.href='/@{ativityMenu}List' "><i class="ace-icon glyphicon glyphicon-backward"></i>返回</button>
+							<br>
+						</div>
+						<div class="row">
+						&nbsp;
+						</div>
+						
+						<div class="row">
+						<form class="form-horizontal" role="form" method="post" name="s1" id="s1" action="/@{ativityMenu}EditDo">
+						<input type="text" value="@data.getId()" name="customerid" style="display:none">
+							<table width="60%" border="0px" align="center">
+							<thead>
+								<tr>
+									<th colspan="4"  style="font-size: 30px;text-align: center;">客户基本资料</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="4">
+										<table width="100%">
+										<thead>
+											<tr>
+												<th colspan="4"  ><label style="font-size: 20px;left: 50px;position: relative;">基本信息</label></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="td-header">*本人姓名:</td><td class="td-content"><input type="text" id="name" placeholder="本人姓名" name="name" class="col-xs-10" value="@data.getName()" /></td>
+											<td class="td-header">身份证号码:</td><td class="td-content"><input type="text" id="identity" placeholder="身份证号码" name="identity" class="col-xs-10" value="@data.getIdentity()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*性别:</td><td class="td-content">
+												<select id="sex" name="sex" style="border-radius: 30px;">
+													<option value="1" @if(data.getSex()=="1"){selected}>男</option>
+													<option value="0" @if(data.getSex()=="0"){selected}>女</option>
+											</select></td>
+											<td class="td-header">*手机号码:</td><td class="td-content"><input type="text" id="phone" placeholder="手机号码" name="phone" class="col-xs-10" value="@data.getPhone()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*邮箱:</td><td class="td-content" colspan="3"><input type="text" id="email" placeholder="电子邮箱地址" name="email" class="col-xs-10" value="@data.getEmail()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*现工作单位名称:</td><td class="td-content" colspan="3"><input type="text" id="company" placeholder="现工作单位名称" name="company" class="col-xs-10" value="@data.getCompany()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*进入该单位时间:</td>
+											<td class="td-content" colspan="3" >
+													<span class="input-group-addon" style="position: absolute;z-index: 9;width: 30px;padding-left: 0px;padding-right: 0px;">
+														<i class="fa fa-calendar bigger-110"></i>
+													</span>
+													<input class="date-picker col-xs-10" style="position: relative;padding-left: 30px;" data-date-format="yyyy-mm-dd" type="text" id="entrytime" placeholder="进入该单位时间" name="entrytime" value="@if(data.getEntrytime()!=null){@data.getEntrytime().format("yyyy-MM-dd")}else{}" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*单位地址:</td><td class="td-content" colspan="3"><input type="text" id="companyaddress" placeholder="单位地址" name="companyaddress" class="col-xs-10" value="@data.getCompanyaddress()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*职务:</td><td class="td-content"><input type="text" id="job" placeholder="职务" name="job" class="col-xs-10" value="@data.getJob()" /></td>
+											<td class="td-header">*月收入多少:</td><td class="td-content"><input type="text" id="salary" placeholder="月收入多少" name="salary" class="col-xs-10" value="@data.getSalary()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">工作单位电话:</td><td class="td-content"><input type="text" id="companyphone" placeholder="工作单位电话" name="companyphone" class="col-xs-10" value="@data.getCompanyphone()" /></td>
+											<td class="td-header">*现在住址:</td><td class="td-content"><input type="text" id="address" placeholder="现在住址" name="address" class="col-xs-10" value="@data.getAddress()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*入住时间:</td>
+											<td class="td-content" colspan="3">
+												<span class="input-group-addon" style="position: absolute;z-index: 9;width: 30px;padding-left: 0px;padding-right: 0px;">
+													<i class="fa fa-calendar bigger-110"></i>
+												</span>
+												<input class="date-picker col-xs-10" type="text" id="staytime" style="position: relative;padding-left: 30px;" placeholder="入住时间" data-date-format="yyyy-mm-dd" name="staytime" value="@if(data.getStaytime()!=null){@data.getStaytime().format("yyyy-MM-dd")}else{}" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*是否曾买过社保:</td><td><div style="margin-top: 10px;" ><input type="checkbox" id="issecurity" name="issecurity" class="ace ace-switch ace-switch-1" value="1" @if(data.getIssecurity()=="1"){checked}><span class="lbl"></span></div></td>
+											<td class="td-header">*购买的社保单位名称:</td><td class="td-content"><input type="text" id="securitycompany" placeholder="社保单位" name="securitycompany" class="col-xs-10" value="@data.getSecuritycompany()" /></td>
+										</tr>
+										</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<table width="100%">
+										<thead>
+											<tr>
+												<th colspan="4"  ><label style="font-size: 20px;left: 50px;position: relative;">家庭情况</label></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="td-header">*婚姻状况:</td><td class="td-content">
+												<select id="marry" name="marry" style="border-radius: 30px;">
+													<option value="1" @if(data.getMarry()=="1"){selected}>已婚</option>
+													<option value="0" @if(data.getMarry()=="0"){selected}>未婚</option>
+													<option value="2" @if(data.getMarry()=="2"){selected}>离异</option>
+													<option value="3" @if(data.getMarry()=="3"){selected}>再婚</option>
+												</select> 
+											</td>
+											<td class="td-header">*有无子女:</td><td class="td-content"><div style="margin-top: 10px;" ><input type="checkbox" id="haschild" name="haschild" class="ace ace-switch ace-switch-1" value="1" @if(data.getHaschild()=="1"){checked}><span class="lbl"></span></div></td>
+										</tr>
+										<tr>
+											<td class="td-header">*配偶名称:</td><td class="td-content"><input type="text" id="spousename" placeholder="配偶名称" name="spousename" class="col-xs-10" value="@data.getSpousename" /></td>
+											<td class="td-header">*联系电话:</td><td class="td-content"><input type="text" id="spousephone" placeholder="联系电话" name="spousephone" class="col-xs-10" value="@data.getSpousephone()" /></td>
+										</tr>
+										@if(data.getAssets().size()>0){
+										@data.getAssets().map{ obj=>
+										<tr>
+											<td class="td-header">*房产状况:</td><td class="td-content" >
+												<select id="housetype" name="housetype" style="border-radius: 30px;">
+													<option value="0" @if(obj.getHousetype()=="0"){selected}>按揭</option>
+													<option value="1" @if(obj.getHousetype()=="1"){selected}>买断</option>
+													<option value="2" @if(obj.getHousetype()=="2"){selected}>自建有房产证</option>
+													<option value="3" @if(obj.getHousetype()=="3"){selected}>自建无证</option>
+												</select>
+											</td>
+											<td colspan="2"></td>
+										</tr>
+										<tr>
+											<td class="td-header">*购买时间:</td>
+											<td class="td-content">
+												<span class="input-group-addon" style="position: absolute;z-index: 9;width: 30px;padding-left: 0px;padding-right: 0px;">
+													<i class="fa fa-calendar bigger-110"></i>
+												</span>
+												<input class="date-picker col-xs-10" style="position: relative;padding-left: 30px;" type="text" data-date-format="yyyy-mm-dd" id="purchasetime" placeholder="购买时间" name="purchasetime" value="@if(obj.getPurchasetime()!=null){@obj.getPurchasetime().format("yyyy-MM-dd")}else{}" /></td>
+											<td class="td-header">*购买价值:</td><td class="td-content"><input type="text" id="price" placeholder="购买价值" name="price" class="col-xs-10" value="@obj.getPrice()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*房产地址:</td><td class="td-content" colspan="3"><input type="text" id="houseaddress" placeholder="房产地址" name="houseaddress" class="col-xs-10" value="@obj.getAddress()" /></td>
+										</tr>
+										}
+										}else{
+										<tr>
+											<td class="td-header">*房产状况:</td><td class="td-content" >
+												<select id="housetype" name="housetype" style="border-radius: 30px;">
+													<option value="0" >按揭</option>
+													<option value="1" >买断</option>
+													<option value="2" >自建有房产证</option>
+													<option value="3" >自建无证</option>
+												</select>
+											</td>
+											<td colspan="2"></td>
+										</tr>
+										<tr>
+											<td class="td-header">*购买时间:</td>
+											<td class="td-content">
+												<span class="input-group-addon" style="position: absolute;z-index: 9;width: 30px;padding-left: 0px;padding-right: 0px;">
+													<i class="fa fa-calendar bigger-110"></i>
+												</span>
+												<input class="date-picker col-xs-10" style="position: relative;padding-left: 30px;" type="text" data-date-format="yyyy-mm-dd" id="purchasetime" placeholder="购买时间" name="purchasetime" value="" /></td>
+											<td class="td-header">*购买价值:</td><td class="td-content"><input type="text" id="price" placeholder="购买价值" name="price" class="col-xs-10" value="" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*房产地址:</td><td class="td-content" colspan="3"><input type="text" id="houseaddress" placeholder="房产地址" name="houseaddress" class="col-xs-10" value="" /></td>
+										</tr>
+										}
+										</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<table width="100%">
+										<thead>
+											<tr>
+												<th colspan="6"  ><label style="font-size: 20px;left: 50px;position: relative;">常用联系人</label></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td colspan="6">
+												<table id="tablefa">
+													<tbody>
+														<tr>
+															<th colspan="7"  ><label style="font-size: 15px;left: 50px;position: relative;">*亲属<i id="addfa" style="padding:0 10px;cursor: pointer;color: blue;" class="fa fa-plus-square" onclick="javasript:addfamily(@data.getId());"></i></label></th>
+														</tr>
+														@data.getContacts().map{ m=>
+															@if(m.getType=="0"){
+															<tr>
+																<td class="td-header">关系:</td><td class="td-content"><input type="text"  placeholder="关系" name="type" class="col-xs-10" value="@m.getContactwith()"  readonly="readonly"/></td>
+																<td class="td-header">姓名:</td><td class="td-content"><input type="text"  placeholder="姓名" name="contactname" class="col-xs-10" value="@m.getContactname()" readonly="readonly"/></td>
+																<td class="td-header">电话:</td><td class="td-content"><input type="text"  placeholder="电话" name="phone" class="col-xs-10" value="@m.getPhone()" readonly="readonly"/></td>
+																<td width="60px"><input type='text' name='seq' value='@m.getId()' style='display:none;'/><i style="cursor: pointer;color: green;" class="fa fa-edit" onclick="editfamily(this)"></i><i style="cursor: pointer;color:green;display:none;" class="fa fa-save" onclick="javacript:savefamily(this,@data.getId())"></i><i style="padding:0 10px;cursor: pointer;color: green;" class="fa fa-minus-circle" onclick="removefamily(this)"></i></td>
+															</tr>
+															}
+														}
+													</tbody>
+												</table>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="6">
+												<table id="tablewm">
+													<tbody>
+														<tr>
+															<th colspan="7"  ><label style="font-size: 15px;left: 50px;position: relative;">*同事<i id="addwm" style="padding:0 10px;cursor: pointer;color: blue;" class="fa fa-plus-square" onclick="javasript:addworkmate(@data.getId());"></i></label></th>
+														</tr>
+														@data.getContacts().map{ m=>
+															@if(m.getType=="1"){
+															<tr>
+																<td class="td-header">同事姓名:</td><td class="td-content" colspan="2"><input type="text"  placeholder="同事姓名" name="contactname" class="col-xs-10" value="@m.getContactname()" readonly="readonly"/></td>
+																<td class="td-header">同事电话:</td><td class="td-content" colspan="2"><input type="text"  placeholder="同事电话" name="phone" class="col-xs-10" value="@m.getPhone()" readonly="readonly"/></td>
+																<td width="60px"><input type='text' name='seq' value='@m.getId()' style='display:none;'/><i style="cursor: pointer;color: green;" class="fa fa-edit" onclick="editworkmate(this)"></i><i style="cursor: pointer;color:green;display:none;" class="fa fa-save" onclick="javacript:saveworkmate(this,@data.getId())"></i><i style="padding:0 10px;cursor: pointer;color: green;" class="fa fa-minus-circle" onclick="removeworkmate(this)"></i></td>
+															</tr>
+															}
+														}
+													</tbody>
+												</table>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="6">
+												<table id="tablefr">
+													<tbody>
+														<tr>
+															<th colspan="7"  ><label style="font-size: 15px;left: 50px;position: relative;">*朋友<i id="addfa" style="padding:0 10px;cursor: pointer;color: blue;" class="fa fa-plus-square" onclick="javasript:addfriend(@data.getId());"></i></label></th>
+														</tr>
+														@data.getContacts().map{ m=>
+															@if(m.getType=="2"){
+															<tr>
+																<td class="td-header">朋友姓名:</td><td class="td-content" colspan="2"><input type="text" placeholder="朋友姓名" name="contactname" class="col-xs-10" value="@m.getContactname()" readonly="readonly"/></td>
+																<td class="td-header">朋友电话:</td><td class="td-content" colspan="2"><input type="text"  placeholder="朋友电话" name="phone" class="col-xs-10" value="@m.getPhone()" readonly="readonly"/></td>
+																<td width="60px"><input type='text' name='seq' value='@m.getId()' style='display:none;'/><i style="cursor: pointer;color: green;" class="fa fa-edit" onclick="editfriend(this)"></i><i style="cursor: pointer;color:green;display:none;" class="fa fa-save" onclick="javacript:savefriend(this,@data.getId())"></i><i style="padding:0 10px;cursor: pointer;color: green;" class="fa fa-minus-circle" onclick="removefriend(this)"></i></td>
+															</tr>
+															}
+														}
+													</tbody>
+												</table>
+											</td>
+										</tr>
+										</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<table width="100%" id="tablecr">
+										<thead>
+											<tr>
+												<th colspan="6"  ><label style="font-size: 20px;left: 50px;position: relative;">现有使用银行信用卡</label></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<th colspan="6"  ><label style="font-size: 15px;left: 50px;position: relative;">*信用卡<i id="addcr" style="padding:0 10px;cursor: pointer;color: blue;" class="fa fa-plus-square" onclick="javasript:addcreditcard(@data.getId());"></i></label></th>
+										</tr>
+										@data.getCreditcards().map{m=>
+											<tr>
+												<td class="td-header">信用卡所属银行:</td><td class="td-content"><input type="text"  placeholder="信用卡所属银行" name="bank" class="col-xs-10" value="@m.getBank()"  readonly="readonly"/></td>
+												<td class="td-header">额度:</td><td class="td-content"><input type="text"  placeholder="额度" name="creditquota" class="col-xs-10" value="@m.getCreditquota()"  readonly="readonly"/></td>
+												<td class="td-header">已用额度:</td><td class="td-content"><input type="text"  placeholder="已用额度" name="quotainuser" class="col-xs-10" value="@m.getQuotainuser()"  readonly="readonly"/></td>
+											</tr>
+											<tr>
+												<td class="td-header">开卡所填写的工作单位:</td><td class="td-content" colspan="4"><input type="text" placeholder="开卡所填写的工作单位" name="inputcompany" class="col-xs-10" value="@m.getCompany()"  readonly="readonly"/></td>
+												<td width="60px"><input type='text' name='seq' value='@m.getId()' style='display:none;'/><i style="cursor: pointer;color: green;" class="fa fa-edit" onclick="editcreditcard(this)"></i><i style="cursor: pointer;color:green;display:none;" class="fa fa-save" onclick="javacript:savecreditcard(this,@data.getId())"></i><i style="padding:0 10px;cursor: pointer;color: green;" class="fa fa-minus-circle" onclick="removecreditcard(this)"></i></td>
+											</tr>
+										}
+										</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<table width="100%">
+										<thead>
+											<tr>
+												<th colspan="6"  ><label style="font-size: 20px;left: 50px;position: relative;">意向购买车型</label></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="td-header">购买车型:</td><td class="td-content" colspan="5"><input type="text" id="cartype" placeholder="购买车型" name="cartype" class="col-xs-10" value="@data.getCartype()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">全额付款 <input type="checkbox" name="paidtype" value="0"  @if(data.getPaidtype()=="0"){checked}/> </td><td class="td-header">给首付分期付 <input type="checkbox" name="paidtype" value="1" @if(data.getPaidtype()=="1"){checked}/></td>
+											<td class="td-header">款金额</td><td class="td-content"><input type="text" id="fristmoney" placeholder="款金额" name="fristmoney" class="col-xs-10" value="@data.getFristmoney()" /></td>
+											<td class="td-header" colspan="2">零首付分期付款 <input type="checkbox" name="paidtype" value="2"  @if(data.getPaidtype()=="2"){checked}/></td></td>
+										</tr>
+										</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<table width="100%">
+										<thead>
+											<tr>
+												<th colspan="4"  ><label style="font-size: 20px;left: 50px;position: relative;">借贷资金</label></th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td class="td-header">*借贷金额:</td><td class="td-content" colspan="3"><input type="text" id="crmoney" placeholder="借贷金额" name="crmoney" class="col-xs-10" value="@data.getCrmoney()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*资金用途:</td><td class="td-content" colspan="3"><input type="text" id="creffect" placeholder="资金用途" name="creffect" class="col-xs-10" value="@data.getCreffect()" /></td>
+										</tr>
+										<tr>
+											<td class="td-header">*还款来源:</td><td class="td-content" colspan="3"><input type="text" id="crorigin" placeholder="还款来源" name="crorigin" class="col-xs-10" value="@data.getCrorigin()" /></td>
+										</tr>
+										</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4" height="33">
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4" align="center">
+										<button class="btn btn-info" type="button" onclick="javascript:check()" style="left: 0px;position: relative;">
+											<i class="ace-icon fa fa-check bigger-110"></i>
+											提交
+										</button>
+										<button class="btn" type="reset" style="left: 100px;position: relative;">
+											<i class="ace-icon fa fa-undo bigger-110"></i>
+											重置
+										</button>
+									</td>
+								</tr>
+							</tbody>
+							</table>
+							</form>
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div>
+			</div><!-- /.main-content -->
+
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+		@common.bottomjs()
+		
+		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
+		@common.bottomcss()
+		
+<script type="text/javascript">
+
+		$("#customergp").addClass("active open");
+		$("#@ativityMenu").addClass("active");
+	
+	jQuery(function($) {
+			$('.date-picker').datepicker({
+					autoclose: true,
+					todayHighlight: true
+			})
+			$("input[name='paidtype']").click(function(){
+				var ch=$(this).val();
+				$("input[name='paidtype'][value!='"+ch+"']").attr("checked",false);
+			})
+			
+			
+	});
+	
+	function checkUid(){
+		
+	}
+
+	function editfamily(obj){
+		$(obj).parent().parent().find("input").attr("readonly",false);
+		$(obj).hide();
+		$(obj).next().show();
+	}
+	
+	function addfamily(userid){
+		var tr="<tr><td class='td-header'>关系:</td><td class='td-content'><input type='text'  placeholder='关系' name='type' class='col-xs-10' value='' /></td>";
+		tr=tr+"<td class='td-header'>姓名:</td><td class='td-content'><input type='text'  placeholder='姓名' name='contactname' class='col-xs-10' value='' /></td>";
+		tr=tr+"<td class='td-header'>电话:</td><td class='td-content'><input type='text'  placeholder='电话' name='phone' class='col-xs-10' value='' /></td>";
+		tr=tr+"<td width='60px'><input type='text' name='seq' value='' style='display:none;'/><i style='cursor: pointer;color: green;display:none;' class='fa fa-edit' onclick='editfamily(this)'></i><i style='cursor: pointer;color:green;' class='fa fa-save' onclick='javacript:savefamily(this,"+userid+")'></i><i style='padding:0 10px;cursor: pointer;color: green;' class='fa fa-minus-circle' onclick='removefamily(this)'></i></td></tr>";
+		$("#tablefa tbody").append(tr);
+	}
+
+	function savefamily(obj,userid){
+		var ins=$(obj).parent().parent().find("input");
+		var type,contactname,phone;
+		for ( var i = 0; i < ins.length; i++) {
+			if($(ins[i]).attr("name")=="type"){
+				if($(ins[i]).val()==""){
+					alert("请输入亲属关系!")
+					return;
+				}else{
+					type=$(ins[i]).val();
+				}
+			}
+			if($(ins[i]).attr("name")=="contactname"){
+				if($(ins[i]).val()==""){
+					alert("请输入亲属名字!")
+					return;
+				}else{
+					contactname=$(ins[i]).val();
+				}
+			}
+			if($(ins[i]).attr("name")=="phone"){
+				if($(ins[i]).val()==""){
+					alert("请输入亲属联系方式!")
+					return;
+				}else{
+					phone=$(ins[i]).val();
+				}
+			}
+		}
+
+		var seq=$(obj).parent().find("input").val();
+		$.post("/familyContactDo/"+userid,{"type":type,"contactname":contactname,"phone":phone,"seq":seq},function(data){
+			console.log(data);
+			data=JSON.parse(data);
+			if(data[0].code=="1"){
+				alert(data[0].msg);
+			}else{
+				alert(data[0].msg);
+				return;
+			}
+			var familyid=data[0].familyid;
+			if($(obj).parent().find("input").val()==""){
+				$(obj).parent().find("input").val(familyid);
+			}
+			$(obj).hide();
+			$(obj).prev().show();
+			$(obj).next().show();
+			$(obj).parent().parent().find("input").attr("readonly",true);
+		})
+	}
+
+	function removefamily(obj){
+		if(confirm("你确定要删除记录?")){
+			var del=$(obj).parent().find("input").val();
+			if(!del==""){
+				$.post("/familyContactDel/"+del,{},function(data){
+					data=JSON.parse(data);
+					if(data[0].code=="1"){
+						alert(data[0].msg);
+					}else{
+						alert(data[0].msg);
+						return;
+					}
+					$(obj).parent().parent().remove();
+				});
+			}else{
+				$(obj).parent().parent().remove();
+			}
+			
+		}else{
+			return;
+		}
+		
+	}
+
+
+	function addworkmate(obj){
+		var tr="<tr><td class='td-header'>同事姓名:</td><td class='td-content' colspan='2'><input type='text'  placeholder='同事姓名' name='contactname' class='col-xs-10' value='' /></td>";
+		tr=tr+"<td class='td-header'>同事电话:</td><td class='td-content' colspan='2'><input type='text'  placeholder='同事电话' name='phone' class='col-xs-10' value='' /></td>";
+		tr=tr+"<td width='60px'><input type='text' name='seq' value='' style='display:none;'/><i style='cursor: pointer;color: green;display:none;' class='fa fa-edit' onclick='editworkmate(this)'></i><i style='cursor: pointer;color:green;' class='fa fa-save' onclick='javacript:saveworkmate(this,"+obj+")'></i><i style='padding:0 10px;cursor: pointer;color: green;' class='fa fa-minus-circle' onclick='removeworkmate(this)'></i></td></tr>";
+		$("#tablewm tbody").append(tr);
+	
+	}
+
+	function editworkmate(obj){
+		$(obj).parent().parent().find("input").attr("readonly",false);
+		$(obj).hide();
+		$(obj).next().show();
+	}
+
+	function removeworkmate(obj){
+		if(confirm("你确定要删除记录?")){
+			var del=$(obj).parent().find("input").val();
+			if(!del==""){
+				$.post("/familyContactDel/"+del,{},function(data){
+					data=JSON.parse(data);
+					if(data[0].code=="1"){
+						alert(data[0].msg);
+					}else{
+						alert(data[0].msg);
+						return;
+					}
+					$(obj).parent().parent().remove();
+				});
+			}else{
+				$(obj).parent().parent().remove();
+			}
+			
+		}else{
+			return;
+		}
+	}
+
+	
+	function saveworkmate(obj,userid){
+		var ins=$(obj).parent().parent().find("input");
+		var contactname,phone;
+		for ( var i = 0; i < ins.length; i++) {
+			if($(ins[i]).attr("name")=="contactname"){
+				if($(ins[i]).val()==""){
+					alert("请输入同事名字!")
+					return;
+				}else{
+					contactname=$(ins[i]).val();
+				}
+			}
+			if($(ins[i]).attr("name")=="phone"){
+				if($(ins[i]).val()==""){
+					alert("请输入同事联系方式!")
+					return;
+				}else{
+					phone=$(ins[i]).val();
+				}
+			}
+		}
+
+		var seq=$(obj).parent().find("input").val();
+		$.post("/workmateContactDo/"+userid,{"contactname":contactname,"phone":phone,"seq":seq},function(data){
+			data=JSON.parse(data);
+			if(data[0].code=="1"){
+				alert(data[0].msg);
+			}else{
+				alert(data[0].msg);
+				return;
+			}
+			var workmateid=data[0].workmateid;
+			if($(obj).parent().find("input").val()==""){
+				$(obj).parent().find("input").val(workmateid);
+			}
+			$(obj).hide();
+			$(obj).prev().show();
+			$(obj).next().show();
+			$(obj).parent().parent().find("input").attr("readonly",true);
+		})
+	}
+
+	function addfriend(obj){
+		var tr="<tr><td class='td-header'>朋友姓名:</td><td class='td-content' colspan='2'><input type='text'  placeholder='朋友姓名' name='contactname' class='col-xs-10' value='' /></td>";
+		tr=tr+"<td class='td-header'>朋友电话:</td><td class='td-content' colspan='2'><input type='text'  placeholder='朋友电话' name='phone' class='col-xs-10' value='' /></td>";
+		tr=tr+"<td width='60px'><input type='text' name='seq' value='' style='display:none;'/><i style='cursor: pointer;color: green;display:none;' class='fa fa-edit' onclick='editfriend(this)'></i><i style='cursor: pointer;color:green;' class='fa fa-save' onclick='javacript:savefriend(this,"+obj+")'></i><i style='padding:0 10px;cursor: pointer;color: green;' class='fa fa-minus-circle' onclick='removefriend(this)'></i></td></tr>";
+		$("#tablefr tbody").append(tr);
+	
+	}
+
+	function editfriend(obj){
+		$(obj).parent().parent().find("input").attr("readonly",false);
+		$(obj).hide();
+		$(obj).next().show();
+	}
+
+	function removefriend(obj){
+		if(confirm("你确定要删除记录?")){
+			var del=$(obj).parent().find("input").val();
+			if(!del==""){
+				$.post("/familyContactDel/"+del,{},function(data){
+					data=JSON.parse(data);
+					if(data[0].code=="1"){
+						alert(data[0].msg);
+					}else{
+						alert(data[0].msg);
+						return;
+					}
+					$(obj).parent().parent().remove();
+				});
+			}else{
+				$(obj).parent().parent().remove();
+			}
+			
+		}else{
+			return;
+		}
+	}
+
+	
+	function savefriend(obj,userid){
+		var ins=$(obj).parent().parent().find("input");
+		var contactname,phone;
+		for ( var i = 0; i < ins.length; i++) {
+			if($(ins[i]).attr("name")=="contactname"){
+				if($(ins[i]).val()==""){
+					alert("请输入朋友名字!")
+					return;
+				}else{
+					contactname=$(ins[i]).val();
+				}
+			}
+			if($(ins[i]).attr("name")=="phone"){
+				if($(ins[i]).val()==""){
+					alert("请输入朋友联系方式!")
+					return;
+				}else{
+					phone=$(ins[i]).val();
+				}
+			}
+		}
+
+		var seq=$(obj).parent().find("input").val();
+		console.log("seq:"+seq);
+		$.post("/friendContactDo/"+userid,{"contactname":contactname,"phone":phone,"seq":seq},function(data){
+			data=JSON.parse(data);
+			if(data[0].code=="1"){
+				alert(data[0].msg);
+			}else{
+				alert(data[0].msg);
+				return;
+			}
+			var friendid=data[0].friendid;
+			if($(obj).parent().find("input").val()==""){
+				$(obj).parent().find("input").val(friendid);
+			}
+			$(obj).hide();
+			$(obj).prev().show();
+			$(obj).next().show();
+			$(obj).parent().parent().find("input").attr("readonly",true);
+		})
+	}
+
+	function addcreditcard(obj){
+		var tr="<tr><td class='td-header'>信用卡所属银行:</td><td class='td-content'><input type='text'  placeholder='信用卡所属银行' name='bank' class='col-xs-10' value=''  /></td>";
+		tr=tr+"<td class='td-header'>额度:</td><td class='td-content'><input type='text'  placeholder='额度' name='creditquota' class='col-xs-10' value='' /></td>";
+		tr=tr+"<td class='td-header'>已用额度:</td><td class='td-content'><input type='text'  placeholder='已用额度' name='quotainuser' class='col-xs-10' value=''  /></td></tr>";
+		tr=tr+"<tr><td class='td-header'>开卡所填写的工作单位:</td><td class='td-content' colspan='4'><input type='text' placeholder='开卡所填写的工作单位' name='inputcompany' class='col-xs-10' value=''/></td>";
+		tr=tr+"<td width='60px'><input type='text' name='seq' value='' style='display:none;'/><i style='cursor: pointer;color: green;display:none;' class='fa fa-edit' onclick='editcreditcard(this)'></i><i style='cursor: pointer;color:green;' class='fa fa-save' onclick='javacript:savecreditcard(this,"+obj+")'></i><i style='padding:0 10px;cursor: pointer;color: green;' class='fa fa-minus-circle' onclick='removecreditcard(this)'></i></td></tr>";
+		$("#tablecr tbody").append(tr);
+	
+	}
+
+	function editcreditcard(obj){
+		$(obj).parent().parent().prev().find("input").attr("readonly",false);
+		$(obj).parent().parent().find("input").attr("readonly",false);
+		$(obj).hide();
+		$(obj).next().show();
+	}
+
+	function removecreditcard(obj){
+		if(confirm("你确定要删除记录?")){
+			var del=$(obj).parent().find("input").val();
+			if(!del==""){
+				$.post("/creditcardDel/"+del,{},function(data){
+					data=JSON.parse(data);
+					if(data[0].code=="1"){
+						alert(data[0].msg);
+					}else{
+						alert(data[0].msg);
+						return;
+					}
+					$(obj).parent().parent().prev().remove();
+					$(obj).parent().parent().remove();
+				});
+			}else{
+				$(obj).parent().parent().prev().remove();
+				$(obj).parent().parent().remove();
+				
+			}
+			
+		}else{
+			return;
+		}
+	}
+
+	
+	function savecreditcard(obj,userid){
+		var ins=$(obj).parent().parent().find("input");
+		var previns=$(obj).parent().parent().prev().find("input");
+		var bank,creditquota,quotainuser,inputcompany;
+		for ( var i = 0; i < ins.length; i++) {
+			if($(ins[i]).attr("name")=="inputcompany"){
+				if($(ins[i]).val()==""){
+					alert("请输入开卡所填写的工作单位!")
+					return;
+				}else{
+					inputcompany=$(ins[i]).val();
+				}
+			}
+		}
+		for ( var i = 0; i < previns.length; i++) {
+			if($(previns[i]).attr("name")=="bank"){
+				if($(previns[i]).val()==""){
+					alert("请输入信用卡所属银行!")
+					return;
+				}else{
+					bank=$(previns[i]).val();
+				}
+			}
+			if($(previns[i]).attr("name")=="creditquota"){
+				if($(previns[i]).val()==""){
+					alert("请输入额度!")
+					return;
+				}else{
+					creditquota=$(previns[i]).val();
+				}
+			}
+			if($(previns[i]).attr("name")=="quotainuser"){
+				if($(previns[i]).val()==""){
+					alert("请输入已用额度!")
+					return;
+				}else{
+					quotainuser=$(previns[i]).val();
+				}
+			}
+		}
+		var seq=$(obj).parent().find("input").val();
+		$.post("/creditcardDo/"+userid,{"bank":bank,"creditquota":creditquota,"seq":seq,"quotainuser":quotainuser,"company":inputcompany},function(data){
+			data=JSON.parse(data);
+			if(data[0].code=="1"){
+				alert(data[0].msg);
+			}else{
+				alert(data[0].msg);
+				return;
+			}
+			var creditcardid=data[0].creditcardid;
+			if($(obj).parent().find("input").val()==""){
+				$(obj).parent().find("input").val(creditcardid);
+			}
+			$(obj).hide();
+			$(obj).prev().show();
+			$(obj).next().show();
+			$(obj).parent().parent().prev().find("input").attr("readonly",true);
+			$(obj).parent().parent().find("input").attr("readonly",true);
+		})
+	}
+	function checkStarttime(){
+		
+	}
+	
+	function checkEndtime(){
+		
+	}
+
+	
+	function check(){
+		$('#s1').submit();
+	}
+	
+</script>
+
+	</body>
+</html>

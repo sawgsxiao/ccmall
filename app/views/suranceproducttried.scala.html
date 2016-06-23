@@ -1,0 +1,273 @@
+@(assorts:List[SuranceAssort],product:Surance)
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>@common.title()</title>
+
+		<meta name="description" content="jcoa" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		@common.bootstrapcss()
+    
+		<!-- inline styles related to this page -->
+		@common.bootstrapjs()
+		<script src="@routes.Assets.at("source/ajaxupload.js")"></script>
+		<!--引入CSS-->
+		<link rel="stylesheet" type="text/css" href="@routes.Assets.at("webuploader-0.1.5/webuploader.css")">
+		
+		<!--引入JS-->
+		<script type="text/javascript" src="@routes.Assets.at("webuploader-0.1.5/webuploader.js")"></script>
+		
+		<!--引入CSS-->
+		<link rel="stylesheet" type="text/css" href="@routes.Assets.at("webuploader-0.1.5/demo.css")">
+		
+		<!--引入JS-->
+		<script type="text/javascript" src="@routes.Assets.at("webuploader-0.1.5/demo.js")"></script>
+		
+		<!--SWF在初始化的时候指定，在后面将展示-->
+				
+	</head>
+
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- #section:basics/sidebar left-->
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<div class="main-content-inner">
+					<!-- #section:basics/content.breadcrumbs -->
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="ace-icon fa fa-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+
+							<li>
+								<a href="#">保险产品管理</a>
+							</li>
+							<li class="active">编辑产品</li>
+						</ul><!-- /.breadcrumb -->
+
+						<!-- /section:basics/content.searchbox -->
+					</div>
+
+					<!-- /section:basics/content.breadcrumbs -->
+					<div class="page-content">
+
+						<!-- /section:settings.box -->
+						<div class="page-header">
+							<h1>
+								编辑产品
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+								</small>
+							</h1>
+						</div><!-- /.page-header -->
+						<div style="text-align: left;">
+							<button class="btn btn-sm btn-primary" onclick="window.location.href='/suranceproductList' "><i class="ace-icon glyphicon glyphicon-backward"></i>返回</button>
+							<br>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<form class="form-horizontal" role="form" name="s1" id="s1" action="/suranceproductEditDo" method="post" >
+									<div class="form-group" >
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">上传图片 </label>
+										<div class="col-sm-4">
+											<div id="uploader" class="wu-example">
+											    <div class="queueList">
+											        <div id="dndArea" class="placeholder">
+											            <div id="filePicker" class="webuploader-container"><div class="webuploader-pick">点击选择图片</div><div id="rt_rt_1a5gb9tqmi4818j0nt114271i9v1" style="position: absolute; top: 0px; left: 448px; width: 168px; height: 44px; overflow: hidden; bottom: auto; right: auto;"><input type="file" name="file" class="webuploader-element-invisible" multiple="multiple" accept="image/*"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label></div></div>
+											            <p>或将照片拖到这里，单次最多可选4张</p>
+											        </div>
+											    <ul class="filelist"></ul></div>
+											    <div class="statusBar" style="display:none;padding-right: 100px;">
+											        <div class="progress" style="display: none;">
+											            <span class="text">0%</span>
+											            <span class="percentage" style="width: 0%;"></span>
+											        </div><div class="info">共0张（0B），已上传0张</div>
+											        <div class="btns">
+											            <div id="filePicker2" class="webuploader-container"><div class="webuploader-pick">继续添加</div><div id="rt_rt_1a5gb9tr0183t19p2i631gu445a6" style="position: absolute; top: 0px; left: 0px; width: 1px; height: 1px; overflow: hidden;"><input type="file" name="file" class="webuploader-element-invisible" multiple="multiple" accept="image/*"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label></div></div><div class="uploadBtn state-pedding">开始上传</div>
+											        </div>
+											    </div>
+											</div>
+										</div>
+										<div class="col-sm-2" id="inputlist">
+										<input type="text" name="suranceid" style="display: none;" value="@product.getId()">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">保险名称 </label>
+										
+										<div class="col-sm-6">
+											<input type="text" id="surancename" placeholder="保险名称" name="surancename" class="col-xs-15" value="@product.getSurancename()"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">产品分类 </label>
+										
+										<div class="col-sm-6">
+											<select class="form-control" id="departOpt" style="width: 100px" name="suranceassort">
+													<option value="">选择分类</option>
+													@assorts.map{ obj=>
+                        							<option value="@obj.getId()" @if(product.getAssortcode()==obj.getId()+""){Selected}>@obj.getAssortname()</option>
+                        							}
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">产品编码 </label>
+										
+										<div class="col-sm-6">
+											<input type="text" id="productcode" placeholder="产品编码" name="productcode"   value="@product.getProductcode()"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">保险时长 </label>
+										
+										<div class="col-sm-6">
+											<input type="text" id="inusetime" placeholder="保险时长" name="inusetime" class="col-xs-15" value="@product.getInusetime()"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">产品价格范围 </label>
+										
+										<div class="col-sm-6">
+											<input type="text" id="pricer" placeholder="产品价格范围" name="price" class="col-xs-15" value="@product.getPrice()"/>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">产品简介 </label>
+										
+										<div class="col-sm-6">
+											<textarea  class="form-control" rows="5" id="remark" placeholder="产品简介" name="remark">@product.getRemark()</textarea>
+										</div>
+									</div>
+									<div class="form-group" >
+										<div class="clearfix form-actions">
+											<div class="col-md-offset-3 col-md-9">
+												<button class="btn btn-info" type="submit" id="upload" >
+													<i class="ace-icon fa fa-check bigger-110"></i>
+													提交
+												</button>
+												
+											</div>
+										</div>
+									</div>
+								</form>
+								<iframe id="uploadframe" name="uploadframe" style="visibility:hidden"></iframe>
+								<!--dom结构部分-->
+								
+								
+								
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div>
+			</div><!-- /.main-content -->
+
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		@common.bottomjs()
+		
+		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
+		@common.bottomcss()
+<script type="text/javascript">
+
+
+		
+	$("#customergp").addClass("active open");
+	$("#ativityMenu").addClass("active");
+	
+	function setPage(page){
+		$('#page2').val(page);
+		$('#f2').submit();
+	}
+	jQuery(function($) {
+		//override dialog's title function to allow for HTML titles
+		$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+			_title: function(title) {
+				var $title = this.options.title || '&nbsp;'
+				if( ("title_html" in this.options) && this.options.title_html == true )
+					title.html($title);
+				else title.text($title);
+			}
+		}));
+		               
+	});
+
+	function setDetailId(id){
+		window.location.href='/{ativityMenu}Detailed/'+id;
+	}
+	function setEditId(id){
+	
+		window.location.href='/{ativityMenu}Edit/'+id;
+	}
+	function redirectto(url){
+		window.location.href=url;
+	}
+	function setDelId(id){
+	
+			$( "#dialog-confirm" ).removeClass('hide').dialog({
+				resizable: false,
+				width: '320',
+				modal: true,
+				title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> 温馨提示:</h4></div>",
+				title_html: true,
+				buttons: [
+					{
+						html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; 确定",
+						"class" : "btn btn-danger btn-minier",
+						click: function() {
+							window.location.href='/{ativityMenu}Del/'+id;
+						}
+					}
+					,
+					{
+						html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; 取消",
+						"class" : "btn btn-minier",
+						click: function() {
+							$( this ).dialog( "close" );
+						}
+					}
+				]
+			});
+}
+</script>
+
+							
+<div id="dialog-confirm" class="hide">
+<div class="alert alert-info bigger-110">
+			删除数据后将不能恢复。
+</div>
+
+<div class="space-6"></div>
+
+		<p class="bigger-110 bolder center grey">
+				<i class="ace-icon fa fa-hand-o-right blue bigger-120"></i>
+						您确定要删除该数据吗?
+		</p>
+</div><!-- #dialog-confirm -->
+</div>
+
+	</body>
+</html>

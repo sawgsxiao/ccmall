@@ -1,0 +1,316 @@
+@(groupId: Integer, ativityMenu: String)
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>@common.title()</title>
+
+		<meta name="description" content="jcoa" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		@common.bootstrapcss()
+    
+		<!-- inline styles related to this page -->
+		@common.bootstrapjs()
+		
+		<link rel="stylesheet" href="@routes.Assets.at("ztreev3/css/zTreeStyle/zTreeStyle.css")" type="text/css">
+		<link rel="stylesheet" href="@routes.Assets.at("ztreev3/css/common.css")" type="text/css">
+		<script type="text/javascript" src="@routes.Assets.at("ueditor/third-party/jquery-1.10.2.min.js")"></script>
+		<script type="text/javascript" src="@routes.Assets.at("ztreev3/js/jquery.ztree.core-3.5.js")"></script>
+		<script type="text/javascript" src="@routes.Assets.at("ztreev3/js/jquery.ztree.exedit-3.5.min.js")"></script>
+		<script>
+			var className;
+			$(document).ready(function(){
+				var setting = {
+					view: {
+						addHoverDom: addHoverDom,
+						removeHoverDom: removeHoverDom,
+						selectedMulti: false
+					},
+					edit: {
+						enable: true,
+						editNameSelectAll: true,
+						showRemoveBtn: showRemoveBtn,
+						showRenameBtn: showRenameBtn
+					},
+					data: {
+						simpleData: {
+							enable: true,
+							idKey:"id",
+							pIdKey: "pid",
+							rootPId: 0 
+						}
+					},
+					callback: {
+						beforeEditName: beforeEditName,
+						beforeRemove: beforeRemove,
+						beforeRename: beforeRename,
+						onRemove: onRemove,
+						onRename: onRename
+					}
+				};
+				$.post('/departmentData/0', function(data){
+					var zNodes = JSON.parse(data);
+					console.log(zNodes);
+					var treeObj = $.fn.zTree.init($("#doctree"), setting, zNodes);
+					treeObj.expandAll(true); 
+					//var node = treeObj.getNodeByParam("id", @groupId);
+					//treeObj.selectNode(node);
+					//treeObj.expandNode(node,true,false,true);
+
+				});
+				//loadGroupList(@groupId);
+			});
+			function loadGroupList(id){
+				$.post('/workdocGroupList/'+id, {}, function(data){
+					$("#listcontent").html(data);
+				});
+			}
+			function showRemoveBtn(treeId, treeNode) {
+				return treeNode.id != 0;
+			}
+			function showRenameBtn(treeId, treeNode) {
+				return treeNode.id != 0;
+			}
+			function beforeEditName(treeId, treeNode) {
+				//className = (className === "dark" ? "":"dark");
+				var zTree = $.fn.zTree.getZTreeObj("doctree");
+				zTree.selectNode(treeNode);
+				return true;
+			}
+			function beforeRemove(treeId, treeNode) {
+				//className = (className === "dark" ? "":"dark");
+				var zTree = $.fn.zTree.getZTreeObj("doctree");
+				zTree.selectNode(treeNode);
+				var vflag=false;
+				if(confirm("确认删除节点[" + treeNode.name + "]吗？")){
+					$.ajax({
+						url:"/departmentCheckDel/"+treeNode.id,
+						async:false,
+						success:function(data){
+						data=JSON.parse(data);
+							if(data[0].code == 1){
+								vflag=true;
+								console.log("vflag="+(data[0].code == 1));
+							}else{
+								alert(data[0].msg);
+								vflag=false;
+							}},
+						fail:function(){alert("服务器无响应，请检查网络！");},
+						method:'post',
+						type:'json'
+					});
+				}
+				
+				return vflag;
+			}
+			function onRemove(e, treeId, treeNode) {
+				$.post("/departmentGroupDel/"+treeNode.id, {}, function(data){
+					data=JSON.parse(data);
+					if(data[0].code == 0){
+						alert(data[0].msg);
+					}
+				}).fail(function(){alert("服务器无响应，请检查网络！");});
+				return true;
+			}
+			function beforeRename(treeId, treeNode, newName, isCancel) {
+				//className = (className === "dark" ? "":"dark");
+				if (newName.length == 0) {
+					alert("节点名称不能为空.");
+					var zTree = $.fn.zTree.getZTreeObj("doctree");
+					setTimeout(function(){zTree.editName(treeNode)}, 10);
+					return false;
+				}
+				return true;
+			}
+			function onRename(e, treeId, treeNode, isCancel) {
+				var zTree = $.fn.zTree.getZTreeObj("doctree");
+				$.post("/departmentGroupEdit/"+treeNode.id, {pid: treeNode.pid, name: treeNode.name}, function(data){
+					data=JSON.parse(data);
+					console.log(data[0]);
+					if(data[0].code == 0){
+						alert(data[0].msg);
+					}else{
+						if(data[0].newid){
+							treeNode.id = data[0].newid;
+						}
+					}
+				}).fail(function(){alert("服务器无响应，请检查网络！");});
+				return true;
+			}
+
+			var newCount = 1;
+			var startId = 1000000000;
+			function addHoverDom(treeId, treeNode) {
+				var sObj = $("#" + treeNode.tId + "_span");
+				if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+				var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+					+ "' title='add node' onfocus='this.blur();'></span>";
+				sObj.after(addStr);
+				var btn = $("#addBtn_"+treeNode.tId);
+				if (btn) btn.bind("click", function(){
+					var zTree = $.fn.zTree.getZTreeObj("doctree");
+					zTree.addNodes(treeNode, {id:(startId + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+					return false;
+				});
+			};
+			function removeHoverDom(treeId, treeNode) {
+				$("#addBtn_"+treeNode.tId).unbind().remove();
+			};
+			function modifyvalue(obj){
+				var thiz = $(obj);
+				var val = thiz.text();
+				var input = $("<input onblur='updatefield(this);' />");
+				thiz.html("").append(input);
+				input.focus();
+				input.val(val);
+			}
+			function updatefield(obj){
+				var target = $(obj).parent();
+				$.post("{:U('Shop/Class/updatefield')}",{id: target.attr('nodeId'), field: target.attr('valuename'), value: $(obj).val()},function(data){
+					if(data.status == 0){
+						alert(data.info);
+					}else{
+						target.text($(obj).val());
+					}
+				}).fail(function(){alert("服务器无响应，请检查网络！");});
+			}
+		</script>
+		<style type="text/css">
+		.ztree li span.button.add {background-position:-144px 0;}
+		</style>
+	</head>
+
+	<body class="no-skin">
+		
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+		
+			<div class="main-content">
+				<div class="main-content-inner">
+					<!-- #section:basics/content.breadcrumbs -->
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="ace-icon fa fa-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+
+							<li>
+								<a href="#">系统安全管理</a>
+							</li>
+							<li class="active">部门管理</li>
+						</ul><!-- /.breadcrumb -->
+
+						<!-- /section:basics/content.searchbox -->
+					</div>
+
+					<!-- /section:basics/content.breadcrumbs -->
+					<div class="page-content">
+
+						<!-- /section:settings.box -->
+						<div class="page-header">
+							<h1>
+								部门管理
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+								</small>
+							</h1>
+						</div><!-- /.page-header -->
+						<div style="width: 100%; position: relative;">
+							<div class="zTreeDemoBackground left" style="z-index: 1; position: absolute;">
+								<ul id="doctree" class="ztree"></ul>
+							</div>
+							<div class="" id="listcontent" style="width: 100%; padding-left: 240px; top: 0px; z-index:0; position: absolute;">
+							</div>
+						</div>
+					</div><!-- /.page-content -->
+				</div>
+			</div><!-- /.main-content -->
+
+		</div><!-- /.main-container -->
+
+		
+<script type="text/javascript">
+
+	$("#systemLi").addClass("active open");
+	$("#departmentLi").addClass("active");
+	
+	function setPage(page){
+		$('#page2').val(page);
+		$('#f2').submit();
+	}
+	jQuery(function($) {
+		//override dialog's title function to allow for HTML titles
+		$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+			_title: function(title) {
+				var $title = this.options.title || '&nbsp;'
+				if( ("title_html" in this.options) && this.options.title_html == true )
+					title.html($title);
+				else title.text($title);
+			}
+		}));
+	});
+		
+	function setEditId(id){
+	
+		window.location.href='/@{ativityMenu}Edit/'+id;
+	}
+	function redirectto(url){
+		window.location.href=url;
+	}
+	function setDelId(id){
+	
+			$( "#dialog-confirm" ).removeClass('hide').dialog({
+				resizable: false,
+				width: '320',
+				modal: true,
+				title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> 温馨提示:</h4></div>",
+				title_html: true,
+				buttons: [
+					{
+						html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; 确定",
+						"class" : "btn btn-danger btn-minier",
+						click: function() {
+							window.location.href='/@{ativityMenu}Del/'+id;
+						}
+					}
+					,
+					{
+						html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; 取消",
+						"class" : "btn btn-minier",
+						click: function() {
+							$( this ).dialog( "close" );
+						}
+					}
+				]
+			});
+}
+</script>
+
+							
+<div id="dialog-confirm" class="hide">
+<div class="alert alert-info bigger-110">
+			删除数据后将不能恢复。
+</div>
+
+<div class="space-6"></div>
+
+		<p class="bigger-110 bolder center grey">
+				<i class="ace-icon fa fa-hand-o-right blue bigger-120"></i>
+						您确定要删除该数据吗?
+		</p>
+</div><!-- #dialog-confirm -->
+</div>
+
+	</body>
+</html>

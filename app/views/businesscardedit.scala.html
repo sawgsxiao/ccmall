@@ -1,0 +1,203 @@
+@(obj: BusinessCard)
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>@common.title()</title>
+
+		<meta name="description" content="jcoa" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		@common.bootstrapcss()
+    
+		<!-- inline styles related to this page -->
+		@common.bootstrapjs()
+		
+	</head>
+
+	<body class="no-skin">
+		<!-- #section:basics/navbar.layout -->
+		@common.topbar()
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<!-- #section:basics/sidebar left-->
+			@common.left()
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<div class="main-content-inner">
+					<!-- #section:basics/content.breadcrumbs -->
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="ace-icon fa fa-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+
+							<li>
+								<a href="#">个人工具</a>
+							</li>
+							<li>
+								<a href="#">个人名片夹</a>
+							</li>
+							<li class="active">编辑</li>
+						</ul><!-- /.breadcrumb -->
+
+					
+					</div>
+
+					<!-- /section:basics/content.breadcrumbs -->
+					<div class="page-content">
+					
+						<!-- /section:settings.box -->
+						<div class="page-header">
+							<h1>
+								编辑
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+								</small>
+							</h1>
+						</div><!-- /.page-header -->
+						
+						<div style="text-align: left;">
+							<button class="btn btn-sm btn-primary" onclick="window.location.href='/mybusinessCardList' "><i class="ace-icon glyphicon glyphicon-backward"></i>返回</button>
+							<br>
+						</div>
+						<div class="row">
+						&nbsp;
+						</div>
+						
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+								<form class="form-horizontal" role="form" name="s1" id="s1" action="/businessCardEditDo" method="post">
+									<input type="hidden"  name="cardid" value="@obj.getCardid()"  />
+									<!-- #section:elements.form -->
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">联系人 </label>
+										
+										<div class="col-sm-6">
+											<input type="text" id="contact" placeholder="联系人" name="contact" value="@obj.getContact()" class="col-xs-15" />
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">公司名称 </label>
+										
+										<div class="col-sm-6">
+											<input type="text" id="company" placeholder="公司名称" name="company" value="@obj.getCompany()" class="col-xs-15" />
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">地址 </label>
+										
+										<div class="col-sm-6">
+											<input type="text" id="address" placeholder="地址" name="address" value="@obj.getAddress()" class="col-xs-15" />
+										</div>
+									</div>
+									
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">联系电话 </label>
+										
+										<div class="col-sm-6">
+											<input type="text" id="mobile" placeholder="联系电话" name="mobile" value="@obj.getMobile()" class="col-xs-15" />
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">QQ号码</label>
+										
+										<div class="col-sm-6">
+											<input type="text" id="qq" placeholder="QQ号码" name="qq" value="@obj.getQq()" class="col-xs-15" />
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">邮箱 </label>
+										
+										<div class="col-sm-6">
+											<input type="text" id="email" placeholder="邮箱" name="email" value="@obj.getEmail()" class="col-xs-15" />
+										</div>
+									</div>
+									
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">备注 </label>
+
+										<div class="col-sm-5">
+											<textarea class="form-control" id="remark" name="remark" placeholder="备注" rows="5">@obj.getRemark()</textarea>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">保密级别  </label>
+										<div class="col-sm-3">
+											<select class="form-control" id="privstatus" name="privstatus">
+													<option value="0" @if(obj.getPrivstatus()==0){selected}>私密</option>
+													<option value="1" @if(obj.getPrivstatus()==1){selected}>公开</option>
+											</select>
+										</div>
+									</div>
+									
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+											<button class="btn btn-info" type="button" onclick="javascript:check()">
+												<i class="ace-icon fa fa-check bigger-110"></i>
+												提交
+											</button>
+										</div>
+									</div>
+
+								</form>
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div>
+			</div><!-- /.main-content -->
+
+			@common.footer()
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+		@common.bottomjs()
+		
+		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
+		@common.bottomcss()
+		
+<script type="text/javascript">
+
+	$("#toolLi").addClass("active open");
+	$("#businessCardListLi").addClass("active");
+
+	function check(){
+		
+		if($('#contact').val()==""){
+			
+			alert("请输入联系人姓名!");
+			return;
+		}
+		
+		$('#s1').submit();
+	}
+	
+</script>
+
+	</body>
+</html>

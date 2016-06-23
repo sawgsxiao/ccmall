@@ -1,0 +1,550 @@
+<style>
+	#messagealertbox{z-index:999; position: fixed;bottom:5px;right: 5px; height:70px;width:150px;background-color: #f8f8f8; overflow:hidden;}
+	#messagealertbox>div{
+		text-align: center;
+		border: 1px solid #f2f2f2;
+		margin-top: 70px;
+		-webkit-transition: all 1s ease-in;
+		-moz-transition: all 1s ease-in;
+		-o-transition: all 1s ease-in;
+		transition: all 1s ease-in;
+	}
+	#messagealertbox>div.show{
+		margin-top: 10px;
+	}
+	#schedule{
+	height:50px; 
+	width:120px; 
+	margin:20px;
+	float:right;
+	position:fixed;
+	bottom:80px; 
+	right:-10px;
+	z-index:9999;
+	background: white;
+	}
+	#schedule>div{
+	text-align: center;
+	}
+	#scheduleshow{
+	height:auto; 
+	width:600px; 
+	margin:20px;
+	float:none;
+	position:fixed;
+	bottom:150px; 
+	right:-10px;
+	z-index:9999;
+	background: #FFC;
+	}	
+</style>
+<div id="messagealertbox" class="messagealertbox hide">
+	<div><label>您有新的短信!</label><label>请点击<a href="/message">这里</a>查看</label></div>
+</div>
+<div id="schedule" class="schedule hide">
+	<div ><label>系统信息提示!</label><label>请点击<a href="javasript:void(0);" onclick="javasript:findSchedule();@if(session.get("jysp")){findRecord();}">这里</a>查看</label></div>
+</div>
+<div id="scheduleshow" class="scheduleshow hide">
+<div style="float: right;margin-top: 0px;"><label> <a href="javasript:void(0);" onclick="javasript:closeSchedule();"><span style="color: red;">关闭</span></a></label></div>
+<div style="font-size:10;text-align: center;"><label style="display: inline-block;"><span >个人日程提示</span></label></div>
+<table class="table table-bordered table-hover" style="margin-bottom:0px">
+</table>
+<div style="font-size:10;text-align: center;"><label style="display: inline-block;"><span >案卷审批提示</span></label></div>
+<table class="table table-bordered table-hover" style="margin-bottom:0px">
+</table>
+</div>
+<!-- <div id="desktop" class="hide" style="float: right;z-index:9999;">
+	<div ><label>远程桌面</label><label>请点击<a href="javasript:void(0);" onclick="javasript:$('#desktop').addClass('hide');">这里</a>查看</label></div>
+</div> -->
+<div id="navbar" class="navbar navbar-default">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+				//获取信息
+				//getMessageInterval();
+				//getEmailInterval();
+				//setInterval(function(){getMessageInterval();getEmailInterval();}, 5 * 60 * 1000);
+				function getMessageInterval(){
+					$.post("/messageGetCount",{},function(result){
+						if(result=="0"){
+							$(".ace-nav > li.green > a > span").text(0);
+							return;
+						}
+						var res = JSON.parse(result);
+						var targ = $("#messageuserlist");
+						var count = 0;
+						if(targ.lenth == 0){
+							//信息提示
+						}else{
+							var fromuser;
+							var curuser = $("#messagecuruser").attr("userid");
+							for(var i in res){
+								fromuser = res[i]["fromuser"];
+								if(fromuser != curuser){
+									targ.find("li[key="+ fromuser +"]>span").addClass("hasnewmessage").text(res[i]["count"]);
+									count += parseInt(res[i]["count"]);
+								}
+							}
+						}
+						$(".ace-nav > li:nth-child(3) > a > span").text(count);
+						if(count > 0){
+							//alert(1);
+							$("#messagealertbox").removeClass("hide");
+							$("#messagealertbox>div").addClass("show");
+						}
+					});
+				}
+				function getEmailInterval(){
+					$.post("/emailGetCount",{},function(result){
+						$(".ace-nav > li:nth-child(2) > a > span").text(result);
+					});
+				}
+				//setInterval(function(){alert(1)}, 5000);
+				
+				function getScheduleCount(){
+					$.post("/loadMsgCount",{},function(data){
+						var res = JSON.parse(data);
+							if(res.code>0){
+								$("#schedule").removeClass("hide");
+								$("#schedule>div").addClass("show");
+								}
+						});
+					}
+				/*$(function(){
+					getScheduleCount();
+					})*/
+				function findSchedule(){
+					$("#schedule").addClass("hide");
+					$("#schedule>div").removeClass("show");
+					$("#scheduleshow").removeClass("hide");
+					$.post("/loadschedule",{},function(data){
+						if(data=="[]"){
+							$("#scheduleshow div:eq(1)").removeClass("show");
+							$("#scheduleshow div:eq(1)").addClass("hide");
+							return;
+						}
+						var res = JSON.parse(data);
+					$("#scheduleshow table:first").append("<tr><th>开始时间</th>"+"<th>结束时间</th>"+"<th>标题</th>"+"<th width='300px'>内容</th></tr>");
+						for(var i in res){
+							$("#scheduleshow table:first").append("<tr><td>"+new Date(res[i]["begintime"].time).Format("yyyy-MM-dd")+"</td>"+"<td>"+new Date(res[i]["endtime"].time).Format("yyyy-MM-dd")+"</td>"+"<td>"+res[i]["title"]+"</td>"+"<td>"+res[i]["content"]+"</td></tr>");
+							}
+						});
+					$("#scheduleshow div:eq(0)").addClass("show");
+				}
+
+				function findRecord(){
+					$("#schedule").addClass("hide");
+					$("#schedule>div").removeClass("show");
+					$("#scheduleshow").removeClass("hide");
+					$.post("/recordMsgList",{},function(data){
+						var res = JSON.parse(data);
+						console.log(data=="[]");
+						if(data=="[]"){
+							$("#scheduleshow div:eq(2)").removeClass("show");
+							$("#scheduleshow div:eq(2)").addClass("hide");
+							return;
+						}
+					$("#scheduleshow table:eq(1)").append("<tr><th>标题</th>"+"<th>创建时间</th>"+"<th width='300px'>内容</th></tr>");
+						for(var i in res){
+							$("#scheduleshow table:eq(1)").append("<tr><td>"+res[i]["title"]+"</td>"+"<td>"+new Date(res[i]["createtime"].time).Format("yyyy-MM-dd")+"</td>"+"<td>"+res[i]["content"]+"</td></tr>");
+							}
+						});
+					$("#scheduleshow div:eq(2)").addClass("show");
+				}
+				function closeSchedule(){
+					$("#scheduleshow").addClass("hide");
+					$("#scheduleshow>div").removeClass("show");
+					}
+				Date.prototype.Format = function (fmt) { //author: meizz 
+				    var o = {
+				        "M+": this.getMonth() + 1, //月份 
+				        "d+": this.getDate(), //日 
+				        "h+": this.getHours(), //小时 
+				        "m+": this.getMinutes(), //分 
+				        "s+": this.getSeconds(), //秒 
+				        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+				        "S": this.getMilliseconds() //毫秒 
+				    };
+				    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+				    for (var k in o)
+				    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+				    return fmt;
+				}
+			</script>
+			
+			<div class="navbar-container" id="navbar-container">
+				<!-- #section:basics/sidebar.mobile.toggle -->
+				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+					<span class="sr-only">Toggle sidebar</span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+				</button>
+
+				<!-- /section:basics/sidebar.mobile.toggle -->
+				<div class="navbar-header pull-left">
+					<!-- #section:basics/navbar.layout.brand -->
+					<a href="#" class="navbar-brand">
+						<small>
+							<i class="fa fa-leaf"></i>
+							汽车贸易管理平台
+						</small>
+					</a>
+
+					<!-- /section:basics/navbar.layout.brand -->
+
+					<!-- #section:basics/navbar.toggle -->
+
+					<!-- /section:basics/navbar.toggle -->
+				</div>
+
+				<!-- #section:basics/navbar.dropdown -->
+				<div class="navbar-buttons navbar-header pull-right" role="navigation">
+					<ul class="nav ace-nav">
+						<li class="grey">
+							<a href="javascript:void(0);" onclick="javasript:alert('正在搭建中......');">
+								<i class="ace-icon fa fa-tasks"></i>
+<!-- 								<span class="badge badge-grey">4</span> -->
+							</a>
+
+							<!-- 
+<ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+								<li class="dropdown-header">
+									<i class="ace-icon fa fa-check"></i>
+									4 条信息
+								</li>
+
+								<li class="dropdown-content">
+									<ul class="dropdown-menu dropdown-navbar">
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">更新</span>
+													<span class="pull-right">65%</span>
+												</div>
+
+												<div class="progress progress-mini">
+													<div style="width:65%" class="progress-bar"></div>
+												</div>
+											</a>
+										</li>
+
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">更新</span>
+													<span class="pull-right">35%</span>
+												</div>
+
+												<div class="progress progress-mini">
+													<div style="width:35%" class="progress-bar progress-bar-danger"></div>
+												</div>
+											</a>
+										</li>
+
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">更新</span>
+													<span class="pull-right">15%</span>
+												</div>
+
+												<div class="progress progress-mini">
+													<div style="width:15%" class="progress-bar progress-bar-warning"></div>
+												</div>
+											</a>
+										</li>
+
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">更新</span>
+													<span class="pull-right">90%</span>
+												</div>
+
+												<div class="progress progress-mini progress-striped active">
+													<div style="width:90%" class="progress-bar progress-bar-success"></div>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</li>
+
+								<li class="dropdown-footer">
+									<a href="#">
+										详情
+										<i class="ace-icon fa fa-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+ -->
+						</li>
+
+						<li class="purple">
+							<a href="javascript:void(0);" onclick="javasript:alert('正在搭建中......');">
+								<i class="ace-icon fa fa-bell icon-animated-bell"></i>
+								<span class="badge badge-important">0</span>
+							</a>
+<!-- 
+							<ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+								<li class="dropdown-header">
+									<i class="ace-icon fa fa-exclamation-triangle"></i>
+									8 条信息
+								</li>
+
+								<li class="dropdown-content">
+									<ul class="dropdown-menu dropdown-navbar navbar-pink">
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">
+														<i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>
+														信息
+													</span>
+													<span class="pull-right badge badge-info">+12</span>
+												</div>
+											</a>
+										</li>
+
+										<li>
+											<a href="#">
+												<i class="btn btn-xs btn-primary fa fa-user"></i>
+												信息
+											</a>
+										</li>
+
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">
+														<i class="btn btn-xs no-hover btn-success fa fa-shopping-cart"></i>
+														信息
+													</span>
+													<span class="pull-right badge badge-success">+8</span>
+												</div>
+											</a>
+										</li>
+
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">
+														<i class="btn btn-xs no-hover btn-info fa fa-twitter"></i>
+														信息
+													</span>
+													<span class="pull-right badge badge-info">+11</span>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</li>
+
+								<li class="dropdown-footer">
+									<a href="#">
+										信息
+										<i class="ace-icon fa fa-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+ -->
+						</li>
+
+						<li class="green">
+							<a href="javascript:void(0);" onclick="javasript:alert('正在搭建中......');">
+								<i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
+								<span class="badge badge-success">0</span>
+							</a>
+<!-- 
+							<ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+								<li class="dropdown-header">
+									<i class="ace-icon fa fa-envelope-o"></i>
+									5 信息
+								</li>
+
+								<li class="dropdown-content">
+									<ul class="dropdown-menu dropdown-navbar">
+										<li>
+											<a href="#" class="clearfix">
+												<img src="../assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
+												<span class="msg-body">
+													<span class="msg-title">
+														<span class="blue">小王:</span>
+														你好 ...
+													</span>
+
+													<span class="msg-time">
+														<i class="ace-icon fa fa-clock-o"></i>
+														<span>1 分钟</span>
+													</span>
+												</span>
+											</a>
+										</li>
+
+										<li>
+											<a href="#" class="clearfix">
+												<img src="../assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
+												<span class="msg-body">
+													<span class="msg-title">
+														<span class="blue">小李:</span>
+														你好 ...
+													</span>
+
+													<span class="msg-time">
+														<i class="ace-icon fa fa-clock-o"></i>
+														<span>20 分钟</span>
+													</span>
+												</span>
+											</a>
+										</li>
+
+										<li>
+											<a href="#" class="clearfix">
+												<img src="../assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
+												<span class="msg-body">
+													<span class="msg-title">
+														<span class="blue">小黄:</span>
+														你好 ...
+													</span>
+
+													<span class="msg-time">
+														<i class="ace-icon fa fa-clock-o"></i>
+														<span>3:15 </span>
+													</span>
+												</span>
+											</a>
+										</li>
+
+										<li>
+											<a href="#" class="clearfix">
+												<img src="../assets/avatars/avatar2.png" class="msg-photo" alt="Kate's Avatar" />
+												<span class="msg-body">
+													<span class="msg-title">
+														<span class="blue">李:</span>
+														你好 ...
+													</span>
+
+													<span class="msg-time">
+														<i class="ace-icon fa fa-clock-o"></i>
+														<span>1:33 </span>
+													</span>
+												</span>
+											</a>
+										</li>
+
+										<li>
+											<a href="#" class="clearfix">
+												<img src="../assets/avatars/avatar5.png" class="msg-photo" alt="Fred's Avatar" />
+												<span class="msg-body">
+													<span class="msg-title">
+														<span class="blue">峰:</span>
+														你好  ...
+													</span>
+
+													<span class="msg-time">
+														<i class="ace-icon fa fa-clock-o"></i>
+														<span>10:09 </span>
+													</span>
+												</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+
+								<li class="dropdown-footer">
+									<a href="inbox.html">
+										信息
+										<i class="ace-icon fa fa-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+ -->
+						</li>
+						<li class="yellow">
+							<a href="javascript:void(0);" onclick="javasript:alert('正在搭建中......');">
+								<i class="ace-icon fa fa-desktop icon-animated-vertical"></i>
+								<span class="badge badge-success">0</span>
+							</a>
+						</li>
+						<!-- #section:basics/navbar.user_menu -->
+						<li class="light-blue">
+							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+								<img class="nav-user-photo" src="../assets/avatars/user.jpg" alt="" />
+								<span class="user-info">
+									<small>欢迎,</small>
+									@session.get("name")
+								</span>
+
+								<i class="ace-icon fa fa-caret-down"></i>
+							</a>
+
+							<ul id="usermenu" class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+								<li>
+									<a href="javascript:void(0);" onclick="/passwordEdit">
+										<i class="ace-icon fa fa-cog"></i>
+										密码修改
+									</a>
+								</li>
+
+								 
+								<li>
+									<a href="javascript:void(0);" onclick="/userinfoEdit/@session.get("userid")">
+										<i class="ace-icon fa fa-user"></i>
+										个人信息修改
+									</a>
+								</li>
+ 								
+ 								<!-- <li>
+									<a href="/userpassFail/@session.get("userid")">
+										<i class="ace-icon fa fa-user"></i>
+										忘记密码
+									</a>
+								</li> -->
+
+								<li class="divider"></li>
+
+								<li>
+									<a href="/logout">
+										<i class="ace-icon fa fa-power-off"></i>
+										登出
+									</a>
+								</li>
+							</ul>
+						</li>
+
+						<!-- /section:basics/navbar.user_menu -->
+					</ul>
+				</div>
+<!--<script type="text/javascript">
+	$(".user-menu").find("a").click(function(){
+		var result = true;
+		if($("#tabbox ul a[xys='topbtn']").length==0){
+			$("#tabbox ul").append("<li style='cursor: pointer;' id='litopbtn'>快捷栏<a xys='topbtn' onclick='removeLi(this);'>关闭</a></li>");
+			$("#iframeview").append("<iframe id='iframetopbtn' name='topbtn' align='right'></iframe>");
+			$("#iframetopbtn").attr("src",$(this).attr("onclick"));
+			var iframe=$("#iframeview").find("iframe[id='iframetopbtn']");
+			iframeInit(iframe);
+			$("#iframeview").find("iframe[id!='iframetopbtn']").hide();
+			$("#iframeview").find("iframe[id='iframetopbtn']").show();
+			$("#tabbox ul li[id!='litopbtn']").addClass("vistited");
+			$("#tabbox ul li[id='litopbtn']").removeClass("vistited");
+		}if($("#tabbox ul a[xys='topbtn']").length==1){
+			$("#iframetopbtn").attr("src",$(this).attr("onclick"));
+			var iframe=$("#iframeview").find("iframe[id='iframetopbtn']");
+			iframeInit(iframe);
+			$("#iframeview").find("iframe[id!='iframetopbtn']").hide();
+			$("#iframeview").find("iframe[id='iframetopbtn']").show();
+			$("#tabbox ul li[id!='litopbtn']").addClass("vistited");
+			$("#tabbox ul li[id='litopbtn']").removeClass("vistited");
+		}else{
+			result = false;
+		}
+		
+		
+		return result;
+	});
+</script>
+				--><!-- /section:basics/navbar.dropdown -->
+			</div><!-- /.navbar-container -->
+		</div>
