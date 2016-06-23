@@ -344,6 +344,7 @@ public class QCAdvertApplication extends Controller {
 		}
     	
     	resultJson.put("code", "0");
+    	resultJson.put("msg", "查询数据成功!");
     	resultJson.put("result", arrayNode);
     	System.out.println(resultJson);
     	return resultJson;
