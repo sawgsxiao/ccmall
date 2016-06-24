@@ -372,3 +372,10 @@ GET		/eliteBuyCarList           controllers.SimpleOrderApplication.eliteBuyCarLi
 POST	/eliteBuyCarList           controllers.SimpleOrderApplication.eliteBuyCarList()
 GET		/parrallelBuyCarList           controllers.SimpleOrderApplication.parrallelBuyCarList()
 POST	/parrallelBuyCarList           controllers.SimpleOrderApplication.parrallelBuyCarList()
+
+
+
+#新版车款业务
+GET		/appCarStyleBusinessInList           controllers.AppBusinessApplication.appCarStyleBusinessList()
+POST		/appCarStyleBusinessInList           controllers.AppBusinessApplication.appCarStyleBusinessList()
+
