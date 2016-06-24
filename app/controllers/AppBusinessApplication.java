@@ -225,4 +225,20 @@ public class AppBusinessApplication extends Controller {
 		return ok(appcarstylebusinessset.render(carStyle));
 		
     }
+    
+    public static Result appCarStyleBusinessSetDo() {
+		
+		ObjectNode resultJson = Json.newObject();
+		
+		//输入参数
+    	DynamicForm in = Form.form().bindFromRequest();
+    	
+    	String id=in.get("id");
+    	String isloan=in.get("isloan");
+    	
+    	AppCarStyle carStyle= AppCarStyle.findById(Integer.parseInt(id));
+    	carStyle.setIsloan(isloan);
+		return appCarStyleBusinessList();
+		
+    }
 }
