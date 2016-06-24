@@ -238,6 +238,7 @@ public class AppBusinessApplication extends Controller {
     	
     	AppCarStyle carStyle= AppCarStyle.findById(Integer.parseInt(id));
     	carStyle.setIsloan(isloan);
+    	carStyle.save();
 		return appCarStyleBusinessList();
 		
     }
