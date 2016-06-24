@@ -378,5 +378,5 @@ POST	/parrallelBuyCarList           controllers.SimpleOrderApplication.parrallel
 #新版车款业务
 GET		/appCarStyleBusinessInList           controllers.AppBusinessApplication.appCarStyleBusinessList()
 POST		/appCarStyleBusinessInList           controllers.AppBusinessApplication.appCarStyleBusinessList()
-GET		/appCarStyleBusinessSet           controllers.AppBusinessApplication.appCarStyleBusinessSet(id:Integer)
+GET		/appCarStyleBusinessSet/:id           controllers.AppBusinessApplication.appCarStyleBusinessSet(id:Integer)
 
