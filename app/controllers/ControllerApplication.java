@@ -203,7 +203,13 @@ public class ControllerApplication extends Controller {
 			String username =data.get("username");
 			String token =data.get("token");
 			resultJson=QCAdvertApplication.advert(data);
-		}else{
+		}else if(cmd.equals(ControllerType.cityList)){
+			String username =data.get("username");
+			String token =data.get("token");
+			resultJson=AppJsonApplication.cityList(data);
+		}
+		
+		else{
 			resultJson.put("code", "6");
 			resultJson.put("msg", "没有此请求");
 		}

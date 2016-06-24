@@ -57,4 +57,6 @@ public class ControllerType {
 	
 	public static final String qcAdvert="qcadvert";
 	
+	public static final String cityList="citylist";
+	
 }
