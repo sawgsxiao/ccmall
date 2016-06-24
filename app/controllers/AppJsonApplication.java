@@ -30,7 +30,7 @@ public class AppJsonApplication extends Controller {
     	for (City city : list) {
     		ObjectNode node=Json.newObject();
     		node.put("name", city.getFullname());
-    		node.put("name", city.getNetid());
+    		node.put("netid", city.getNetid());
     		arrayNode.add(node);
 		}
     	returnJson.put("list", arrayNode);
