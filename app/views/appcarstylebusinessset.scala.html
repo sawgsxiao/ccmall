@@ -132,7 +132,7 @@
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">产品品牌 </label>
 										
 										<div class="col-sm-6">
-											<input type="text" id="carname" placeholder="汽车车型" name="carname" class="col-xs-15" value="@product.getAppCar().getCarname()"/>
+											<input type="text" id="carname" placeholder="产品品牌" name="carname" class="col-xs-15" value="@product.getAppCar().getAssortname()"/>
 										</div>
 									</div>
 									<div class="form-group">
@@ -147,10 +147,25 @@
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">产品价格 </label>
 										
 										<div class="col-sm-6">
-											<input type="text" id="pricerange" placeholder="产品价格" name="pricerange" class="col-xs-15" value="@product.getPrice()"/>
+											<input type="text" id="pricerange" placeholder="产品价格" name="pricerange" class="col-xs-15" value="@product.getPrice()万"/>
 										</div>
 									</div>
-									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">贷款购车 </label>
+										
+										<div class="col-sm-6">
+									<li>
+			                        <label>
+			                        <input type="radio" name="type" id="type" class="class_aps" value="1"  @if(product.getIsloan()=="1"){checked}>
+			                                                                激活
+			                        </label>
+			                         <label>
+			                        <input type="radio" name="type" id="type" class="class_aps" value="0"  @if(product.getIsloan()!="1"){checked}>
+			                                                                取消
+			                        </label> 
+			                        </li>
+									</div>
+									</div>
 								</form>
 								<iframe id="uploadframe" name="uploadframe" style="visibility:hidden"></iframe>
 								<!--dom结构部分-->
