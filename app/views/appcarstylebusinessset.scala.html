@@ -173,7 +173,7 @@
 		
 		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
 		@common.bottomcss()
-<script type="text/javascript">
+<script type="text/javascript"><!--
 
 
 		
@@ -194,28 +194,7 @@
 				else title.text($title);
 			}
 		}));
-
-		@if(product.getColorlist()!=null && !product.getColorlist().equals("")){
-			var colorlist="@product.getColorlist()";
-			var colors=[];
-			if(colorlist.indexOf(",") != -1){
-				colors=colorlist.split(",");
-			}else{
-				colors.push(colorlist);
-			}
-			for ( var i = 0; i < colors.length; i++) {
-				if(i==0){
-					$("#crul").append("<li><input style='background-color:"+colors[i]+"' type='text' class='colorul' placeholder='汽车颜色' name='color' class='col-xs-15' size='10' value='"+colors[i]+"'/></li>");
-				}else{
-					$("#crul").append("<li><input style='background-color:"+colors[i]+"' type='text' class='colorul' placeholder='汽车颜色' name='color' class='col-xs-15' size='10' value='"+colors[i]+"'/><i style='cursor: pointer;color: green;' class='fa fa-minus-circle' onclick='removeColorBox(this)'></i></li>");
-				}
-			}
-			$(".colorul").colorpicker();
-			$('.colorul').colorpicker().on('changeColor', function(ev){
-				$(this).css("backgroundColor",ev.color.toHex());
-			});
-		  }
-		                
+           
 	});
 
 	function setDetailId(id){
@@ -260,27 +239,16 @@
 			});
 }
 
-	function addColorBox(act){
-		$("#crul").append("<li><input type='text' class='colorul' placeholder='汽车颜色' name='color' class='col-xs-15' size='10'/><i style='cursor: pointer;color: green;' class='fa fa-minus-circle' onclick='removeColorBox(this)'></i></li>");
-		$(".colorul").colorpicker();
-		$('.colorul').colorpicker().on('changeColor', function(ev){
-			$(this).css("backgroundColor",ev.color.toHex());
-		});
-	}
-	function removeColorBox(act){
-		$(act).parent().remove();
-	}
-
 	function check(){
 		var color="";
-		$(".colorul").each(function(i,har){
+		/*$(".colorul").each(function(i,har){
 			if($(har).val()!=""){
 				color+=$(har).val()+",";
 			}
 		})
 		color=color.substring(0,color.length-1);
 		$("#colorlist").val(color);
-
+		*/
 		/*var reg=/(^\d+$)|(^\d+(.\d{1,2})?$)/;
 		
 		var price=$("#pricerange").val();
