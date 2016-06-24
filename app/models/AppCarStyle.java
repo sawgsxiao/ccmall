@@ -51,6 +51,7 @@ public class AppCarStyle extends Model{
     private String parrallel;
     private String yuean;
     private String rent;
+    private String isloan;
     
     @OneToOne( cascade = CascadeType.ALL)
     @JoinColumn(name="hotcarid")
@@ -226,6 +227,14 @@ public class AppCarStyle extends Model{
 
 	public void setRent(String rent) {
 		this.rent = rent;
+	}
+
+	public String getIsloan() {
+		return isloan;
+	}
+
+	public void setIsloan(String isloan) {
+		this.isloan = isloan;
 	}
 	
 }

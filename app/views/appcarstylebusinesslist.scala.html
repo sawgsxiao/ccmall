@@ -87,6 +87,7 @@
 													<th>车款名称</th>
 													<th class="hidden-480" style="max-width: 200px;vertical-align:middle;">车款价格</th>
 													<th>上架/下架</th>
+													<th>(是否)贷款购车</th>
 													<th>操作</th>
 												</tr>
 											</thead>
@@ -123,6 +124,9 @@
 													</td>
 													<td class="hidden-480" style="vertical-align:middle;">
 														@if(obj.getAppCar().getStand()==1){下架}else{上架}
+													</td>
+													<td class="hidden-480" style="vertical-align:middle;">
+														@if(obj.getIsloan=="1"){已激活}else{未激活}
 													</td>
 													<td style="line-height: 100px">
 														<div class="hidden-sm hidden-xs btn-group">
