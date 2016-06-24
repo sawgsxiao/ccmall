@@ -128,34 +128,8 @@
 														<div class="hidden-sm hidden-xs btn-group">
 															<button class="btn btn-xs btn-info" onclick="javascript:setDetailId('@obj.getAppCar().getId()')">
 																<i class="ace-icon fa fa-book bigger-120"></i>
-																详细
+																设置业务
 															</button>
-															@if(obj.getAppCar().getStand()==1){
-																@if(obj.getRent()!="1"){
-																<button class="btn btn-xs btn-danger" onclick="javascript:setRentId('@obj.getId()',this)">
-																	<i class="ace-icon fa fa-desktop bigger-120"></i>
-																	设置代购
-																</button>
-																}
-																@if(obj.getRent()=="1"){
-																<button class="btn btn-xs btn-danger" onclick="javascript:setRentId('@obj.getId()',this)">
-																	<i class="ace-icon fa fa-remove bigger-120"></i>
-																	取消代购
-																</button>
-																}
-																@if(obj.getYuean()!="1"){
-																<button class="btn btn-xs btn-pink" onclick="javascript:setYueanId('@obj.getId()',this)">
-																	<i class="ace-icon fa fa-map-marker bigger-120"></i>
-																	设置新能
-																</button>
-																}
-																@if(obj.getYuean()=="1"){
-																<button class="btn btn-xs btn-pink" onclick="javascript:setYueanId('@obj.getId()',this)">
-																	<i class="ace-icon fa fa-remove bigger-120"></i>
-																	取消新能
-																</button>
-																}
-															}
 														</div>
 													</td>
 												</tr>
@@ -163,7 +137,7 @@
 											</tbody>
 										</table>
 										
-										 <form id="f2" action="/appCarStyleBusinessList" method="post">
+										 <form id="f2" action="/appCarStyleBusinessInList" method="post">
 											<input type="hidden" id="page2" name="pageNow" value="">
     
     										@common.page(count,pageNow,pageCount,pageSize)
