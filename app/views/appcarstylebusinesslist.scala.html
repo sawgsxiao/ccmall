@@ -130,7 +130,7 @@
 													</td>
 													<td style="line-height: 100px">
 														<div class="hidden-sm hidden-xs btn-group">
-															<button class="btn btn-xs btn-info" onclick="javascript:setDetailId('@obj.getAppCar().getId()')">
+															<button class="btn btn-xs btn-info" onclick="javascript:setBusinessId('@obj.getId()')">
 																<i class="ace-icon fa fa-book bigger-120"></i>
 																设置业务
 															</button>
@@ -247,6 +247,11 @@
 	function setDetailId(id){
 		window.location.href='/@{ativityMenu}Detailed/'+id;
 	}
+
+	function setBusinessId(id){
+		window.location.href='/@{ativityMenu}Set/'+id;
+	}
+	
 	function setEditId(id){
 	
 		window.location.href='/@{ativityMenu}Edit/'+id;
