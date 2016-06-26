@@ -188,8 +188,8 @@ public class LocalHttpClient {
 		params.put("code", "B005");*/
 		
 //		params.put("cmd", "rentdetail");
-		params.put("cmd", "qcadvert");
-		params.put("qtype", "0");
+		params.put("cmd", "carstyle");
+		params.put("uuid","7318b1925e5245559ababa02c518dfe0");
 		/*params.put("plans", "SEATEL_INCREASING_AMOUNT,Voice_20_Post,defualtSms");
 		params.put("immediate", "2");
 		params.put("phone", "0189404730");

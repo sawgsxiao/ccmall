@@ -59,4 +59,6 @@ public class ControllerType {
 	
 	public static final String cityList="citylist";
 	
+	public static final String qcBuyCar="qcbuycar";
+	
 }
