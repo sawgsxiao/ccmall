@@ -61,4 +61,6 @@ public class ControllerType {
 	
 	public static final String qcBuyCar="qcbuycar";
 	
+	public static final String qcCarStyle="qccarstyle";
+	
 }

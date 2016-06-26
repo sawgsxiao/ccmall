@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import models.AppCarStyle;
 import models.AppQCBuyCar;
 import models.City;
 
@@ -86,6 +87,36 @@ public class AppJsonApplication extends Controller {
     	buyCar.save();
     	returnJson.put("code", "0");
 		returnJson.put("msg", "提交数据成功");
+        return returnJson;
+    }
+    
+    
+    public static ObjectNode carStyle(Map<String, String> data) {
+    	ObjectMapper listMapper = new ObjectMapper(); 
+    	ObjectNode returnJson=Json.newObject();
+    	
+    	String target=data.get("target");
+    	List<AppCarStyle> list= AppCarStyle.findAllList(target);
+    	if(list.size()==0){
+    		returnJson.put("code", "5");
+    		returnJson.put("msg", "无数据");
+    		return returnJson;
+    	}
+    	ArrayNode arrayNode=listMapper.createArrayNode();
+    	for (AppCarStyle car : list) {
+    		ObjectNode node=Json.newObject();
+			node.put("uuid", car.getUuid());
+			node.put("name", car.getStylename());
+			node.put("desc", car.getRemark());
+			node.put("price", car.getPrice());
+			if(car.getAppCar().getImages().size()>0){
+				node.put("image", Play.application().configuration().getString("ippath")+Play.application().configuration().getString("outpath")+"/"+car.getAppCar().getImages().get(0).getUrl());
+			}
+			arrayNode.add(node);
+		}
+    	returnJson.put("list", arrayNode);
+    	returnJson.put("code", "0");
+		returnJson.put("msg", "查询数据成功");
         return returnJson;
     }
 

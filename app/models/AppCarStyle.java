@@ -93,16 +93,16 @@ public class AppCarStyle extends Model{
         return find.where().findList();
     }
     
-    public static List<AppCarStyle> findAllList(String carid,String target,String istype) {
-    	ExpressionList<AppCarStyle> f= find.where().eq("carid", carid);
-    	if(target.equals("isloan")){
+    public static List<AppCarStyle> findAllList(String target) {
+    	ExpressionList<AppCarStyle> f= null;
+    	if(target.equals("all")){
     		
-    	}else if(target.equals("isloan")){
-    		
-    	}else if(target.equals("isloan")){
-    		
-    	}else if(target.equals("isloan")){
-    		
+    	}else if(target.equals("isefficient")){
+    		f=find.where().eq("isefficient", "1");
+    	}else if(target.equals("isflash")){
+    		f=find.where().eq("isflash", "1");
+    	}else if(target.equals("iselite")){
+    		f=find.where().eq("iselite", "1");
     	}
         return f.findList();
     }
