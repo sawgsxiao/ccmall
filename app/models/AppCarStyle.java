@@ -92,6 +92,21 @@ public class AppCarStyle extends Model{
     public static List<AppCarStyle> findAllList() {
         return find.where().findList();
     }
+    
+    public static List<AppCarStyle> findAllList(String carid,String target,String istype) {
+    	ExpressionList<AppCarStyle> f= find.where().eq("carid", carid);
+    	if(target.equals("isloan")){
+    		
+    	}else if(target.equals("isloan")){
+    		
+    	}else if(target.equals("isloan")){
+    		
+    	}else if(target.equals("isloan")){
+    		
+    	}
+        return f.findList();
+    }
+    
     public static AppCarStyle findByStyleName(String stylename,String carid) {
         return find.where().eq("stylename", stylename).eq("carid", carid).findUnique();
     }
