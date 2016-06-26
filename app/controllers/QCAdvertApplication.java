@@ -76,7 +76,7 @@ public class QCAdvertApplication extends Controller {
 //		File dir=new File("../apache-tomcat-8.0.30/webapps/images");
 		String date=new SimpleDateFormat("yyyyMMdd").format(new Date());
 		File dir=new File(uploadimage+"/"+date+"/");
-		System.out.println("!dir.exists():"+!dir.exists());
+		System.out.println("!dir.exists():"+dir.getPath());
 		if(!dir.exists()){
 			System.out.println(dir.mkdirs());
 			System.out.println(dir.getPath());
