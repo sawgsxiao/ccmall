@@ -1,8 +1,10 @@
 package controllers;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import models.AppQCBuyCar;
 import models.City;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,8 +41,52 @@ public class AppJsonApplication extends Controller {
         return returnJson;
     }
     
-    public static Result test() {
-        return ok(test.render());
+    /*private String name;
+    private String phone;
+    private String pertype;
+    private String payterm;
+    private Date createtime;
+    private String firstpay;
+    private String monthpay;
+    private String fullpay;
+    private String cityid;
+    private String carstyleid;
+    private String barepay;
+    private String possiblepay;*/
+    
+    public static ObjectNode buyCar(Map<String, String> data) {
+    	ObjectMapper listMapper = new ObjectMapper(); 
+    	ObjectNode returnJson=Json.newObject();
+    	
+    	String name=data.get("name");
+    	String phone=data.get("phone");
+    	String pertype=data.get("pertype");
+    	String payterm=data.get("payterm");
+    	String firstpay=data.get("firstpay");
+    	String monthpay=data.get("monthpay");
+    	String fullpay=data.get("fullpay");
+    	String cityid=data.get("cityid");
+    	String carstyleid=data.get("uuid");
+    	String barepay=data.get("barepay");
+    	String possiblepay=data.get("possiblepay");
+
+    	AppQCBuyCar buyCar=new AppQCBuyCar();
+    	buyCar.setBarepay(barepay);
+    	buyCar.setCarstyleid(carstyleid);
+    	buyCar.setCityid(cityid);
+    	buyCar.setCreatetime(new Date());
+    	buyCar.setFirstpay(firstpay);
+    	buyCar.setFullpay(fullpay);
+    	buyCar.setMonthpay(monthpay);
+    	buyCar.setName(name);
+    	buyCar.setPayterm(payterm);
+    	buyCar.setPertype(pertype);
+    	buyCar.setPhone(phone);
+    	buyCar.setPossiblepay(possiblepay);
+    	buyCar.save();
+    	returnJson.put("code", "0");
+		returnJson.put("msg", "提交数据成功");
+        return returnJson;
     }
 
 }

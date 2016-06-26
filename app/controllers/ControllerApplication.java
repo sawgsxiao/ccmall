@@ -210,7 +210,7 @@ public class ControllerApplication extends Controller {
 		}else if(cmd.equals(ControllerType.qcBuyCar)){
 			String username =data.get("username");
 			String token =data.get("token");
-			resultJson=AppJsonApplication.cityList(data);
+			resultJson=AppJsonApplication.buyCar(data);
 		}
 		
 		else{
