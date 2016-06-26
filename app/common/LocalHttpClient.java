@@ -211,6 +211,7 @@ public class LocalHttpClient {
 		params.put("barepay","30");
 		params.put("possiblepay","20");
 		params.put("name","xiao");
+		params.put("uuid","583e2d13c6a847609b92cf390de70b38");
 		/*params.put("plans", "SEATEL_INCREASING_AMOUNT,Voice_20_Post,defualtSms");
 		params.put("immediate", "2");
 		params.put("phone", "0189404730");
