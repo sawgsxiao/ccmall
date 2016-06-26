@@ -31,7 +31,7 @@ import javax.persistence.*;
 import models.*;
 
 @Entity
-@Table(name="cc_qcbuycar")
+@Table(name="cc_qcbuy")
 public class AppQCBuyCar extends Model{
 
     @Id

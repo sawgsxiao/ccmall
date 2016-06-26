@@ -187,9 +187,30 @@ public class LocalHttpClient {
 		/*params.put("cmd", "queryCars");
 		params.put("code", "B005");*/
 		
+		/*String name=data.get("name");
+    	String phone=data.get("phone");
+    	String pertype=data.get("pertype");
+    	String payterm=data.get("payterm");
+    	String firstpay=data.get("firstpay");
+    	String monthpay=data.get("monthpay");
+    	String fullpay=data.get("fullpay");
+    	String cityid=data.get("cityid");
+    	String carstyleid=data.get("uuid");
+    	String barepay=data.get("barepay");
+    	String possiblepay=data.get("possiblepay");*/
+		
 //		params.put("cmd", "rentdetail");
-		params.put("cmd", "carstyle");
-		params.put("uuid","7318b1925e5245559ababa02c518dfe0");
+		params.put("cmd", "qcbuycar");
+		params.put("phone","1580020202");
+		params.put("pertype","20%");
+		params.put("payterm","2年");
+		params.put("firstpay","5");
+		params.put("monthpay","1");
+		params.put("fullpay","40");
+		params.put("cityid","10");
+		params.put("barepay","30");
+		params.put("possiblepay","20");
+		params.put("name","xiao");
 		/*params.put("plans", "SEATEL_INCREASING_AMOUNT,Voice_20_Post,defualtSms");
 		params.put("immediate", "2");
 		params.put("phone", "0189404730");
