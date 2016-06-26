@@ -62,7 +62,7 @@ public class QCAdvert extends Model{
     }
     
     public static List<QCAdvert> findListByType(String type) {
-        return find.where().eq("type", type).orderBy("createtime").findList();
+        return find.where().eq("type", type).orderBy("createtime desc").findList();
     }
     
     // Getter and Setter removed for brevity
