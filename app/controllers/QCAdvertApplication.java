@@ -78,7 +78,8 @@ public class QCAdvertApplication extends Controller {
 		File dir=new File(uploadimage+"/"+date+"/");
 		System.out.println("!dir.exists():"+!dir.exists());
 		if(!dir.exists()){
-			dir.mkdirs();
+			System.out.println(dir.mkdirs());
+			System.out.println(dir.getPath());
 		}
 		
 		FileOutputStream os;
