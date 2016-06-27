@@ -242,6 +242,8 @@ public class AppBusinessApplication extends Controller {
     	String endtime=in.get("endtime");
     	String flashamount=in.get("flashamount");
     	String operate=in.get("operate");
+    	String sale=in.get("sale");
+    	
     	AppCarStyle carStyle= AppCarStyle.findById(Integer.parseInt(id));
     	if(isflash.equals("1")/*&&Integer.parseInt(operate)>0*/){
     		MultipartFormData body = request().body().asMultipartFormData();
@@ -280,6 +282,7 @@ public class AppBusinessApplication extends Controller {
     	carStyle.setIsefficient(isefficient);
     	carStyle.setIsflash(isflash);
     	carStyle.setIselite(iselite);
+    	carStyle.setSale(sale);
     	carStyle.save();
 		return appCarStyleBusinessList();
 		

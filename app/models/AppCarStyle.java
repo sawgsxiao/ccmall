@@ -61,6 +61,8 @@ public class AppCarStyle extends Model{
     private String starttime;
     private String endtime;
     
+    private String sale;
+    
     @OneToOne( cascade = CascadeType.ALL)
     @JoinColumn(name="hotcarid")
     private AppHotCar hotCar;
@@ -314,6 +316,14 @@ public class AppCarStyle extends Model{
 
 	public void setEndtime(String endtime) {
 		this.endtime = endtime;
+	}
+
+	public String getSale() {
+		return sale;
+	}
+
+	public void setSale(String sale) {
+		this.sale = sale;
 	}
 	
 	
