@@ -103,17 +103,30 @@ public class AppJsonApplication extends Controller {
     		return returnJson;
     	}
     	ArrayNode arrayNode=listMapper.createArrayNode();
-    	for (AppCarStyle car : list) {
-    		ObjectNode node=Json.newObject();
-			node.put("uuid", car.getUuid());
-			node.put("name", car.getStylename());
-			node.put("desc", car.getRemark());
-			node.put("price", car.getPrice());
-			if(car.getAppCar().getImages().size()>0){
-				node.put("image", Play.application().configuration().getString("ippath")+Play.application().configuration().getString("outpath")+"/"+car.getAppCar().getImages().get(0).getUrl());
-			}
-			arrayNode.add(node);
-		}
+    	if(target.equals("flash")){
+    		for (AppCarStyle car : list) {
+        		ObjectNode node=Json.newObject();
+    			node.put("actime", car.getStarttime()+"-"+car.getEndtime());
+    			if(car.getAppCar().getImages().size()>0){
+    				node.put("image", Play.application().configuration().getString("ippath")+Play.application().configuration().getString("outpath")+"/"+car.getFlashimg());
+    			}
+    			arrayNode.add(node);
+    		}
+    	}else{
+    		for (AppCarStyle car : list) {
+        		ObjectNode node=Json.newObject();
+    			node.put("uuid", car.getUuid());
+    			node.put("name", car.getStylename());
+    			node.put("desc", car.getRemark());
+    			node.put("price", car.getPrice());
+    			node.put("sale", car.getSale());
+    			if(car.getAppCar().getImages().size()>0){
+    				node.put("image", Play.application().configuration().getString("ippath")+Play.application().configuration().getString("outpath")+"/"+car.getAppCar().getImages().get(0).getUrl());
+    			}
+    			arrayNode.add(node);
+    		}
+    	}
+    	
     	returnJson.put("list", arrayNode);
     	returnJson.put("code", "0");
 		returnJson.put("msg", "查询数据成功");
