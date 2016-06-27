@@ -94,7 +94,7 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-12">
-								<form class="form-horizontal" role="form" name="s1" id="s1" action="/appCarStyleBusinessSetDo" method="post" >
+								<form class="form-horizontal" role="form" name="s1" id="s1" action="/appCarStyleBusinessSetDo" method="post" enctype="multipart/form-data" >
 									<div class="form-group" >
 									<label class="col-sm-3 control-label no-padding-right" for="form-field-1">上传图片 </label>
 										<div class="col-sm-4">
@@ -332,7 +332,7 @@
 		}else{ 
    			input.addEventListener('change',readFile,false); 
 		}
-		$(".datepicker").datepicker({format:'yyyy-dd-mm'});
+		$(".datepicker").datepicker({format:'yyyy-mm-dd'});
 	});
 
 
