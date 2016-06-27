@@ -124,6 +124,7 @@
 									<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">汽车车型 </label>
 										<input type="text" name="id" style="display: none;" value="@product.getId()">
+										<input type="text" name="operate" id="operate" style="display: none;" value="0">
 										<div class="col-sm-6">
 											<input type="text" id="carname" placeholder="汽车车型" name="carname" class="col-xs-15" value="@product.getAppCar().getCarname()"/>
 										</div>
@@ -215,7 +216,7 @@
 									<div class="form-group dataview" >
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">闪购时间 </label>
 										<div class="col-sm-6">
-										<input class="datepicker" name="flashamount" id="flashamount" type="text">-<input class="datepicker" name="flashamount" id="flashamount" type="text">
+										<input class="datepicker" name="starttime" id="starttime" type="text">-<input class="datepicker" name="endtime" id="endtime" type="text">
 									</div>
 									</div>
 									<div class="form-group">
@@ -266,7 +267,7 @@
 		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
 		@common.bottomcss()
 <script type="text/javascript"><!--
-
+	var instence=0;
 	function readFile(){ 
 		var files=this.files;
 			var file = this.files[0]; 
@@ -307,6 +308,11 @@
 				$(".dataview").hide();
 			}
 		});
+
+	$("#flashimg|#starttime|#endtime|#flashamount").change(function(){
+		instence++;
+		$("#operate").val(instence);
+		})
 	
 	function setPage(page){
 		$('#page2').val(page);

@@ -241,8 +241,9 @@ public class AppBusinessApplication extends Controller {
     	String starttime=in.get("starttime");
     	String endtime=in.get("endtime");
     	String flashamount=in.get("flashamount");
+    	String operate=in.get("operate");
     	AppCarStyle carStyle= AppCarStyle.findById(Integer.parseInt(id));
-    	if(isflash.equals("1")){
+    	if(isflash.equals("1")&&Integer.parseInt(operate)>0){
     		MultipartFormData body = request().body().asMultipartFormData();
     		List<FilePart> fileParts= body.getFiles();
     		String uploadimage=Play.application().configuration().getString("imageserver");
@@ -266,7 +267,7 @@ public class AppBusinessApplication extends Controller {
 				os.flush();
 				os.close();
 				is.close();
-				carStyle.setFlashimg(savefile.getPath());
+				carStyle.setFlashimg(savefile.getPath().replace(uploadimage, ""));
 				carStyle.setEndtime(starttime);
 				carStyle.setEndtime(endtime);
 				carStyle.setFlashamount(flashamount);
