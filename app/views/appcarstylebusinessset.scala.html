@@ -271,7 +271,9 @@
 	function readFile(){ 
 		var files=this.files;
 			var file = this.files[0]; 
-		console.log(files);
+			instence++;
+			$("#operate").val(instence);
+			
 		if(!/image\/\w+/.test(file.type)){ 
 	    	alert("文件必须为图片！"); 
 	    	return false; 
@@ -309,9 +311,10 @@
 			}
 		});
 
-	$("#flashimg|#starttime|#endtime|#flashamount").change(function(){
+	$("#starttime|#endtime|#flashamount").change(function(){
 		instence++;
 		$("#operate").val(instence);
+		alert(instence);
 		})
 	
 	function setPage(page){
