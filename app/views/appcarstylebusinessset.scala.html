@@ -291,13 +291,12 @@
 	$("#ativityMenu").addClass("active");
 
 	$("input[name='isflash']").click(function(){
-		$("input[name='isflash']").each(function(i,e){
+		$("input[name='isflash']:checked").each(function(i,e){
 			console.log($(e).prop('checked'));
 			console.log($(e).val()=='1');
 			console.log($(e).val()=='1'&&$(e).checked==true);
 			if($(e).val()=='1'&&$(e).checked==true){
 				$(".dataview").show();
-				break;
 			}else{
 				$(".dataview").hide();
 			}
