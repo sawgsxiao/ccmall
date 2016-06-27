@@ -121,6 +121,10 @@ public class AppCarStyle extends Model{
         return find.where().eq("stylename", stylename).eq("carid", carid).findUnique();
     }
     
+    
+    public static AppCarStyle findByStyleUuid(String uuid) {
+        return find.where().eq("uuid", uuid).findUnique();
+    }
     // Getter and Setter removed for brevity
     public int getId() {
   		return id;

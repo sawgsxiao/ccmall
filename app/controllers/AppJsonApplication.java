@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import models.AppCarImage;
 import models.AppCarStyle;
 import models.AppQCBuyCar;
 import models.City;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import play.*;
 import play.libs.Json;
 import play.mvc.*;
+
 
 import views.html.*;
 
@@ -134,4 +136,55 @@ public class AppJsonApplication extends Controller {
         return returnJson;
     }
 
+    public static ObjectNode carStyleDetail(Map<String, String> data) {
+    	ObjectMapper listMapper = new ObjectMapper(); 
+    	ObjectNode returnJson=Json.newObject();
+    	ObjectNode carNode=Json.newObject();
+    	String uuid=data.get("uuid");
+    	AppCarStyle car= AppCarStyle.findByStyleUuid(uuid);
+    	if(car==null){
+    		returnJson.put("code", "5");
+    		returnJson.put("msg", "无数据");
+    		return returnJson;
+    	}
+    	ArrayNode colorlist=listMapper.createArrayNode();
+    	ArrayNode imagelist=listMapper.createArrayNode();
+    	String colors=car.getAppCar().getColorlist();
+    	if(colors!=null&&!colors.equals("")){
+    		if(colors.contains(",")){
+    			String[] cls=colors.split(",");
+    			for (int i = 0; i < cls.length; i++) {
+    				ObjectNode node=Json.newObject();
+    				node.put("color", cls[i]);
+    				colorlist.add(node);
+				}
+    		}else{
+    			ObjectNode node=Json.newObject();
+				node.put("color", colors);
+				colorlist.add(node);
+    		}
+    		carNode.put("colorlist", colorlist);
+    	}else{
+    		carNode.put("colorlist", colorlist);
+    	}
+    	
+    	carNode.put("uuid", car.getUuid());
+    	carNode.put("name", car.getStylename());
+    	carNode.put("desc", car.getRemark());
+    	carNode.put("price", car.getPrice());
+    	carNode.put("sale", car.getSale());
+    	if(car.getAppCar().getImages().size()>0){
+    		for (int i = 0; i < car.getAppCar().getImages().size(); i++) {
+    			AppCarImage carImage= car.getAppCar().getImages().get(i);
+    			ObjectNode node=Json.newObject();
+    			node.put("image", Play.application().configuration().getString("ippath")+Play.application().configuration().getString("outpath")+"/"+car.getAppCar().getImages().get(i).getUrl());
+    			imagelist.add(node);
+			}
+		}
+    	carNode.put("imagelist", imagelist);
+    	returnJson.put("result", carNode);
+    	returnJson.put("code", "0");
+		returnJson.put("msg", "查询数据成功");
+        return returnJson;
+    }
 }

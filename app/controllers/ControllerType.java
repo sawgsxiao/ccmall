@@ -63,4 +63,6 @@ public class ControllerType {
 	
 	public static final String qcCarStyle="qccarstyle";
 	
+	public static final String qcCarStyleDetail="carstyledetail";
+	
 }

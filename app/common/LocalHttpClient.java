@@ -201,7 +201,7 @@ public class LocalHttpClient {
 		
 //		params.put("cmd", "rentdetail");
 		params.put("cmd", "qccarstyle");
-		params.put("target", "isflash");
+		params.put("target", "iselite");
 		/*params.put("phone","1580020202");
 		params.put("pertype","20%");
 		params.put("payterm","2年");

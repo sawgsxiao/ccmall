@@ -215,6 +215,10 @@ public class ControllerApplication extends Controller {
 			String username =data.get("username");
 			String token =data.get("token");
 			resultJson=AppJsonApplication.carStyle(data);
+		}else if(cmd.equals(ControllerType.qcCarStyleDetail)){
+			String username =data.get("username");
+			String token =data.get("token");
+			resultJson=AppJsonApplication.carStyleDetail(data);
 		}
 		
 		else{
