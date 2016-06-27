@@ -52,6 +52,9 @@ public class AppCarStyle extends Model{
     private String yuean;
     private String rent;
     private String isloan;
+    private String isefficient;
+    private String isflash;
+    private String iselite;
     private String flashimg;
     private String flashamount;
     
@@ -268,6 +271,30 @@ public class AppCarStyle extends Model{
 
 	public void setFlashamount(String flashamount) {
 		this.flashamount = flashamount;
+	}
+
+	public String getIsefficient() {
+		return isefficient;
+	}
+
+	public void setIsefficient(String isefficient) {
+		this.isefficient = isefficient;
+	}
+
+	public String getIsflash() {
+		return isflash;
+	}
+
+	public void setIsflash(String isflash) {
+		this.isflash = isflash;
+	}
+
+	public String getIselite() {
+		return iselite;
+	}
+
+	public void setIselite(String iselite) {
+		this.iselite = iselite;
 	}
 	
 }
