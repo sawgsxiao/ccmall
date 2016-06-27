@@ -106,6 +106,7 @@ public class AppJsonApplication extends Controller {
     	if(target.equals("isflash")){
     		for (AppCarStyle car : list) {
         		ObjectNode node=Json.newObject();
+        		node.put("uuid", car.getUuid());
     			node.put("actime", car.getStarttime()+"-"+car.getEndtime());
     			if(car.getAppCar().getImages().size()>0){
     				node.put("image", Play.application().configuration().getString("ippath")+Play.application().configuration().getString("outpath")+"/"+car.getFlashimg());
