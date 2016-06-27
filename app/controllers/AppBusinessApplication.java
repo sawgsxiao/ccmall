@@ -235,9 +235,50 @@ public class AppBusinessApplication extends Controller {
     	
     	String id=in.get("id");
     	String isloan=in.get("isloan");
-    	
+    	String isefficient=in.get("isefficient");
+    	String iselite=in.get("iselite");
+    	String isflash=in.get("isflash");
+    	String starttime=in.get("starttime");
+    	String endtime=in.get("endtime");
+    	String flashamount=in.get("flashamount");
     	AppCarStyle carStyle= AppCarStyle.findById(Integer.parseInt(id));
-    	carStyle.setIsloan(isloan);
+    	if(isflash.equals("1")){
+    		MultipartFormData body = request().body().asMultipartFormData();
+    		List<FilePart> fileParts= body.getFiles();
+    		String uploadimage=Play.application().configuration().getString("imageserver");
+    		FilePart f= fileParts.get(0);
+    		String dir=uploadimage+"/"+new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"/";
+    		try {
+    			File fdir=new File(dir);
+    			if(!fdir.exists()){
+    				fdir.mkdirs();
+    			}
+				File getFile=f.getFile().getCanonicalFile();
+				File savefile=new File(dir, f.getFilename());
+				FileOutputStream os=new FileOutputStream(savefile);
+				FileInputStream is=new FileInputStream(getFile);
+				byte[] b=new byte[1024];
+				int len;
+				while((len=is.read(b))>0){
+					os.write(b);
+				}
+				os.write(b);
+				os.flush();
+				os.close();
+				is.close();
+				carStyle.setFlashimg(savefile.getPath());
+				carStyle.setEndtime(starttime);
+				carStyle.setEndtime(endtime);
+				carStyle.setFlashamount(flashamount);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	
+    	carStyle.setIsefficient(isefficient);
+    	carStyle.setIsflash(isflash);
+    	carStyle.setIselite(iselite);
     	carStyle.save();
 		return appCarStyleBusinessList();
 		

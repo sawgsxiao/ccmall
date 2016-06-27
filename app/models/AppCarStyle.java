@@ -58,6 +58,9 @@ public class AppCarStyle extends Model{
     private String flashimg;
     private String flashamount;
     
+    private String starttime;
+    private String endtime;
+    
     @OneToOne( cascade = CascadeType.ALL)
     @JoinColumn(name="hotcarid")
     private AppHotCar hotCar;
@@ -296,5 +299,22 @@ public class AppCarStyle extends Model{
 	public void setIselite(String iselite) {
 		this.iselite = iselite;
 	}
+
+	public String getStarttime() {
+		return starttime;
+	}
+
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+
+	public String getEndtime() {
+		return endtime;
+	}
+
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
+	
 	
 }

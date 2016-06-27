@@ -223,11 +223,11 @@
 										<div class="col-sm-6">
 									<li>
 			                        <label>
-			                        <input type="radio" name="type" id="type" class="class_aps" value="1"  @if(product.getIsloan()=="1"){checked}>
+			                        <input type="radio" name="iselite" id="iselite1" class="class_aps" value="1"  @if(product.getIselite()=="1"){checked}>
 			                                                                激活
 			                        </label>
 			                         <label>
-			                        <input type="radio" name="type" id="type" class="class_aps" value="0"  @if(product.getIsloan()!="1"){checked}>
+			                        <input type="radio" name="iselite" id="iselite2" class="class_aps" value="0"  @if(product.getIselite()!="1"){checked}>
 			                                                                取消
 			                        </label> 
 			                        </li>
@@ -300,6 +300,13 @@
 		});
 	})
 	
+	$("input[name='isflash']:checked").each(function(i,e){
+			if($(e).val()=='1'&&$(e).prop('checked')==true){
+				$(".dataview").show();
+			}else{
+				$(".dataview").hide();
+			}
+		});
 	
 	function setPage(page){
 		$('#page2').val(page);
