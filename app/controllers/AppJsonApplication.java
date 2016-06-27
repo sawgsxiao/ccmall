@@ -103,7 +103,7 @@ public class AppJsonApplication extends Controller {
     		return returnJson;
     	}
     	ArrayNode arrayNode=listMapper.createArrayNode();
-    	if(target.equals("flash")){
+    	if(target.equals("isflash")){
     		for (AppCarStyle car : list) {
         		ObjectNode node=Json.newObject();
     			node.put("actime", car.getStarttime()+"-"+car.getEndtime());
