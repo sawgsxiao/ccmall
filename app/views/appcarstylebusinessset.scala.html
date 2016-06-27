@@ -202,7 +202,7 @@
 									</div>
 									</div>
 									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">图片浏览 </label>
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">图片预览 </label>
 										<div class="col-sm-6"  id="img">
 									</div>
 									</div>
@@ -210,6 +210,12 @@
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">闪购数量 </label>
 										<div class="col-sm-6">
 										<input name="flashamount" id="flashamount" type="text">
+									</div>
+									</div>
+									<div class="form-group" >
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">闪购时间 </label>
+										<div class="col-sm-6">
+										<input class="datepicker" name="flashamount" id="flashamount" type="text">-<input class="datepicker" name="flashamount" id="flashamount" type="text">
 									</div>
 									</div>
 									<div class="form-group">
@@ -307,9 +313,12 @@
     		input.setAttribute('disabled','disabled'); 
 		}else{ 
    			input.addEventListener('change',readFile,false); 
-		}  
+		}
+		$(".datepicker").datepicker({date_format:'yyyy-dd-mm'});
 	});
 
+
+	
 	function setDetailId(id){
 		window.location.href='/{ativityMenu}Detailed/'+id;
 	}
