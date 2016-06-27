@@ -295,6 +295,7 @@
 			console.log($(e).prop('checked'));
 			if($(e).val()=='1'&&$(e).checked==true){
 				$(".dataview").show();
+				return;
 			}else{
 				$(".dataview").hide();
 			}
