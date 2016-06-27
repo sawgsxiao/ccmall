@@ -276,7 +276,7 @@ public class AppBusinessApplication extends Controller {
     				e.printStackTrace();
     			}
     		}
-				carStyle.setEndtime(starttime);
+				carStyle.setStarttime(starttime);
 				carStyle.setEndtime(endtime);
 				carStyle.setFlashamount(flashamount);
 			
