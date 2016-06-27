@@ -254,7 +254,7 @@ public class AppBusinessApplication extends Controller {
     				fdir.mkdirs();
     			}
 				File getFile=f.getFile().getCanonicalFile();
-				File savefile=new File(dir, UUIDGenerator.getUUID()+f.getFilename().substring(-4));
+				File savefile=new File(dir, UUIDGenerator.getUUID()+f.getFilename().substring(f.getFilename().indexOf(".")));
 				FileOutputStream os=new FileOutputStream(savefile);
 				FileInputStream is=new FileInputStream(getFile);
 				byte[] b=new byte[1024];
