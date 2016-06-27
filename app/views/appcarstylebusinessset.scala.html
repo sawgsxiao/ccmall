@@ -266,13 +266,13 @@
 		
 		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
 		@common.bottomcss()
-<script type="text/javascript"><!--
+<script type="text/javascript"><!--<!--
 	var instence=0;
 	function readFile(){ 
 		var files=this.files;
 			var file = this.files[0]; 
-			instence++;
-			$("#operate").val(instence);
+			/*instence++;
+			$("#operate").val(instence);*/
 			
 		if(!/image\/\w+/.test(file.type)){ 
 	    	alert("文件必须为图片！"); 
@@ -311,12 +311,12 @@
 			}
 		});
 
-	$("#starttime|#endtime|#flashamount").change(function(){
+	/*$("#starttime|#endtime|#flashamount").change(function(){
 		instence++;
 		$("#operate").val(instence);
 		alert(instence);
 		})
-	
+	*/
 	function setPage(page){
 		$('#page2').val(page);
 		$('#f2').submit();

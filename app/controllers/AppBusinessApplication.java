@@ -243,7 +243,7 @@ public class AppBusinessApplication extends Controller {
     	String flashamount=in.get("flashamount");
     	String operate=in.get("operate");
     	AppCarStyle carStyle= AppCarStyle.findById(Integer.parseInt(id));
-    	if(isflash.equals("1")&&Integer.parseInt(operate)>0){
+    	if(isflash.equals("1")/*&&Integer.parseInt(operate)>0*/){
     		MultipartFormData body = request().body().asMultipartFormData();
     		List<FilePart> fileParts= body.getFiles();
     		String uploadimage=Play.application().configuration().getString("imageserver");
