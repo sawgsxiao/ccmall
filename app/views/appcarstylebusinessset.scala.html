@@ -150,7 +150,7 @@
 											<input type="text" id="pricerange" placeholder="产品价格" name="pricerange" class="col-xs-15" value="@product.getPrice()万"/>
 										</div>
 									</div>
-									<div class="form-group">
+									<!--  <div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">贷款购车 </label>
 										<div class="col-sm-6">
 									<li>
@@ -164,7 +164,7 @@
 			                        </label> 
 			                        </li>
 									</div>
-									</div>
+									</div>-->
 									<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">节能补贴 </label>
 										<div class="col-sm-6">
@@ -193,6 +193,19 @@
 			                                                                取消
 			                        </label> 
 			                        </li>
+									</div>
+									</div>
+									<div class="form-group" >
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">闪购图片 </label>
+										<div class="col-sm-6">
+										<input name="flashimg" id="flashimg" type="file">
+									</div>
+									</div>
+									<div id="img"></div>
+									<div class="form-group" >
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">闪购数量 </label>
+										<div class="col-sm-6">
+										<input name="flashamount" id="flashamount" type="text">
 									</div>
 									</div>
 									<div class="form-group">
@@ -244,7 +257,25 @@
 		@common.bottomcss()
 <script type="text/javascript"><!--
 
-
+	function readFile(){ 
+		var files=this.files;
+			var file = this.files[0]; 
+		console.log(files);
+		if(!/image\/\w+/.test(file.type)){ 
+	    	alert("文件必须为图片！"); 
+	    	return false; 
+			} 
+		
+			var result = document.getElementById("img"); 
+			
+		var reader = new FileReader(); 
+			reader.readAsDataURL(file); 
+			reader.onload = function(e){ 
+			
+			result.innerHTML = '<img src="'+this.result+'" alt=""/>';
+			} 
+			
+	} 
 		
 	$("#customergp").addClass("active open");
 	$("#ativityMenu").addClass("active");
@@ -263,7 +294,16 @@
 				else title.text($title);
 			}
 		}));
-           
+
+		var result = document.getElementById("img"); 
+		var input = document.getElementById("flashimg"); 
+ 
+		if(typeof FileReader=='undefined'){ 
+   			result.innerHTML = "抱歉，你的浏览器不支持 FileReader"; 
+    		input.setAttribute('disabled','disabled'); 
+		}else{ 
+   			input.addEventListener('change',readFile,false); 
+		}  
 	});
 
 	function setDetailId(id){

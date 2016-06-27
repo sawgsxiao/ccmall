@@ -52,6 +52,8 @@ public class AppCarStyle extends Model{
     private String yuean;
     private String rent;
     private String isloan;
+    private String flashimg;
+    private String flashamount;
     
     @OneToOne( cascade = CascadeType.ALL)
     @JoinColumn(name="hotcarid")
@@ -250,6 +252,22 @@ public class AppCarStyle extends Model{
 
 	public void setIsloan(String isloan) {
 		this.isloan = isloan;
+	}
+
+	public String getFlashimg() {
+		return flashimg;
+	}
+
+	public void setFlashimg(String flashimg) {
+		this.flashimg = flashimg;
+	}
+
+	public String getFlashamount() {
+		return flashamount;
+	}
+
+	public void setFlashamount(String flashamount) {
+		this.flashamount = flashamount;
 	}
 	
 }

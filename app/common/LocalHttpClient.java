@@ -200,8 +200,9 @@ public class LocalHttpClient {
     	String possiblepay=data.get("possiblepay");*/
 		
 //		params.put("cmd", "rentdetail");
-		params.put("cmd", "qcbuycar");
-		params.put("phone","1580020202");
+		params.put("cmd", "qccarstyle");
+		params.put("target", "isefficient");
+		/*params.put("phone","1580020202");
 		params.put("pertype","20%");
 		params.put("payterm","2年");
 		params.put("firstpay","5");
@@ -211,7 +212,7 @@ public class LocalHttpClient {
 		params.put("barepay","30");
 		params.put("possiblepay","20");
 		params.put("name","xiao");
-		params.put("uuid","583e2d13c6a847609b92cf390de70b38");
+		params.put("uuid","583e2d13c6a847609b92cf390de70b38");*/
 		/*params.put("plans", "SEATEL_INCREASING_AMOUNT,Voice_20_Post,defualtSms");
 		params.put("immediate", "2");
 		params.put("phone", "0189404730");
