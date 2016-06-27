@@ -291,13 +291,8 @@
 	$("#ativityMenu").addClass("active");
 
 	$("input[name='isflash']").click(function(){
-		$("input[name='isflash']").each(function(e,i){
-			if(e=='1'&&$(this).checked==true;){
-				$(".dataview").show();
-			}else{
-				$(".dataview").hide();
-			}
-			
+		$("input[name='isflash']").each(function(i,e){
+			console.log(e);
 		});
 	})
 	
