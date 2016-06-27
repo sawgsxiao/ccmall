@@ -65,6 +65,10 @@ public class AppCarStyle extends Model{
     
     private String discount;
     
+    private String engineout;
+    
+    private String oil;
+    
     @OneToOne( cascade = CascadeType.ALL)
     @JoinColumn(name="hotcarid")
     private AppHotCar hotCar;
@@ -338,6 +342,22 @@ public class AppCarStyle extends Model{
 
 	public void setDiscount(String discount) {
 		this.discount = discount;
+	}
+
+	public String getEngineout() {
+		return engineout;
+	}
+
+	public void setEngineout(String engineout) {
+		this.engineout = engineout;
+	}
+
+	public String getOil() {
+		return oil;
+	}
+
+	public void setOil(String oil) {
+		this.oil = oil;
 	}
 	
 	
