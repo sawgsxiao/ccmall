@@ -123,6 +123,7 @@ public class AppJsonApplication extends Controller {
     			node.put("desc", car.getRemark());
     			node.put("price", car.getPrice());
     			node.put("sale", car.getSale());
+    			node.put("discount", car.getDiscount());
     			if(car.getAppCar().getImages().size()>0){
     				node.put("image", Play.application().configuration().getString("ippath")+Play.application().configuration().getString("outpath")+"/"+car.getAppCar().getImages().get(0).getUrl());
     			}
