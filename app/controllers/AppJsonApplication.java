@@ -177,7 +177,7 @@ public class AppJsonApplication extends Controller {
     	carNode.put("discount", car.getDiscount());
     	carNode.put("oil", car.getOil());
     	carNode.put("engineout", car.getEngineout());
-    	carNode.put("actime", car.getStarttime()+"-"+car.getEndtime());
+    	carNode.put("pubdate", car.getPubdate());
     	if(car.getAppCar().getImages().size()>0){
     		for (int i = 0; i < car.getAppCar().getImages().size(); i++) {
     			AppCarImage carImage= car.getAppCar().getImages().get(i);

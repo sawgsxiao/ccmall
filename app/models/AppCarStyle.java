@@ -69,6 +69,8 @@ public class AppCarStyle extends Model{
     
     private String oil;
     
+    private String pubdate;
+    
     @OneToOne( cascade = CascadeType.ALL)
     @JoinColumn(name="hotcarid")
     private AppHotCar hotCar;
@@ -358,6 +360,14 @@ public class AppCarStyle extends Model{
 
 	public void setOil(String oil) {
 		this.oil = oil;
+	}
+
+	public String getPubdate() {
+		return pubdate;
+	}
+
+	public void setPubdate(String pubdate) {
+		this.pubdate = pubdate;
 	}
 	
 	
