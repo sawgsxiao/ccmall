@@ -245,38 +245,41 @@ public class AppBusinessApplication extends Controller {
     	String sale=in.get("sale");
     	
     	AppCarStyle carStyle= AppCarStyle.findById(Integer.parseInt(id));
-    	if(isflash.equals("1")/*&&Integer.parseInt(operate)>0*/){
-    		MultipartFormData body = request().body().asMultipartFormData();
-    		List<FilePart> fileParts= body.getFiles();
-    		String uploadimage=Play.application().configuration().getString("imageserver");
-    		FilePart f= fileParts.get(0);
-    		String dir=uploadimage+"/"+new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"/";
-    		try {
-    			File fdir=new File(dir);
-    			if(!fdir.exists()){
-    				fdir.mkdirs();
+    	if(isflash.equals("1")){
+    		if(Integer.parseInt(operate)>0){
+    			MultipartFormData body = request().body().asMultipartFormData();
+        		List<FilePart> fileParts= body.getFiles();
+        		String uploadimage=Play.application().configuration().getString("imageserver");
+        		FilePart f= fileParts.get(0);
+        		String dir=uploadimage+"/"+new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"/";
+        		try {
+        			File fdir=new File(dir);
+        			if(!fdir.exists()){
+        				fdir.mkdirs();
+        			}
+    				File getFile=f.getFile().getCanonicalFile();
+    				File savefile=new File(dir, UUIDGenerator.getUUID()+f.getFilename().substring(f.getFilename().indexOf(".")));
+    				FileOutputStream os=new FileOutputStream(savefile);
+    				FileInputStream is=new FileInputStream(getFile);
+    				byte[] b=new byte[1024];
+    				int len;
+    				while((len=is.read(b))>0){
+    					os.write(b);
+    				}
+    				os.write(b);
+    				os.flush();
+    				os.close();
+    				is.close();
+    				carStyle.setFlashimg(savefile.getPath().replace(uploadimage, ""));
+        		} catch (IOException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
     			}
-				File getFile=f.getFile().getCanonicalFile();
-				File savefile=new File(dir, UUIDGenerator.getUUID()+f.getFilename().substring(f.getFilename().indexOf(".")));
-				FileOutputStream os=new FileOutputStream(savefile);
-				FileInputStream is=new FileInputStream(getFile);
-				byte[] b=new byte[1024];
-				int len;
-				while((len=is.read(b))>0){
-					os.write(b);
-				}
-				os.write(b);
-				os.flush();
-				os.close();
-				is.close();
-				carStyle.setFlashimg(savefile.getPath().replace(uploadimage, ""));
+    		}
 				carStyle.setEndtime(starttime);
 				carStyle.setEndtime(endtime);
 				carStyle.setFlashamount(flashamount);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
     	}
     	
     	carStyle.setIsefficient(isefficient);
