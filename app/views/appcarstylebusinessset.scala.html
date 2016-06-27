@@ -210,13 +210,13 @@
 									<div class="form-group dataview" >
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">闪购数量 </label>
 										<div class="col-sm-6">
-										<input name="flashamount" id="flashamount" type="text">
+										<input name="flashamount" id="flashamount" type="text" value="@product.getFlashamount()">
 									</div>
 									</div>
 									<div class="form-group dataview" >
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">闪购时间 </label>
 										<div class="col-sm-6">
-										<input class="datepicker" name="starttime" id="starttime" type="text">-<input class="datepicker" name="endtime" id="endtime" type="text">
+										<input class="datepicker" name="starttime" id="starttime" type="text" value="@product.getStarttime()">-<input class="datepicker" name="endtime" id="endtime" type="text" value="@product.getEndtime()">
 									</div>
 									</div>
 									<div class="form-group">
@@ -239,9 +239,9 @@
 										<div class="col-sm-6">
 										<select id="sale" name="sale">
 											<option value="">请选择</option>
-											<option value="热卖款">热卖款</option>
-											<option value="特价车">特价车</option>
-											<option value="零利率">零利率</option>
+											<option value="热卖款" @if(product.getSale()=="热卖款"){selected}>热卖款</option>
+											<option value="特价车" @if(product.getSale()=="特价车"){selected}>特价车</option>
+											<option value="零利率" @if(product.getSale()=="零利率"){selected}>零利率</option>
 										</select>
 									</div>
 									</div>
