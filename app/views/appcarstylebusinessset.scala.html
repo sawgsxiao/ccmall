@@ -170,11 +170,11 @@
 										<div class="col-sm-6">
 									<li>
 			                        <label>
-			                        <input type="radio" name="type" id="type" class="class_aps" value="1"  @if(product.getIsloan()=="1"){checked}>
+			                        <input type="radio" name="isefficient" id="isefficient1" class="class_aps" value="1"  @if(product.getIsefficient()=="1"){checked}>
 			                                                                激活
 			                        </label>
 			                         <label>
-			                        <input type="radio" name="type" id="type" class="class_aps" value="0"  @if(product.getIsloan()!="1"){checked}>
+			                        <input type="radio" name="isefficient" id="isefficient2" class="class_aps" value="0"  @if(product.getIsefficient()!="1"){checked}>
 			                                                                取消
 			                        </label> 
 			                        </li>
@@ -185,11 +185,11 @@
 										<div class="col-sm-6">
 									<li>
 			                        <label>
-			                        <input type="radio" name="type" id="type" class="class_aps" value="1"  @if(product.getIsloan()=="1"){checked}>
+			                        <input type="radio" name="isflash" id="isflash1" class="class_aps" value="1"  @if(product.getIsflash()=="1"){checked}>
 			                                                                激活
 			                        </label>
 			                         <label>
-			                        <input type="radio" name="type" id="type" class="class_aps" value="0"  @if(product.getIsloan()!="1"){checked}>
+			                        <input type="radio" name="isflash" id="isflash2" class="class_aps" value="0"  @if(product.getIsflash()!="1"){checked}>
 			                                                                取消
 			                        </label> 
 			                        </li>
@@ -289,6 +289,13 @@
 		
 	$("#customergp").addClass("active open");
 	$("#ativityMenu").addClass("active");
+
+	$("input [name='isflash']").click(function(){
+		$("input [name='isflash']").each(function(e,i){
+			console.log(e);
+		});
+	})
+	
 	
 	function setPage(page){
 		$('#page2').val(page);
