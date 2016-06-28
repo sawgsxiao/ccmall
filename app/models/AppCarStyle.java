@@ -114,7 +114,7 @@ public class AppCarStyle extends Model{
     public static List<AppCarStyle> findAllList(String target) {
     	ExpressionList<AppCarStyle> f= null;
     	if(target.equals("all")){
-    		
+    		f=find.where().isNotNull("id");
     	}else if(target.equals("isefficient")){
     		f=find.where().eq("isefficient", "1");
     	}else if(target.equals("isflash")){
