@@ -58,8 +58,8 @@ public class AppCarStyle extends Model{
     private String flashimg;
     private String flashamount;
     
-    private String starttime;
-    private String endtime;
+    private Date starttime;
+    private Date endtime;
     
     private String sale;
     
@@ -314,19 +314,20 @@ public class AppCarStyle extends Model{
 		this.iselite = iselite;
 	}
 
-	public String getStarttime() {
+
+	public Date getStarttime() {
 		return starttime;
 	}
 
-	public void setStarttime(String starttime) {
+	public void setStarttime(Date starttime) {
 		this.starttime = starttime;
 	}
 
-	public String getEndtime() {
+	public Date getEndtime() {
 		return endtime;
 	}
 
-	public void setEndtime(String endtime) {
+	public void setEndtime(Date endtime) {
 		this.endtime = endtime;
 	}
 

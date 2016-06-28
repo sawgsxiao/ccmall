@@ -1,5 +1,6 @@
 package controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import play.libs.Json;
 import play.mvc.*;
 
 
+import utils.ColorMaping;
 import views.html.*;
 
 public class AppJsonApplication extends Controller {
@@ -105,15 +107,21 @@ public class AppJsonApplication extends Controller {
     		return returnJson;
     	}
     	ArrayNode arrayNode=listMapper.createArrayNode();
+    	SimpleDateFormat df =new SimpleDateFormat("yyyy年MM月dd日");
+    	int index=0;
     	if(target.equals("isflash")){
     		for (AppCarStyle car : list) {
         		ObjectNode node=Json.newObject();
         		node.put("uuid", car.getUuid());
-    			node.put("actime", car.getStarttime()+"-"+car.getEndtime());
+    			node.put("actime", df.format(car.getStarttime())+"-"+df.format(car.getEndtime()));
     			if(car.getAppCar().getImages().size()>0){
     				node.put("image", Play.application().configuration().getString("ippath")+Play.application().configuration().getString("outpath")+"/"+car.getFlashimg());
     			}
     			arrayNode.add(node);
+    			index++;
+    			if(index==10){
+    				break;
+    			}
     		}
     	}else{
     		for (AppCarStyle car : list) {
@@ -128,6 +136,10 @@ public class AppJsonApplication extends Controller {
     				node.put("image", Play.application().configuration().getString("ippath")+Play.application().configuration().getString("outpath")+"/"+car.getAppCar().getImages().get(0).getUrl());
     			}
     			arrayNode.add(node);
+    			index++;
+    			if(index==10){
+    				break;
+    			}
     		}
     	}
     	
@@ -148,6 +160,7 @@ public class AppJsonApplication extends Controller {
     		returnJson.put("msg", "无数据");
     		return returnJson;
     	}
+    	SimpleDateFormat df =new SimpleDateFormat("yyyy年MM月dd日");
     	ArrayNode colorlist=listMapper.createArrayNode();
     	ArrayNode imagelist=listMapper.createArrayNode();
     	String colors=car.getAppCar().getColorlist();
@@ -157,11 +170,13 @@ public class AppJsonApplication extends Controller {
     			for (int i = 0; i < cls.length; i++) {
     				ObjectNode node=Json.newObject();
     				node.put("color", cls[i]);
+    				node.put("name", ColorMaping.getValue(cls[i]));
     				colorlist.add(node);
 				}
     		}else{
     			ObjectNode node=Json.newObject();
-				node.put("color", colors);
+				node.put("color", colors.replace("#", ""));
+				node.put("name", ColorMaping.getValue(colors));
 				colorlist.add(node);
     		}
     		carNode.put("colorlist", colorlist);
@@ -176,8 +191,10 @@ public class AppJsonApplication extends Controller {
     	carNode.put("sale", car.getSale());
     	carNode.put("discount", car.getDiscount());
     	carNode.put("oil", car.getOil());
+    	carNode.put("isflash", car.getIsflash().equals("1")?"1":"0");
     	carNode.put("engineout", car.getEngineout());
     	carNode.put("pubdate", car.getPubdate());
+    	carNode.put("actime", df.format(car.getStarttime())+"-"+df.format(car.getEndtime()));
     	if(car.getAppCar().getImages().size()>0){
     		for (int i = 0; i < car.getAppCar().getImages().size(); i++) {
     			AppCarImage carImage= car.getAppCar().getImages().get(i);

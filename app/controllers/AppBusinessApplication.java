@@ -243,7 +243,7 @@ public class AppBusinessApplication extends Controller {
     	String flashamount=in.get("flashamount");
     	String operate=in.get("operate");
     	String sale=in.get("sale");
-    	
+    	SimpleDateFormat df =new SimpleDateFormat("yyyy-MM-dd");
     	AppCarStyle carStyle= AppCarStyle.findById(Integer.parseInt(id));
     	if(isflash.equals("1")){
     		if(Integer.parseInt(operate)>0){
@@ -276,8 +276,13 @@ public class AppBusinessApplication extends Controller {
     				e.printStackTrace();
     			}
     		}
-				carStyle.setStarttime(starttime);
-				carStyle.setEndtime(endtime);
+				try {
+					carStyle.setStarttime(df.parse(starttime));
+					carStyle.setEndtime(df.parse(endtime));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				carStyle.setFlashamount(flashamount);
 			
     	}
