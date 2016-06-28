@@ -199,9 +199,10 @@ public class LocalHttpClient {
     	String barepay=data.get("barepay");
     	String possiblepay=data.get("possiblepay");*/
 		
-//		params.put("cmd", "rentdetail");
+//		params.put("cmd", "qccarstyle");
+//		params.put("target", "all");
 		params.put("cmd", "carstyledetail");
-		params.put("uuid", "ffe181de56434e3fb81d402e90a998b8");
+		params.put("uuid", "dd5f278fc5f843029157dc7c1f569885");
 		/*params.put("phone","1580020202");
 		params.put("pertype","20%");
 		params.put("payterm","2年");

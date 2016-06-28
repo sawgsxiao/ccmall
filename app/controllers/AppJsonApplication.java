@@ -191,7 +191,7 @@ public class AppJsonApplication extends Controller {
     	carNode.put("sale", car.getSale());
     	carNode.put("discount", car.getDiscount());
     	carNode.put("oil", car.getOil());
-    	carNode.put("isflash", car.getIsflash().equals("1")?"1":"0");
+    	carNode.put("isflash", car.getIsflash()!=null?car.getIsflash():"0");
     	carNode.put("engineout", car.getEngineout());
     	carNode.put("pubdate", car.getPubdate());
     	carNode.put("actime", df.format(car.getStarttime())+"-"+df.format(car.getEndtime()));

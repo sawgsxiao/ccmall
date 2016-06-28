@@ -1,5 +1,8 @@
 package utils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public enum ColorMaping {
 	red("#8b0000","红色"),white("#ffffff","白色"),black("#000000","黑色");
 	
@@ -31,5 +34,11 @@ public enum ColorMaping {
 		}
 		return value;
 		
+	}
+	
+	public static void main(String[] args) {
+		Pattern pattern=Pattern.compile("^(?i)"+"#8b0A00$");
+		Matcher matcher= pattern.matcher("#8B0a00");
+		System.out.println(matcher.find());
 	}
 }
