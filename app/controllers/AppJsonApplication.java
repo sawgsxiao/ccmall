@@ -194,7 +194,7 @@ public class AppJsonApplication extends Controller {
     	carNode.put("isflash", car.getIsflash()!=null?car.getIsflash():"0");
     	carNode.put("engineout", car.getEngineout());
     	carNode.put("pubdate", car.getPubdate());
-    	carNode.put("actime", df.format(car.getStarttime())+"-"+df.format(car.getEndtime()));
+    	carNode.put("actime", car.getStarttime()!=null?df.format(car.getStarttime())+"-"+df.format(car.getEndtime()):"");
     	if(car.getAppCar().getImages().size()>0){
     		for (int i = 0; i < car.getAppCar().getImages().size(); i++) {
     			AppCarImage carImage= car.getAppCar().getImages().get(i);
