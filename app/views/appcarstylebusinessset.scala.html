@@ -151,6 +151,29 @@
 											<input type="text" id="pricerange" placeholder="产品价格" name="pricerange" class="col-xs-15" value="@product.getPrice()万"/>
 										</div>
 									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">折扣价格 </label>
+										
+										<div class="col-sm-6">
+											<input type="text" id="discount" placeholder="折扣价格" name="discount" class="col-xs-15" value="@product.getDiscount()万"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">排量 </label>
+										
+										<div class="col-sm-6">
+											<input type="text" id="engineout" placeholder="排量" name="engineout" class="col-xs-15" value="@product.getEngineout()"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">燃料 </label>
+										
+										<div class="col-sm-6">
+											<input type="text" id="oil" placeholder="燃料" name="oil" class="col-xs-15" value="@product.getOil()"/>
+										</div>
+									</div>
+									
 									<!--  <div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">贷款购车 </label>
 										<div class="col-sm-6">
@@ -216,7 +239,7 @@
 									<div class="form-group dataview" >
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">闪购时间 </label>
 										<div class="col-sm-6">
-										<input class="datepicker" name="starttime" id="starttime" type="text" value="@product.getStarttime()">-<input class="datepicker" name="endtime" id="endtime" type="text" value="@product.getEndtime()">
+										<input class="datepicker" name="starttime" id="starttime" type="text" value="@if(product.getStarttime()!=null){@product.getStarttime().format("yyyy-MM-dd")}">-<input class="datepicker" name="endtime" id="endtime" type="text" value="@if(product.getEndtime()!=null){@product.getEndtime().format("yyyy-MM-dd")}">
 									</div>
 									</div>
 									<div class="form-group">
@@ -243,6 +266,12 @@
 											<option value="特价车" @if(product.getSale()=="特价车"){selected}>特价车</option>
 											<option value="零利率" @if(product.getSale()=="零利率"){selected}>零利率</option>
 										</select>
+									</div>
+									</div>
+									<div class="form-group dataview" >
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">上市时间 </label>
+										<div class="col-sm-6">
+										<input class="datepicker" name="pubdate" id="pubdate" type="text" value="@product.getPubdate()">
 									</div>
 									</div>
 									<div class="form-group" >
