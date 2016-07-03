@@ -202,7 +202,7 @@ public class LocalHttpClient {
 //		params.put("cmd", "qccarstyle");
 //		params.put("target", "all");
 		params.put("cmd", "carstyledetail");
-		params.put("uuid", "dd5f278fc5f843029157dc7c1f569885");
+		params.put("uuid", "62cce03796054561a41ade5cbf0984c4");
 		/*params.put("phone","1580020202");
 		params.put("pertype","20%");
 		params.put("payterm","2年");

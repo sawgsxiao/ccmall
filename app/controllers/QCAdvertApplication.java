@@ -211,7 +211,7 @@ public class QCAdvertApplication extends Controller {
       	
 
 		//sql语句       
-	 	String sql = "select id from cc_advert where 1=1 "+paramsSql+" order by createtime desc limit "+start+" ,"+pageSize;   
+	 	String sql = "select id from cc_qcadvert where 1=1 "+paramsSql+" order by createtime desc limit "+start+" ,"+pageSize;   
 	
   		RawSql rawSql = RawSqlBuilder.unparsed(sql)
   		.columnMapping("id",  "id")   
@@ -237,7 +237,7 @@ public class QCAdvertApplication extends Controller {
       	}
       	
 		//sql语句       
-	 	String sql = "select count(id) as count from cc_advert where 1=1 "+paramsSql;  
+	 	String sql = "select count(id) as count from cc_qcadvert where 1=1 "+paramsSql;  
      	
         SqlRow row = Ebean.createSqlQuery(sql).findUnique(); 
         
