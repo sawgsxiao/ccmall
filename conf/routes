@@ -261,6 +261,8 @@ GET		/eliteDetailed/:id           controllers.EliteApplication.eliteDetailed(id:
 #新版广告
 GET		/qCAdvertAdd           controllers.QCAdvertApplication.qCAdvertAdd()
 POST		/qCAdvertAddDo           controllers.QCAdvertApplication.qCAdvertAddDo()
+GET		/qCAdvertList           controllers.QCAdvertApplication.advertList()
+POST		/qCAdvertList           controllers.QCAdvertApplication.advertList()
 
 #app后台管理
 #车品牌

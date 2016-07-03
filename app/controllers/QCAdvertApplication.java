@@ -159,7 +159,7 @@ public class QCAdvertApplication extends Controller {
 			pageNow = Integer.parseInt(pageNowIn);
 		}
 		
-    	List<Advert> list = QCAdvertApplication.list(pageSize,pageNow,btn);
+    	List<QCAdvert> list = QCAdvertApplication.list(pageSize,pageNow,btn);
     	
     	//总数
 		int countAll = QCAdvertApplication.count(btn);
@@ -173,7 +173,7 @@ public class QCAdvertApplication extends Controller {
        		pageCount = countAll / pageSize + 1;
       	}
       	
-		return ok(advert.render(list,countAll,pageNow,pageCount,pageSize,"advert",btn));
+		return ok(qcadvert.render(list,countAll,pageNow,pageCount,pageSize,"advert",btn));
 		
     }
     
@@ -197,7 +197,7 @@ public class QCAdvertApplication extends Controller {
 		
 	}
 	
-    public static List<Advert> list(int pageSize,int pageNow,List<InputBtn>... btn){
+    public static List<QCAdvert> list(int pageSize,int pageNow,List<InputBtn>... btn){
 		
 		int start=(pageNow-1)*pageSize;
 		
@@ -217,10 +217,10 @@ public class QCAdvertApplication extends Controller {
   		.columnMapping("id",  "id")   
   		.create();
   		
-  		Query<Advert> eQ = Ebean.find(Advert.class);
+  		Query<QCAdvert> eQ = Ebean.find(QCAdvert.class);
   		eQ.setRawSql(rawSql);
   		
-  		List<Advert> list = eQ.findList();
+  		List<QCAdvert> list = eQ.findList();
 
 		return list;
     }
