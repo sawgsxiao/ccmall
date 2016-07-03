@@ -243,6 +243,11 @@ public class AppBusinessApplication extends Controller {
     	String flashamount=in.get("flashamount");
     	String operate=in.get("operate");
     	String sale=in.get("sale");
+    	String pubdate=in.get("pubdate");
+    	String oil=in.get("oil");
+    	String engineout=in.get("engineout");
+    	String discount=in.get("discount");
+    	
     	SimpleDateFormat df =new SimpleDateFormat("yyyy-MM-dd");
     	AppCarStyle carStyle= AppCarStyle.findById(Integer.parseInt(id));
     	if(isflash.equals("1")){
@@ -291,6 +296,10 @@ public class AppBusinessApplication extends Controller {
     	carStyle.setIsflash(isflash);
     	carStyle.setIselite(iselite);
     	carStyle.setSale(sale);
+    	carStyle.setPubdate(pubdate);
+    	carStyle.setEngineout(engineout);
+    	carStyle.setOil(oil);
+    	carStyle.setDiscount(discount);
     	carStyle.save();
 		return appCarStyleBusinessList();
 		
