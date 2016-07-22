@@ -266,8 +266,8 @@ public class LocalHttpClient {
 				e.printStackTrace();
 			}
 		}*/
-		HttpResponse response= LocalHttpClient.sendRequest(LocalHttpClient.PostJson("http://www.qchepro.com:8080/rqInvokeController", params));
-
+//		HttpResponse response= LocalHttpClient.sendRequest(LocalHttpClient.PostJson("http://www.qchepro.com:8080/rqInvokeController", params));
+		HttpResponse response= LocalHttpClient.sendRequest(LocalHttpClient.PostJson("https://localhost/epay/order.do", params));
 		System.out.println("StatusCode:"+response.getStatusLine().getStatusCode());
 		String result;
 		try {
